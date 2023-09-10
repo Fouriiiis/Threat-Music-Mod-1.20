@@ -5,10 +5,6 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.predicate.entity.EntityPredicates;
 import net.minecraft.text.Text;
 
-
-
-
-
 public class ThreatTracker implements EndTick {
 
     private int blockRadius = 10;
