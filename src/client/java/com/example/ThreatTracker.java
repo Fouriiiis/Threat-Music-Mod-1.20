@@ -10,7 +10,7 @@ public class ThreatTracker implements EndTick {
     private int blockRadius = 10;
     public static int threatLevel = 0;
     private int lastPlayed = 0;
-    private int maxTime = 100;
+    private int maxTime = 200;
     private Boolean stopped = true;
     
     @Override
