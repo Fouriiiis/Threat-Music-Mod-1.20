@@ -1,7 +1,10 @@
 package com.example;
 
+import java.util.List;
+
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents.EndTick;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.predicate.entity.EntityPredicates;
 import net.minecraft.text.Text;
 
@@ -16,8 +19,21 @@ public class ThreatTracker implements EndTick {
     @Override
     public void onEndTick(MinecraftClient client) {
         if (client != null && client.player != null) {
-            // Check if there are any mobs categorized as hostile within the blockRadius
-            threatLevel = client.world.getEntitiesByClass(net.minecraft.entity.mob.HostileEntity.class, client.player.getBoundingBox().expand(blockRadius, blockRadius, blockRadius), EntityPredicates.EXCEPT_SPECTATOR).size();
+            // Check if there are any mobs categorized as hostile within the blockRadius targeting the player
+            List<HostileEntity> entities = client.world.getEntitiesByClass(net.minecraft.entity.mob.HostileEntity.class,
+                client.player.getBoundingBox().expand(blockRadius, blockRadius, blockRadius),
+                EntityPredicates.EXCEPT_SPECTATOR);
+
+            threatLevel = entities.size();
+            
+            for(Object entity : entities) {
+                if (((net.minecraft.entity.mob.HostileEntity)entity).getTarget() == client.player) {
+                    threatLevel += ((net.minecraft.entity.mob.HostileEntity)entity).getMaxHealth();
+                }
+            }
+            
+            
+            
 
             if (threatLevel > 0 && stopped) {
                 ModSounds.changeRegion(client);

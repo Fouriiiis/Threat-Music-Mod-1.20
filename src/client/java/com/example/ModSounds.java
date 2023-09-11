@@ -190,7 +190,7 @@ public class ModSounds {
 
         //if the new region is different from the current region, stop the current region
         if (currentRegion != null && !newRegion.equals(currentRegion)) {
-            currentRegion.stop(client);
+            
             currentRegion = newRegion;
             client.player.sendMessage(Text.of("changing music"), false);
         }
