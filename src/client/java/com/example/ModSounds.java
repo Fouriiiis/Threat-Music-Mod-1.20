@@ -6,11 +6,16 @@ import java.util.List;
 import java.util.Map;
 
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.resource.language.I18n;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
+import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
+import net.minecraft.world.biome.Biome;
+
+
 
 
 public class ModSounds {
@@ -23,6 +28,9 @@ public class ModSounds {
 
     //map of regions indexed by name
     public static Map<String, Region> regions = new HashMap<String, Region>();
+
+    //map of regions indexed by list of biomes
+    public static Map<List<String>, Region> biomeRegions = new HashMap<List<String>, Region>();
 
 
     private static SoundEvent registerSoundEvent(String name) {
@@ -181,12 +189,57 @@ public class ModSounds {
         ));
 
         
-        //set the current region to the "su" region
+        
+
+        //add regions to biomeRegions
+        //ss is for all ocean biomes
+        biomeRegions.put(new ArrayList<String>() {{
+            add("Ocean");
+            add("Deep Ocean");
+            add("Frozen Ocean");
+            add("Deep Frozen Ocean");
+            add("Cold Ocean");
+            add("Deep Cold Ocean");
+            add("Lukewarm Ocean");
+            add("Deep Lukewarm Ocean");
+            add("Warm Ocean");
+            add("Deep Warm Ocean");
+            add("River");
+            add("Frozen River");
+            add("Beach");
+            add("Stone Shore");
+            add("Snowy Beach");
+            add("Mushroom Fields Shore");
+            add("Desert Lakes");
+            add("End Midlands");
+            add("End Highlands");
+            add("End Barrens");
+            add("The Void");
+
+        }}, regions.get("sl"));
+
+        //set default region to su
         currentRegion = regions.get("su");
     }
 
     public static void changeRegion(MinecraftClient client) {
-        Region newRegion = regions.get("su");
+        //get the current biome e.g. minecraft:plains using the value in the f3 menu
+        RegistryEntry<Biome> var27 = client.world.getBiome(client.player.getBlockPos());
+        String biome = I18n.translate(getBiomeName(var27));
+
+        //print the current biome to the chat
+        client.player.sendMessage(Text.of(biome), false);
+
+        //change the region to the region whose list of biomes contains the current biome
+        Region newRegion = null;
+        for (Map.Entry<List<String>, Region> entry : biomeRegions.entrySet()) {
+            if (entry.getKey().contains(biome)) {
+                newRegion = entry.getValue();
+                break;
+            }
+            //otherwise, set the region to the default region
+            newRegion = regions.get("su");
+        }
 
         //if the new region is different from the current region, stop the current region
         if (currentRegion != null && !newRegion.equals(currentRegion)) {
@@ -194,5 +247,16 @@ public class ModSounds {
             currentRegion = newRegion;
             client.player.sendMessage(Text.of("changing music"), false);
         }
+    }
+
+    public static String getBiomeName(RegistryEntry<Biome> biome) {
+        return I18n.translate(getBiomeTranslationKey(biome));
+    }
+
+    private static String getBiomeTranslationKey(RegistryEntry<Biome> biome) {
+        return biome.getKeyOrValue().map(
+            (biomeKey) -> "biome." + biomeKey.getValue().getNamespace() + "." + biomeKey.getValue().getPath(),
+            (biomeValue) -> "[unregistered " + biomeValue + "]" // For unregistered biome
+        );
     }
 }

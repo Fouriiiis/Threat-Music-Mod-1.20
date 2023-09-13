@@ -7,6 +7,7 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.predicate.entity.EntityPredicates;
 import net.minecraft.text.Text;
+import net.minecraft.util.hit.HitResult;
 
 public class ThreatTracker implements EndTick {
 
@@ -23,14 +24,13 @@ public class ThreatTracker implements EndTick {
             List<HostileEntity> entities = client.world.getEntitiesByClass(net.minecraft.entity.mob.HostileEntity.class,
                 client.player.getBoundingBox().expand(blockRadius, blockRadius, blockRadius),
                 EntityPredicates.EXCEPT_SPECTATOR);
-
-            threatLevel = entities.size();
             
-            for(Object entity : entities) {
-                if (((net.minecraft.entity.mob.HostileEntity)entity).getTarget() == client.player) {
-                    threatLevel += ((net.minecraft.entity.mob.HostileEntity)entity).getMaxHealth();
+                for(HostileEntity entity : entities) {
+                    HitResult hitResult = entity.raycast(entity.squaredDistanceTo(client.player), 1, true);
+                    if (hitResult.getType() == HitResult.Type.ENTITY) {
+                        threatLevel++;
+                    }
                 }
-            }
             
             
             
