@@ -211,12 +211,17 @@ public class ModSounds {
             add("Snowy Beach");
             add("Mushroom Fields Shore");
             add("Desert Lakes");
+
+        }}, regions.get("sl"));
+
+        //ss is for all end biomes
+        biomeRegions.put(new ArrayList<String>() {{
+            add("The End");
+            add("Small End Islands");
             add("End Midlands");
             add("End Highlands");
             add("End Barrens");
-            add("The Void");
-
-        }}, regions.get("sl"));
+        }}, regions.get("ss"));
 
         //set default region to su
         currentRegion = regions.get("su");
