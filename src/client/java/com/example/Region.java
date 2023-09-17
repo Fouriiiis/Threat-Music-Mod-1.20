@@ -9,6 +9,7 @@ import java.util.List;
 import net.minecraft.sound.SoundEvent;
 
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.sound.SoundManager;
 
 public class Region {
 
@@ -47,10 +48,13 @@ public class Region {
     public void play(MinecraftClient client){
         //clear the sound players list
         soundPlayers.clear();
+
+        SoundManager soundManager = client.getSoundManager();
+
         for(Map.Entry<Integer, SoundEvent> entry : currLayers.entrySet()) {
             SoundPlayer soundPlayer = new SoundPlayer(entry.getValue(), client, entry.getKey());
             soundPlayers.add(soundPlayer);
-            client.getSoundManager().play(soundPlayer);
+            soundManager.play(soundPlayer);
         }
     }
 

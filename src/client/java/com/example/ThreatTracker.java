@@ -1,20 +1,29 @@
 // Import necessary classes
 package com.example;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents.EndTick;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.boss.WitherEntity;
+import net.minecraft.entity.mob.ElderGuardianEntity;
+import net.minecraft.entity.mob.GuardianEntity;
 
-import net.minecraft.entity.mob.HostileEntity;
+import net.minecraft.entity.mob.MobEntity;
+import net.minecraft.entity.mob.ShulkerEntity;
+
+import net.minecraft.entity.mob.WardenEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.projectile.ProjectileUtil;
+
 import net.minecraft.predicate.entity.EntityPredicates;
 import net.minecraft.text.Text;
-import net.minecraft.util.hit.EntityHitResult;
 
-import net.minecraft.util.math.Box;
+import net.minecraft.util.hit.HitResult;
+
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.RaycastContext;
 
 
 public class ThreatTracker implements EndTick {
@@ -28,19 +37,39 @@ public class ThreatTracker implements EndTick {
     @Override
     public void onEndTick(MinecraftClient client) {
 
-        if (client != null && client.player != null) {
-            // Check if there are any mobs categorized as hostile within the blockRadius targeting the player
-            List<HostileEntity> Hentities = client.world.getEntitiesByClass(HostileEntity.class, client.player.getBoundingBox().expand(blockRadius, blockRadius, blockRadius), EntityPredicates.EXCEPT_SPECTATOR);
+        threatLevel = 0;
 
-            threatLevel = 0;
+        if (client != null && client.player != null) {
+        
+            List<Entity> entities = client.world.getEntitiesByClass(Entity.class, client.player.getBoundingBox().expand(blockRadius, blockRadius, blockRadius), EntityPredicates.EXCEPT_SPECTATOR);
+
+            List<Entity> filteredEntities = entities.stream()
+                    .filter(entity -> entity instanceof MobEntity || entity instanceof ShulkerEntity)
+                    .collect(Collectors.toList());
 
             // For each hostile entity, check if it is targeting the player by checking if the player is in its line of sight using raytracing
-            for (HostileEntity entity : Hentities) {
-                if (isEntityLookingAtPlayer(entity, client.player)) {
-                    // Handle the case where the entity is looking at the player
-                    threatLevel += 1;
+            for (Entity entity : filteredEntities) {
+                if (entity instanceof WardenEntity) {
+                    if(((WardenEntity) entity).getAnger() > 0) {
+                        threatLevel += ((LivingEntity) entity).getMaxHealth();
+                    }
+                } else if (entity instanceof ShulkerEntity) {
+                    if(lineofSight(entity, client.player)) {
+                        threatLevel += ((LivingEntity) entity).getMaxHealth();
+                    }
+                } else if (entity instanceof GuardianEntity || entity instanceof ElderGuardianEntity) {
+                        if(lineofSight(entity, client.player) && ((GuardianEntity) entity).hasBeamTarget()) {
+                            threatLevel += ((LivingEntity) entity).getMaxHealth();
+                        }
+                    } else if (entity instanceof MobEntity) {
+                        if(lineofSight(entity, client.player) && ((MobEntity) entity).isAttacking()) {
+                            threatLevel += ((LivingEntity) entity).getMaxHealth();
+                    } else if (entity instanceof WitherEntity) {
+                        threatLevel += ((LivingEntity) entity).getMaxHealth();
+                    }
                 }
             }
+            System.out.println(threatLevel);
 
             if (threatLevel > 0 && stopped) {
                 ModSounds.changeRegion(client);
@@ -55,36 +84,26 @@ public class ThreatTracker implements EndTick {
                     client.player.sendMessage(Text.of("Stopping music"), false);
                     stopped = true;
                     lastPlayed = 0;
+                } else if (threatLevel != 0) {
+                    lastPlayed = 0;
                 } else {
                     lastPlayed++;
                 }
             }
         }
     }
-
-    public static boolean isEntityLookingAtPlayer(HostileEntity entity, PlayerEntity player) {
-
+    public static boolean lineofSight(Entity entity, PlayerEntity player) {
+        Vec3d eyePos = entity.getEyePos();
+        Vec3d platerPos = player.getPos();
+        Vec3d endVec = player.getEyePos();
         
-        Vec3d min = entity.getEyePos();
-        //get eye angle of entity
-        Vec3d eyeAngle = entity.getRotationVec(1.0F);
-        //get the position of the max distance using the eye angle and block radius
-        Vec3d max = min.add(eyeAngle.x * blockRadius, eyeAngle.y * blockRadius, eyeAngle.z * blockRadius);
-
-        //get the bounding box of the player
-        Box box = player.getBoundingBox();
-        
-        EntityHitResult result = ProjectileUtil.raycast(entity, min, max, box, (entityx) -> {
-            return !entityx.isSpectator() && entityx.canHit();
-          }, blockRadius * blockRadius);
-          
-          if (result != null) {
-            Entity hitEntity = result.getEntity();
-
-            if (hitEntity == player) {
-                return true;
-            }
-          }
+        HitResult result = entity.getWorld().raycast(new RaycastContext(eyePos, endVec, RaycastContext.ShapeType.COLLIDER, RaycastContext.FluidHandling.NONE, entity));
+        HitResult result2 = entity.getWorld().raycast(new RaycastContext(eyePos, platerPos, RaycastContext.ShapeType.COLLIDER, RaycastContext.FluidHandling.NONE, entity));
+        if (result.getType() == HitResult.Type.MISS || result2.getType() == HitResult.Type.MISS) {
+            return true;
+        }
         return false;
     }
+
+    
 }

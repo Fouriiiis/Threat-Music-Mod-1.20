@@ -112,17 +112,17 @@ public class ModSounds {
         //Layer : TH_SL - KICK, TH_SL - BASS, TH_SL - PERC2, TH_SL - ARPS, TH_SL - NOISE, TH_SL - SNARE, TH_SL - PERC2, TH_SL - LEAD
         regions.put("sl", new Region(
             new HashMap<Integer, List<SoundEvent>>() {{
-                put(1, new ArrayList<SoundEvent>() {{
+                put(0, new ArrayList<SoundEvent>() {{
                     add(th_sl_kick);
                     add(th_sl_bass);
                 }});
-                put(2, new ArrayList<SoundEvent>() {{
+                put(30, new ArrayList<SoundEvent>() {{
                     add(th_sl_kick);
                     add(th_sl_bass);
                     add(th_sl_perc2);
                     add(th_sl_arps);
                 }});
-                put(3, new ArrayList<SoundEvent>() {{
+                put(60, new ArrayList<SoundEvent>() {{
                     add(th_sl_kick);
                     add(th_sl_bass);
                     add(th_sl_perc2);
@@ -130,7 +130,7 @@ public class ModSounds {
                     add(th_sl_noise);
                     add(th_sl_snare);
                 }});
-                put(4, new ArrayList<SoundEvent>() {{
+                put(90, new ArrayList<SoundEvent>() {{
                     add(th_sl_kick);
                     add(th_sl_bass);
                     add(th_sl_perc2);
@@ -140,7 +140,7 @@ public class ModSounds {
                     add(th_sl_perc2);
                     add(th_sl_lead);
                 }});
-                put(5, new ArrayList<SoundEvent>() {{
+                put(120, new ArrayList<SoundEvent>() {{
                     add(th_sl_kick);
                     add(th_sl_bass);
                     add(th_sl_perc2);
