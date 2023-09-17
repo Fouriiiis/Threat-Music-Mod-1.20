@@ -43,32 +43,23 @@ public class ThreatTracker implements EndTick {
         
             List<Entity> entities = client.world.getEntitiesByClass(Entity.class, client.player.getBoundingBox().expand(blockRadius, blockRadius, blockRadius), EntityPredicates.EXCEPT_SPECTATOR);
 
-            List<Entity> filteredEntities = entities.stream()
-                    .filter(entity -> entity instanceof MobEntity || entity instanceof ShulkerEntity)
-                    .collect(Collectors.toList());
-
-            // For each hostile entity, check if it is targeting the player by checking if the player is in its line of sight using raytracing
-            for (Entity entity : filteredEntities) {
+            double threatLevel = entities.stream()
+            .filter(entity -> entity instanceof MobEntity || entity instanceof ShulkerEntity ||
+                    entity instanceof GuardianEntity || entity instanceof ElderGuardianEntity || entity instanceof WitherEntity)
+            .filter(entity -> {
                 if (entity instanceof WardenEntity) {
-                    if(((WardenEntity) entity).getAnger() > 0) {
-                        threatLevel += ((LivingEntity) entity).getMaxHealth();
-                    }
+                    return ((WardenEntity) entity).getAnger() > 0;
                 } else if (entity instanceof ShulkerEntity) {
-                    if(lineofSight(entity, client.player)) {
-                        threatLevel += ((LivingEntity) entity).getMaxHealth();
-                    }
+                    return lineOfSight(entity, client.player);
                 } else if (entity instanceof GuardianEntity || entity instanceof ElderGuardianEntity) {
-                        if(lineofSight(entity, client.player) && ((GuardianEntity) entity).hasBeamTarget()) {
-                            threatLevel += ((LivingEntity) entity).getMaxHealth();
-                        }
-                    } else if (entity instanceof MobEntity) {
-                        if(lineofSight(entity, client.player) && ((MobEntity) entity).isAttacking()) {
-                            threatLevel += ((LivingEntity) entity).getMaxHealth();
-                    } else if (entity instanceof WitherEntity) {
-                        threatLevel += ((LivingEntity) entity).getMaxHealth();
-                    }
+                    return lineOfSight(entity, client.player) && ((GuardianEntity) entity).hasBeamTarget();
+                } else if (entity instanceof MobEntity) {
+                    return lineOfSight(entity, client.player) && ((MobEntity) entity).isAttacking();
                 }
-            }
+                return true; // WitherEntity or other entities
+            })
+            .mapToDouble(entity -> ((LivingEntity) entity).getMaxHealth())
+            .sum();
             System.out.println(threatLevel);
 
             if (threatLevel > 0 && stopped) {
@@ -92,7 +83,7 @@ public class ThreatTracker implements EndTick {
             }
         }
     }
-    public static boolean lineofSight(Entity entity, PlayerEntity player) {
+    public static boolean lineOfSight(Entity entity, PlayerEntity player) {
         Vec3d eyePos = entity.getEyePos();
         Vec3d platerPos = player.getPos();
         Vec3d endVec = player.getEyePos();
