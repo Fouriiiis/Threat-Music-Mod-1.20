@@ -47,7 +47,7 @@ public class ModSounds {
         SoundEvent th_su_noise = registerSoundEvent("th_su_noise");
         SoundEvent th_su_perc1 = registerSoundEvent("th_su_perc1");
         SoundEvent th_su_shaker = registerSoundEvent("th_su_shaker");
-        
+        /* ============================================================= */
         SoundEvent th_sl_arps = registerSoundEvent("th_sl_arps");
         SoundEvent th_sl_bass = registerSoundEvent("th_sl_bass");
         SoundEvent th_sl_kick = registerSoundEvent("th_sl_kick");
@@ -56,7 +56,7 @@ public class ModSounds {
         SoundEvent th_sl_perc1 = registerSoundEvent("th_sl_perc1");
         SoundEvent th_sl_perc2 = registerSoundEvent("th_sl_perc2");
         SoundEvent th_sl_snare = registerSoundEvent("th_sl_snare");
-
+        /* ============================================================= */
         SoundEvent th_ss_bass = registerSoundEvent("th_ss_bass");
         SoundEvent th_ss_kick = registerSoundEvent("th_ss_kick");
         SoundEvent th_ss_lead = registerSoundEvent("th_ss_lead");
@@ -71,17 +71,17 @@ public class ModSounds {
         // Layer : TH_SU - LEAD, TH_SU - BASS
         regions.put("su", new Region(
             new HashMap<Integer, List<SoundEvent>>() {{
-                put(1, new ArrayList<SoundEvent>() {{
+                put(0, new ArrayList<SoundEvent>() {{
                     add(th_su_kick);
                     add(th_su_shaker);
                 }});
-                put(2, new ArrayList<SoundEvent>() {{
+                put(30, new ArrayList<SoundEvent>() {{
                     add(th_su_kick);
                     add(th_su_shaker);
                     add(th_su_perc1);
                     add(th_su_noise);
                 }});
-                put(3, new ArrayList<SoundEvent>() {{
+                put(60, new ArrayList<SoundEvent>() {{
                     add(th_su_kick);
                     add(th_su_shaker);
                     add(th_su_perc1);
@@ -89,7 +89,7 @@ public class ModSounds {
                     add(th_su_hits);
                     add(th_su_bass);
                 }});
-                put(4, new ArrayList<SoundEvent>() {{
+                put(90, new ArrayList<SoundEvent>() {{
                     add(th_su_kick);
                     add(th_su_shaker);
                     add(th_su_perc1);
@@ -98,7 +98,7 @@ public class ModSounds {
                     add(th_su_hits);
                     add(th_su_bass);
                 }});
-                put(5, new ArrayList<SoundEvent>() {{
+                put(120, new ArrayList<SoundEvent>() {{
                     add(th_su_lead);
                     add(th_su_bass);
                 }});
@@ -130,7 +130,7 @@ public class ModSounds {
                     add(th_sl_noise);
                     add(th_sl_snare);
                 }});
-                put(90, new ArrayList<SoundEvent>() {{
+                put(80, new ArrayList<SoundEvent>() {{
                     add(th_sl_kick);
                     add(th_sl_bass);
                     add(th_sl_perc2);
@@ -160,25 +160,25 @@ public class ModSounds {
 
         regions.put("ss", new Region(
             new HashMap<Integer, List<SoundEvent>>() {{
-                put(1, new ArrayList<SoundEvent>() {{
+                put(0, new ArrayList<SoundEvent>() {{
                     add(th_ss_noise);
                     add(th_ss_bass);
                     add(th_ss_kick);
                 }});
-                put(2, new ArrayList<SoundEvent>() {{
+                put(30, new ArrayList<SoundEvent>() {{
                     add(th_ss_noise);
                     add(th_ss_bass);
                     add(th_ss_kick);
                     add(th_ss_pop);
                 }});
-                put(3, new ArrayList<SoundEvent>() {{
+                put(60, new ArrayList<SoundEvent>() {{
                     add(th_ss_noise);
                     add(th_ss_bass);
                     add(th_ss_kick);
                     add(th_ss_pop);
                     add(th_ss_lead);
                 }});
-                put(4, new ArrayList<SoundEvent>() {{
+                put(90, new ArrayList<SoundEvent>() {{
                     add(th_ss_noise);
                     add(th_ss_bass);
                     add(th_ss_kick);
