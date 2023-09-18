@@ -5,6 +5,7 @@ import java.util.stream.Collectors;
 
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents.EndTick;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.boss.WitherEntity;
@@ -40,6 +41,8 @@ public class ThreatTracker implements EndTick {
         threatLevel = 0;
 
         if (client != null && client.player != null) {
+
+            ClientPlayerEntity player = client.player;
         
             List<Entity> entities = client.world.getEntitiesByClass(Entity.class, client.player.getBoundingBox().expand(blockRadius, blockRadius, blockRadius), EntityPredicates.EXCEPT_SPECTATOR);
 
@@ -53,26 +56,26 @@ public class ThreatTracker implements EndTick {
                         threatLevel += ((LivingEntity) entity).getMaxHealth();
                     }
                 } else if (entity instanceof ShulkerEntity) {
-                    if(lineOfSight(entity, client.player)) {
+                    if(lineOfSight(entity, player)) {
                         threatLevel += ((LivingEntity) entity).getMaxHealth();
                     }
                 } else if (entity instanceof GuardianEntity || entity instanceof ElderGuardianEntity) {
-                        if(lineOfSight(entity, client.player) && ((GuardianEntity) entity).hasBeamTarget()) {
+                        if(lineOfSight(entity, player) && ((GuardianEntity) entity).hasBeamTarget()) {
                             threatLevel += ((LivingEntity) entity).getMaxHealth();
                         }
                     } else if (entity instanceof MobEntity) {
-                        if(lineOfSight(entity, client.player) && ((MobEntity) entity).isAttacking()) {
+                        if(lineOfSight(entity, player) && ((MobEntity) entity).isAttacking()) {
                             threatLevel += ((LivingEntity) entity).getMaxHealth();
                     } else if (entity instanceof WitherEntity) {
                         threatLevel += ((LivingEntity) entity).getMaxHealth();
                     } else if (entity instanceof SlimeEntity || entity instanceof MagmaCubeEntity) {
-                        if(lineOfSight(entity, client.player)) {
+                        if(lineOfSight(entity, player)) {
                             threatLevel += ((LivingEntity) entity).getMaxHealth();
                         }
                     }
                 }
             }
-            System.out.println(threatLevel);
+            //System.out.println(threatLevel);
 
             if (threatLevel > 0 && stopped) {
                 ModSounds.changeRegion(client);
@@ -107,6 +110,4 @@ public class ThreatTracker implements EndTick {
         }
         return false;
     }
-
-    
 }
