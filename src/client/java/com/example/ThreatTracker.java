@@ -69,6 +69,7 @@ public class ThreatTracker implements EndTick {
                         if(lineOfSight(entity, client.player)) {
                             threatLevel += ((LivingEntity) entity).getMaxHealth();
                         }
+                    }
                 }
             }
             System.out.println(threatLevel);
