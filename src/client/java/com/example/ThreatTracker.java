@@ -9,6 +9,7 @@ import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.boss.WitherEntity;
+import net.minecraft.entity.mob.BlazeEntity;
 import net.minecraft.entity.mob.ElderGuardianEntity;
 import net.minecraft.entity.mob.GuardianEntity;
 import net.minecraft.entity.mob.MagmaCubeEntity;
@@ -17,7 +18,7 @@ import net.minecraft.entity.mob.ShulkerEntity;
 import net.minecraft.entity.mob.SlimeEntity;
 import net.minecraft.entity.mob.WardenEntity;
 import net.minecraft.entity.player.PlayerEntity;
-
+import net.minecraft.entity.projectile.ShulkerBulletEntity;
 import net.minecraft.predicate.entity.EntityPredicates;
 import net.minecraft.text.Text;
 
@@ -60,17 +61,17 @@ public class ThreatTracker implements EndTick {
                         threatLevel += ((LivingEntity) entity).getMaxHealth();
                     }
                 } else if (entity instanceof GuardianEntity || entity instanceof ElderGuardianEntity) {
-                        if(lineOfSight(entity, player) && ((GuardianEntity) entity).hasBeamTarget()) {
-                            threatLevel += ((LivingEntity) entity).getMaxHealth();
-                        }
-                    } else if (entity instanceof MobEntity) {
-                        if(lineOfSight(entity, player) && ((MobEntity) entity).isAttacking()) {
-                            threatLevel += ((LivingEntity) entity).getMaxHealth();
-                    } else if (entity instanceof WitherEntity) {
+                    if(lineOfSight(entity, player) && ((GuardianEntity) entity).hasBeamTarget()) {
                         threatLevel += ((LivingEntity) entity).getMaxHealth();
-                    } else if (entity instanceof SlimeEntity || entity instanceof MagmaCubeEntity) {
-                        if(lineOfSight(entity, player)) {
-                            threatLevel += ((LivingEntity) entity).getMaxHealth();
+                    }
+                } else if (entity instanceof MobEntity) {
+                    if(lineOfSight(entity, player) && ((MobEntity) entity).isAttacking()) {
+                        threatLevel += ((LivingEntity) entity).getMaxHealth();
+                } else if (entity instanceof WitherEntity) {
+                    threatLevel += ((LivingEntity) entity).getMaxHealth();
+                } else if (entity instanceof SlimeEntity || entity instanceof MagmaCubeEntity) {
+                    if(lineOfSight(entity, player)) {
+                            threatLevel += ((SlimeEntity) entity).getMaxHealth();
                         }
                     }
                 }
@@ -90,13 +91,14 @@ public class ThreatTracker implements EndTick {
                     client.player.sendMessage(Text.of("Stopping music"), false);
                     stopped = true;
                     lastPlayed = 0;
-                } else if (threatLevel != 0) {
-                    lastPlayed = 0;
                 } else {
                     lastPlayed++;
                 }
+            } else if (threatLevel > 0 && !stopped) {
+                lastPlayed = 0;
             }
         }
+        System.out.println(lastPlayed);
     }
     public static boolean lineOfSight(Entity entity, PlayerEntity player) {
         Vec3d eyePos = entity.getEyePos();
