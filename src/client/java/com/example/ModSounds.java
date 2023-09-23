@@ -167,45 +167,610 @@ public class ModSounds {
         SoundEvent th_vs_synth = registerSoundEvent("th_vs_synth");
         SoundEvent th_vs_weird = registerSoundEvent("th_vs_weird");
 
-
-        // Create a new region called "su" and add layers to it
-        // Layer : TH_SU - KICK, TH_SU - SHAKER
-        // Layer : TH_SU - KICK, TH_SU - SHAKER, TH_SU - PERC1, TH_SU - NOISE
-        // Layer : TH_SU - KICK, TH_SU - SHAKER, TH_SU - PERC1, TH_SU - NOISE, TH_SU - HITS, TH_SU - BASS
-        // Layer : TH_SU - KICK, TH_SU - SHAKER, TH_SU - PERC1, TH_SU - ARPS, TH_SU - NOISE, TH_SU - HITS, TH_SU - BASS
-        // Layer : TH_SU - LEAD, TH_SU - BASS
-        regions.put("su", new Region(
+        //Layer : TH_CC - KICK, TH_CC - PERC1, TH_CC - NOISE
+        //Layer : TH_CC - KICK, TH_CC - PERC2, TH_CC - PERC1, TH_CC - NOISE
+        //Layer : TH_CC - KICK, TH_CC - PERC2, TH_CC - PERC1, TH_CC - NOISE, TH_CC - SNARE, {Chimney Canopy}TH_CC - BASS, {The Gutter}TH_CC_-_GUTTERBASS, {Chimney Canopy}TH_CC - VOX, {The Gutter}TH_CC_-_GUTTERVOX
+        //Layer : TH_CC - KICK, {Chimney Canopy}TH_CC - ARPS, TH_CC - PERC1, TH_CC - NOISE, TH_CC - SNARE, {Chimney Canopy}TH_CC - BASS, {The Gutter}TH_CC_-_GUTTERBASS, TH_CC - PERC2, {Chimney Canopy}TH_CC - VOX, {The Gutter}TH_CC_-_GUTTERVOX
+        //Layer : {Chimney Canopy}TH_CC - BASS, {The Gutter}TH_CC_-_GUTTERBASS, {Chimney Canopy}TH_CC - VOX, {The Gutter}TH_CC_-_GUTTERVOX
+        regions.put("cc", new Region(
             new HashMap<Integer, List<SoundEvent>>() {{
                 put(0, new ArrayList<SoundEvent>() {{
-                    add(th_su_kick);
-                    add(th_su_shaker);
+                    add(th_cc_kick);
+                    add(th_cc_perc1);
+                    add(th_cc_noise);
                 }});
                 put(30, new ArrayList<SoundEvent>() {{
-                    add(th_su_kick);
-                    add(th_su_shaker);
-                    add(th_su_perc1);
-                    add(th_su_noise);
+                    add(th_cc_kick);
+                    add(th_cc_perc2);
+                    add(th_cc_perc1);
+                    add(th_cc_noise);
                 }});
                 put(60, new ArrayList<SoundEvent>() {{
-                    add(th_su_kick);
-                    add(th_su_shaker);
-                    add(th_su_perc1);
-                    add(th_su_noise);
-                    add(th_su_hits);
-                    add(th_su_bass);
+                    add(th_cc_kick);
+                    add(th_cc_perc2);
+                    add(th_cc_perc1);
+                    add(th_cc_noise);
+                    add(th_cc_snare);
+                    add(th_cc_bass);
+                    add(th_cc_vox);
                 }});
                 put(90, new ArrayList<SoundEvent>() {{
-                    add(th_su_kick);
-                    add(th_su_shaker);
-                    add(th_su_perc1);
-                    add(th_su_arps);
-                    add(th_su_noise);
-                    add(th_su_hits);
-                    add(th_su_bass);
+                    add(th_cc_kick);
+                    add(th_cc_arps);
+                    add(th_cc_perc1);
+                    add(th_cc_noise);
+                    add(th_cc_snare);
+                    add(th_cc_bass);
+                    add(th_cc_perc2);
+                    add(th_cc_vox);
                 }});
                 put(120, new ArrayList<SoundEvent>() {{
-                    add(th_su_lead);
-                    add(th_su_bass);
+                    add(th_cc_bass);
+                    add(th_cc_vox);
+                }});
+            }}
+        ));
+
+        regions.put("ccG", new Region(
+            new HashMap<Integer, List<SoundEvent>>() {{
+                put(0, new ArrayList<SoundEvent>() {{
+                    add(th_cc_kick);
+                    add(th_cc_perc1);
+                    add(th_cc_noise);
+                }});
+                put(30, new ArrayList<SoundEvent>() {{
+                    add(th_cc_kick);
+                    add(th_cc_perc2);
+                    add(th_cc_perc1);
+                    add(th_cc_noise);
+                }});
+                put(60, new ArrayList<SoundEvent>() {{
+                    add(th_cc_kick);
+                    add(th_cc_perc2);
+                    add(th_cc_perc1);
+                    add(th_cc_noise);
+                    add(th_cc_snare);
+                    add(th_cc_gutterbass);
+                    add(th_cc_guttervox);
+                }});
+                put(90, new ArrayList<SoundEvent>() {{
+                    add(th_cc_kick);
+                    add(th_cc_arps);
+                    add(th_cc_perc1);
+                    add(th_cc_noise);
+                    add(th_cc_snare);
+                    add(th_cc_gutterbass);
+                    add(th_cc_perc2);
+                    add(th_cc_guttervox);
+                }});
+                put(120, new ArrayList<SoundEvent>() {{
+                    add(th_cc_gutterbass);
+                    add(th_cc_guttervox);
+                }});
+            }}
+        ));
+
+        //Layer : TH_DM - NOISE, TH_DM - BASS, TH_DM - KICK
+        //Layer : TH_DM - NOISE, TH_DM - BASS, TH_DM - KICK, TH_DM - SNARE
+        //Layer : TH_DM - NOISE, TH_DM - BASS, TH_DM - KICK, TH_DM - SNARE, TH_DM - LEAD, TH_DM - SHAKER
+        //Layer : TH_DM - NOISE, TH_DM - BASS, TH_DM - KICK, TH_DM - SNARE, TH_DM - LEAD, TH_DM - SHAKER
+        regions.put("dm", new Region(
+            new HashMap<Integer, List<SoundEvent>>() {{
+                put(0, new ArrayList<SoundEvent>() {{
+                    add(th_dm_noise);
+                    add(th_dm_bass);
+                    add(th_dm_kick);
+                }});
+                put(30, new ArrayList<SoundEvent>() {{
+                    add(th_dm_noise);
+                    add(th_dm_bass);
+                    add(th_dm_kick);
+                    add(th_dm_snare);
+                }});
+                put(60, new ArrayList<SoundEvent>() {{
+                    add(th_dm_noise);
+                    add(th_dm_bass);
+                    add(th_dm_kick);
+                    add(th_dm_snare);
+                    add(th_dm_lead);
+                    add(th_dm_shaker);
+                }});
+                put(90, new ArrayList<SoundEvent>() {{
+                    add(th_dm_noise);
+                    add(th_dm_bass);
+                    add(th_dm_kick);
+                    add(th_dm_snare);
+                    add(th_dm_lead);
+                    add(th_dm_shaker);
+                }});
+            }}
+        ));
+
+        //Layer : TH_GW - KICK, TH_GW - PERC1, TH_GW - SHAKE
+        //Layer : TH_GW - KICK, TH_GW - PERC1, TH_GW - SHAKE, TH_GW - BASS
+        //Layer : TH_GW - KICK, TH_GW - PERC1, TH_GW - SHAKE, TH_GW - BASS, TH_GW - NOISE, TH_GW - WEIRD, TH_GW - VOX
+        //Layer : TH_GW - KICK, TH_GW - PERC1, TH_GW - SHAKE, TH_GW - BASS, TH_GW - NOISE, TH_GW - WEIRD, TH_GW - VOX
+        //Layer : TH_GW - LEAD
+        regions.put("gw", new Region(
+            new HashMap<Integer, List<SoundEvent>>() {{
+                put(0, new ArrayList<SoundEvent>() {{
+                    add(th_gw_kick);
+                    add(th_gw_perc1);
+                    add(th_gw_shake);
+                }});
+                put(30, new ArrayList<SoundEvent>() {{
+                    add(th_gw_kick);
+                    add(th_gw_perc1);
+                    add(th_gw_shake);
+                    add(th_gw_bass);
+                }});
+                put(60, new ArrayList<SoundEvent>() {{
+                    add(th_gw_kick);
+                    add(th_gw_perc1);
+                    add(th_gw_shake);
+                    add(th_gw_bass);
+                    add(th_gw_noise);
+                    add(th_gw_weird);
+                    add(th_gw_vox);
+                }});
+                put(90, new ArrayList<SoundEvent>() {{
+                    add(th_gw_kick);
+                    add(th_gw_perc1);
+                    add(th_gw_shake);
+                    add(th_gw_bass);
+                    add(th_gw_noise);
+                    add(th_gw_weird);
+                    add(th_gw_vox);
+                }});
+                put(120, new ArrayList<SoundEvent>() {{
+                    add(th_gw_lead);
+                }});
+            }}
+        ));
+
+        //Layer : TH_HI - KICK, TH_HI - PERC1, TH_HI - SHAKER
+        //Layer : TH_HI - KICK, TH_HI - PERC1, TH_HI - SHAKER, TH_HI - SNARE
+        //Layer : TH_HI - KICK, TH_HI - PERC1, TH_HI - SHAKER, TH_HI - SNARE, TH_HI - BASS, TH_HI - WEIRD, TH_HI - NOISE
+        //Layer : TH_HI - KICK, TH_HI - PERC1, TH_HI - SHAKER, TH_HI - SNARE, TH_HI - BASS, TH_HI - WEIRD, TH_HI - NOISE
+        //Layer : TH_HI - VOX
+        regions.put("hi", new Region(
+            new HashMap<Integer, List<SoundEvent>>() {{
+                put(0, new ArrayList<SoundEvent>() {{
+                    add(th_hi_kick);
+                    add(th_hi_perc1);
+                    add(th_hi_shaker);
+                }});
+                put(30, new ArrayList<SoundEvent>() {{
+                    add(th_hi_kick);
+                    add(th_hi_perc1);
+                    add(th_hi_shaker);
+                    add(th_hi_snare);
+                }});
+                put(60, new ArrayList<SoundEvent>() {{
+                    add(th_hi_kick);
+                    add(th_hi_perc1);
+                    add(th_hi_shaker);
+                    add(th_hi_snare);
+                    add(th_hi_bass);
+                    add(th_hi_weird);
+                    add(th_hi_noise);
+                }});
+                put(90, new ArrayList<SoundEvent>() {{
+                    add(th_hi_kick);
+                    add(th_hi_perc1);
+                    add(th_hi_shaker);
+                    add(th_hi_snare);
+                    add(th_hi_bass);
+                    add(th_hi_weird);
+                    add(th_hi_noise);
+                }});
+                put(120, new ArrayList<SoundEvent>() {{
+                    add(th_hi_vox);
+                }});
+            }}
+        ));
+
+        //Layer : TH_HR - KICK
+        //Layer : TH_HR - KICK, TH_HR - HAT1, TH_HR - HAT2, TH_HR - NOISE
+        //Layer : TH_HR - KICK, TH_HR - HAT1, TH_HR - HAT2, TH_HR - NOISE, TH_HR - BASS, TH_HR - SNARE
+        //Layer : TH_HR - PERC
+        //Layer : TH_HR - LEAD
+        //Layer : TH_HR - KICK, TH_HR - HAT1, TH_HR - HAT2, TH_HR - NOISE, TH_HR - BASS, TH_HR - WEIRD
+        //Layer : TH_HR - PAD
+        regions.put("hr", new Region(
+            new HashMap<Integer, List<SoundEvent>>() {{
+                put(0, new ArrayList<SoundEvent>() {{
+                    add(th_hr_kick);
+                }});
+                put(30, new ArrayList<SoundEvent>() {{
+                    add(th_hr_kick);
+                    add(th_hr_hat1);
+                    add(th_hr_hat2);
+                    add(th_hr_noise);
+                }});
+                put(60, new ArrayList<SoundEvent>() {{
+                    add(th_hr_kick);
+                    add(th_hr_hat1);
+                    add(th_hr_hat2);
+                    add(th_hr_noise);
+                    add(th_hr_bass);
+                    add(th_hr_snare);
+                }});
+                put(80, new ArrayList<SoundEvent>() {{
+                    add(th_hr_perc);
+                }});
+                put(120, new ArrayList<SoundEvent>() {{
+                    add(th_hr_lead);
+                }});
+                put(150, new ArrayList<SoundEvent>() {{
+                    add(th_hr_kick);
+                    add(th_hr_hat1);
+                    add(th_hr_hat2);
+                    add(th_hr_noise);
+                    add(th_hr_bass);
+                    add(th_hr_weird);
+                }});
+                put(180, new ArrayList<SoundEvent>() {{
+                    add(th_hr_pad);
+                }});
+            }}
+        ));
+
+        //Layer : {D}TH_LC - DAYKICK, {D}TH_LC - DAYATMOS, {D}TH_LC - DAYSHAKER, {N}TH_LC - NIGHTKICK, {N}TH_LC - NIGHTATMOS, {N}TH_LC - NIGHTSHAKER
+        //Layer : {D}TH_LC - DAYKICK, {D}TH_LC - DAYATMOS, {D}TH_LC - DAYSHAKER, {D}TH_LC - DAYPERC, {N}TH_LC - NIGHTKICK, {N}TH_LC - NIGHTATMOS, {N}TH_LC - NIGHTSHAKER, {N}TH_LC - NIGHTPERC
+        //Layer : {D}TH_LC - DAYKICK, {D}TH_LC - DAYATMOS, {D}TH_LC - DAYSHAKER, {D}TH_LC - DAYPERC, {D}TH_LC - DAYSUB, {D}TH_LC - DAYBREAKS, {D}TH_LC - DAYARP, {D}TH_LC - DAYSYNTH, {N}TH_LC - NIGHTKICK, {N}TH_LC - NIGHTATMOS, {N}TH_LC - NIGHTSHAKER, {N}TH_LC - NIGHTPERC, {N}TH_LC - NIGHTSUB, {N}TH_LC - NIGHTNOISE, {N}TH_LC - NIGHTHAT, {N}TH_LC - NIGHTSYNTH
+        //Layer : {D}TH_LC - DAYKICK, {D}TH_LC - DAYATMOS, {D}TH_LC - DAYSHAKER, {D}TH_LC - DAYPERC, {D}TH_LC - DAYSUB, {D}TH_LC - DAYBREAKS, {D}TH_LC - DAYARP, {D}TH_LC - DAYSYNTH, {D}TH_LC - DAYTOM, {N}TH_LC - NIGHTKICK, {N}TH_LC - NIGHTATMOS, {N}TH_LC - NIGHTSHAKER, {N}TH_LC - NIGHTPERC, {N}TH_LC - NIGHTSUB, {N}TH_LC - NIGHTNOISE, {N}TH_LC - NIGHTHAT, {N}TH_LC - NIGHTSYNTH, {N}TH_LC - NIGHTTOM
+        //Layer : {D}TH_LC - DAYATMOS, {D}TH_LC - DAYSUB, {D}TH_LC - DAYBREAKS, {N}TH_LC - NIGHTATMOS, {N}TH_LC - NIGHTSUB, {N}TH_LC - NIGHTNOISE
+        regions.put("lc", new Region(
+            new HashMap<Integer, List<SoundEvent>>() {{
+                put(0, new ArrayList<SoundEvent>() {{
+                    add(th_lc_daykick);
+                    add(th_lc_dayatmos);
+                    add(th_lc_dayshaker);
+                }});
+                put(30, new ArrayList<SoundEvent>() {{
+                    add(th_lc_daykick);
+                    add(th_lc_dayatmos);
+                    add(th_lc_dayshaker);
+                    add(th_lc_dayperc);
+                }});
+                put(60, new ArrayList<SoundEvent>() {{
+                    add(th_lc_daykick);
+                    add(th_lc_dayatmos);
+                    add(th_lc_dayshaker);
+                    add(th_lc_dayperc);
+                    add(th_lc_daysub);
+                    add(th_lc_daybreaks);
+                    add(th_lc_dayarp);
+                    add(th_lc_daysynth);
+                }});
+                put(90, new ArrayList<SoundEvent>() {{
+                    add(th_lc_daykick);
+                    add(th_lc_dayatmos);
+                    add(th_lc_dayshaker);
+                    add(th_lc_dayperc);
+                    add(th_lc_daysub);
+                    add(th_lc_daybreaks);
+                    add(th_lc_dayarp);
+                    add(th_lc_daysynth);
+                    add(th_lc_daytom);
+                }});
+                put(120, new ArrayList<SoundEvent>() {{
+                    add(th_lc_dayatmos);
+                    add(th_lc_daysub);
+                    add(th_lc_daybreaks);
+                }});
+            }}
+        ));
+
+        regions.put("lcN", new Region(
+            new HashMap<Integer, List<SoundEvent>>() {{
+                put(0, new ArrayList<SoundEvent>() {{
+                    add(th_lc_nightkick);
+                    add(th_lc_nightatmos);
+                    add(th_lc_nightshaker);
+                }});
+                put(30, new ArrayList<SoundEvent>() {{
+                    add(th_lc_nightkick);
+                    add(th_lc_nightatmos);
+                    add(th_lc_nightshaker);
+                    add(th_lc_nightperc);
+                }});
+                put(60, new ArrayList<SoundEvent>() {{
+                    add(th_lc_nightkick);
+                    add(th_lc_nightatmos);
+                    add(th_lc_nightshaker);
+                    add(th_lc_nightperc);
+                    add(th_lc_nightsub);
+                    add(th_lc_nightnoise);
+                    add(th_lc_nighthat);
+                    add(th_lc_nightsynth);
+                }});
+                put(90, new ArrayList<SoundEvent>() {{
+                    add(th_lc_nightkick);
+                    add(th_lc_nightatmos);
+                    add(th_lc_nightshaker);
+                    add(th_lc_nightperc);
+                    add(th_lc_nightsub);
+                    add(th_lc_nightnoise);
+                    add(th_lc_nighthat);
+                    add(th_lc_nightsynth);
+                    add(th_lc_nighttom);
+                }});
+                put(120, new ArrayList<SoundEvent>() {{
+                    add(th_lc_nightatmos);
+                    add(th_lc_nightsub);
+                    add(th_lc_nightnoise);
+                }});
+            }}
+        ));
+
+        //Layer : TH_LF - KICK, TH_LF - SHAKER
+        //Layer : TH_LF - KICK, TH_LF - PERC2, TH_LF - PERC1, TH_LF - SHAKER
+        //Layer : TH_LF - KICK, TH_LF - PERC2, TH_LF - PERC1, TH_LF - SHAKER, TH_LF - BASS
+        //Layer : TH_LF - KICK, TH_LF - PERC2, TH_LF - PERC1, TH_LF - SHAKER, TH_LF - SNARE, TH_LF - BASS, TH_LF - ARPS, TH_LF - NOISE
+        //Layer : TH_LF - KICK, TH_LF - PERC2, TH_LF - PERC1, TH_LF - SHAKER, TH_LF - SNARE, TH_LF - BASS, TH_LF - ARPS, TH_LF - NOISE
+        regions.put("lf", new Region(
+            new HashMap<Integer, List<SoundEvent>>() {{
+                put(0, new ArrayList<SoundEvent>() {{
+                    add(th_lf_kick);
+                    add(th_lf_shaker);
+                }});
+                put(30, new ArrayList<SoundEvent>() {{
+                    add(th_lf_kick);
+                    add(th_lf_perc2);
+                    add(th_lf_perc1);
+                    add(th_lf_shaker);
+                }});
+                put(60, new ArrayList<SoundEvent>() {{
+                    add(th_lf_kick);
+                    add(th_lf_perc2);
+                    add(th_lf_perc1);
+                    add(th_lf_shaker);
+                    add(th_lf_bass);
+                }});
+                put(90, new ArrayList<SoundEvent>() {{
+                    add(th_lf_kick);
+                    add(th_lf_perc2);
+                    add(th_lf_perc1);
+                    add(th_lf_shaker);
+                    add(th_lf_snare);
+                    add(th_lf_bass);
+                    add(th_lf_arps);
+                    add(th_lf_noise);
+                }});
+                put(120, new ArrayList<SoundEvent>() {{
+                    add(th_lf_kick);
+                    add(th_lf_perc2);
+                    add(th_lf_perc1);
+                    add(th_lf_shaker);
+                    add(th_lf_snare);
+                    add(th_lf_bass);
+                    add(th_lf_arps);
+                    add(th_lf_noise);
+                }});
+            }}
+        ));
+
+        //Layer : TH_LM - KICK, TH_LM - BASS, TH_LM - NOISE, TH_LM - PAD, TH_LM - PERC1
+        //Layer : TH_LM - KICK, TH_LM - BASS, TH_LM - NOISE, TH_LM - PAD, TH_LM - PERC1, TH_LM - ARPS
+        //Layer : TH_LM - KICK, TH_LM - BASS, TH_LM - NOISE, TH_LM - PAD, TH_LM - PERC1, TH_LM - ARPS, TH_LM - PERC2
+        //Layer : TH_LM - KICK, TH_LM - BASS, TH_LM - NOISE, TH_LM - PAD, TH_LM - PERC1, TH_LM - ARPS, TH_LM - PERC2, TH_LM - SNARE
+        //Layer : TH_LM - KICK, TH_LM - BASS, TH_LM - NOISE, TH_LM - PAD, TH_LM - PERC1, TH_LM - ARPS, TH_LM - PERC2, TH_LM - SNARE, TH_LM - WEIRD
+        regions.put("lm", new Region(
+            new HashMap<Integer, List<SoundEvent>>() {{
+                put(0, new ArrayList<SoundEvent>() {{
+                    add(th_lm_kick);
+                    add(th_lm_bass);
+                    add(th_lm_noise);
+                    add(th_lm_pad);
+                    add(th_lm_perc1);
+                }});
+                put(30, new ArrayList<SoundEvent>() {{
+                    add(th_lm_kick);
+                    add(th_lm_bass);
+                    add(th_lm_noise);
+                    add(th_lm_pad);
+                    add(th_lm_perc1);
+                    add(th_lm_arps);
+                }});
+                put(60, new ArrayList<SoundEvent>() {{
+                    add(th_lm_kick);
+                    add(th_lm_bass);
+                    add(th_lm_noise);
+                    add(th_lm_pad);
+                    add(th_lm_perc1);
+                    add(th_lm_arps);
+                    add(th_lm_perc2);
+                }});
+                put(90, new ArrayList<SoundEvent>() {{
+                    add(th_lm_kick);
+                    add(th_lm_bass);
+                    add(th_lm_noise);
+                    add(th_lm_pad);
+                    add(th_lm_perc1);
+                    add(th_lm_arps);
+                    add(th_lm_perc2);
+                    add(th_lm_snare);
+                }});
+                put(120, new ArrayList<SoundEvent>() {{
+                    add(th_lm_kick);
+                    add(th_lm_bass);
+                    add(th_lm_noise);
+                    add(th_lm_pad);
+                    add(th_lm_perc1);
+                    add(th_lm_arps);
+                    add(th_lm_perc2);
+                    add(th_lm_snare);
+                    add(th_lm_weird);
+                }});
+            }}
+        ));
+
+        //Layer : TH_OE - NOISE, {N}TH_OE - FLOW
+        //Layer : TH_OE - NOISE, TH_OE - KICKPERC, {N}TH_OE - FLOW
+        //Layer : TH_OE - NOISE, TH_OE - KICKPERC, {Sunken Pier}TH_OE - BASS, {Outer Expanse|Journey's End}TH_OE - PERC2, {N}TH_OE - FLOW
+        //Layer : TH_OE - NOISE, TH_OE - KICKPERC, {Sunken Pier}TH_OE - BASS, {Outer Expanse|Journey's End}TH_OE - PERC2, {Sunken Pier}TH_OE - WAVES, {N}TH_OE - FLOW
+        //Layer : TH_OE - NOISE, TH_OE - KICKPERC, {Sunken Pier}TH_OE - BASS, {Outer Expanse|Journey's End}TH_OE - PERC2, {Sunken Pier}TH_OE - WAVES, {D}TH_OE - LEAD, {D}TH_OE - ARP, {N}TH_OE - FLOW
+        //Layer : TH_OE - NOISE, TH_OE - KICKPERC, {Sunken Pier}TH_OE - BASS, {Outer Expanse|Journey's End}TH_OE - PERC2, {Sunken Pier}TH_OE - WAVES, {D}TH_OE - LEAD, {D}TH_OE - ARP, {N}TH_OE - FLOW
+        regions.put("oe", new Region(
+            new HashMap<Integer, List<SoundEvent>>() {{
+                put(0, new ArrayList<SoundEvent>() {{
+                    add(th_oe_noise);
+                }});
+                put(30, new ArrayList<SoundEvent>() {{
+                    add(th_oe_noise);
+                    add(th_oe_kickperc);
+                }});
+                put(60, new ArrayList<SoundEvent>() {{
+                    add(th_oe_noise);
+                    add(th_oe_kickperc);
+                    add(th_oe_perc2);
+                }});
+                put(90, new ArrayList<SoundEvent>() {{
+                    add(th_oe_noise);
+                    add(th_oe_kickperc);
+                    add(th_oe_perc2);
+                }});
+                put(120, new ArrayList<SoundEvent>() {{
+                    add(th_oe_noise);
+                    add(th_oe_kickperc);
+                    add(th_oe_perc2);
+                    add(th_oe_lead);
+                    add(th_oe_arp);
+                }});
+                put(150, new ArrayList<SoundEvent>() {{
+                    add(th_oe_noise);
+                    add(th_oe_kickperc);
+                    add(th_oe_perc2);
+                    add(th_oe_lead);
+                    add(th_oe_arp);
+                }});
+            }}
+        ));
+
+        regions.put("oeN", new Region(
+            new HashMap<Integer, List<SoundEvent>>() {{
+                put(0, new ArrayList<SoundEvent>() {{
+                    add(th_oe_noise);
+                    add(th_oe_flow);
+                }});
+                put(30, new ArrayList<SoundEvent>() {{
+                    add(th_oe_noise);
+                    add(th_oe_kickperc);
+                    add(th_oe_flow);
+                }});
+                put(60, new ArrayList<SoundEvent>() {{
+                    add(th_oe_noise);
+                    add(th_oe_kickperc);
+                    add(th_oe_perc2);
+                    add(th_oe_flow);
+                }});
+                put(90, new ArrayList<SoundEvent>() {{
+                    add(th_oe_noise);
+                    add(th_oe_kickperc);
+                    add(th_oe_perc2);
+                    add(th_oe_flow);
+                }});
+                put(120, new ArrayList<SoundEvent>() {{
+                    add(th_oe_noise);
+                    add(th_oe_kickperc);
+                    add(th_oe_perc2);
+                    add(th_oe_flow);
+                }});
+                put(150, new ArrayList<SoundEvent>() {{
+                    add(th_oe_noise);
+                    add(th_oe_kickperc);
+                    add(th_oe_perc2);
+                    add(th_oe_flow);
+                }});
+            }}
+        ));
+
+        regions.put("oeS", new Region(
+            new HashMap<Integer, List<SoundEvent>>() {{
+                put(0, new ArrayList<SoundEvent>() {{
+                    add(th_oe_noise);
+                }});
+                put(30, new ArrayList<SoundEvent>() {{
+                    add(th_oe_noise);
+                    add(th_oe_kickperc);
+                }});
+                put(60, new ArrayList<SoundEvent>() {{
+                    add(th_oe_noise);
+                    add(th_oe_kickperc);
+                    add(th_oe_bass);
+                }});
+                put(90, new ArrayList<SoundEvent>() {{
+                    add(th_oe_noise);
+                    add(th_oe_kickperc);
+                    add(th_oe_bass);
+                    add(th_oe_waves);
+                }});
+                put(120, new ArrayList<SoundEvent>() {{
+                    add(th_oe_noise);
+                    add(th_oe_kickperc);
+                    add(th_oe_bass);
+                    add(th_oe_waves);
+                    add(th_oe_lead);
+                    add(th_oe_arp);
+                }});
+                put(150, new ArrayList<SoundEvent>() {{
+                    add(th_oe_noise);
+                    add(th_oe_kickperc);
+                    add(th_oe_bass);
+                    add(th_oe_waves);
+                    add(th_oe_lead);
+                    add(th_oe_arp);
+                }});
+            }}
+        ));
+
+        //Layer : TH_SI - KICK, TH_SI - PERC1 
+        //Layer : TH_SI - KICK, TH_SI - PERC1, TH_SI - SHAKER
+        //Layer : TH_SI - KICK, TH_SI - PERC1, TH_SI - NOISE, TH_SI - SHAKER, TH_SI - WEIRD
+        //Layer : TH_SI - KICK, TH_SI - PERC1, TH_SI - NOISE, TH_SI - SHAKER, TH_SI - ARPS, TH_SI - BASS, TH_SI - WEIRD, TH_SI -SNARE
+        //Layer : TH_SI - PERC1, TH_SI - NOISE, TH_SI - SHAKER, TH_SI - ARPS, TH_SI - BASS, TH_SI - WEIRD, TH_SI -SNARE
+        //Layer : TH_SI - PANIC
+        regions.put("si", new Region(
+            new HashMap<Integer, List<SoundEvent>>() {{
+                put(0, new ArrayList<SoundEvent>() {{
+                    add(th_si_kick);
+                    add(th_si_perc1);
+                }});
+                put(30, new ArrayList<SoundEvent>() {{
+                    add(th_si_kick);
+                    add(th_si_perc1);
+                    add(th_si_shaker);
+                }});
+                put(60, new ArrayList<SoundEvent>() {{
+                    add(th_si_kick);
+                    add(th_si_perc1);
+                    add(th_si_noise);
+                    add(th_si_shaker);
+                    add(th_si_weird);
+                }});
+                put(90, new ArrayList<SoundEvent>() {{
+                    add(th_si_kick);
+                    add(th_si_perc1);
+                    add(th_si_noise);
+                    add(th_si_shaker);
+                    add(th_si_arps);
+                    add(th_si_bass);
+                    add(th_si_weird);
+                    add(th_si_snare);
+                }});
+                put(120, new ArrayList<SoundEvent>() {{
+                    add(th_si_perc1);
+                    add(th_si_noise);
+                    add(th_si_shaker);
+                    add(th_si_arps);
+                    add(th_si_bass);
+                    add(th_si_weird);
+                    add(th_si_snare);
+                }});
+                put(150, new ArrayList<SoundEvent>() {{
+                    add(th_si_panic);
                 }});
             }}
         ));
@@ -293,8 +858,89 @@ public class ModSounds {
             }}
         ));
 
-        
-        
+        // Layer : TH_SU - KICK, TH_SU - SHAKER
+        // Layer : TH_SU - KICK, TH_SU - SHAKER, TH_SU - PERC1, TH_SU - NOISE
+        // Layer : TH_SU - KICK, TH_SU - SHAKER, TH_SU - PERC1, TH_SU - NOISE, TH_SU - HITS, TH_SU - BASS
+        // Layer : TH_SU - KICK, TH_SU - SHAKER, TH_SU - PERC1, TH_SU - ARPS, TH_SU - NOISE, TH_SU - HITS, TH_SU - BASS
+        // Layer : TH_SU - LEAD, TH_SU - BASS
+        regions.put("su", new Region(
+            new HashMap<Integer, List<SoundEvent>>() {{
+                put(0, new ArrayList<SoundEvent>() {{
+                    add(th_su_kick);
+                    add(th_su_shaker);
+                }});
+                put(30, new ArrayList<SoundEvent>() {{
+                    add(th_su_kick);
+                    add(th_su_shaker);
+                    add(th_su_perc1);
+                    add(th_su_noise);
+                }});
+                put(60, new ArrayList<SoundEvent>() {{
+                    add(th_su_kick);
+                    add(th_su_shaker);
+                    add(th_su_perc1);
+                    add(th_su_noise);
+                    add(th_su_hits);
+                    add(th_su_bass);
+                }});
+                put(90, new ArrayList<SoundEvent>() {{
+                    add(th_su_kick);
+                    add(th_su_shaker);
+                    add(th_su_perc1);
+                    add(th_su_arps);
+                    add(th_su_noise);
+                    add(th_su_hits);
+                    add(th_su_bass);
+                }});
+                put(120, new ArrayList<SoundEvent>() {{
+                    add(th_su_lead);
+                    add(th_su_bass);
+                }});
+            }}
+        ));
+
+        //Layer : TH_VS - KICK, TH_VS - SHAKER
+        //Layer : TH_VS - KICK, TH_VS - NOISE, TH_VS - SHAKER, TH_VS - BASS, TH_VS - PERC1
+        //Layer : TH_VS - KICK, TH_VS - NOISE, TH_VS - SHAKER, TH_VS - BASS, TH_VS - ARPS, TH_VS - PERC1, TH_VS - PERC2
+        //Layer : TH_VS - KICK, TH_VS - NOISE, TH_VS - SHAKER, TH_VS - BASS, TH_VS - ARPS, TH_VS - PERC1, TH_VS - PERC2, TH_VS - WEIRD
+        //Layer : TH_VS - SYNTH
+        regions.put("vs", new Region(
+            new HashMap<Integer, List<SoundEvent>>() {{
+                put(0, new ArrayList<SoundEvent>() {{
+                    add(th_vs_kick);
+                    add(th_vs_shaker);
+                }});
+                put(30, new ArrayList<SoundEvent>() {{
+                    add(th_vs_kick);
+                    add(th_vs_noise);
+                    add(th_vs_shaker);
+                    add(th_vs_bass);
+                    add(th_vs_perc1);
+                }});
+                put(60, new ArrayList<SoundEvent>() {{
+                    add(th_vs_kick);
+                    add(th_vs_noise);
+                    add(th_vs_shaker);
+                    add(th_vs_bass);
+                    add(th_vs_arps);
+                    add(th_vs_perc1);
+                    add(th_vs_perc2);
+                }});
+                put(90, new ArrayList<SoundEvent>() {{
+                    add(th_vs_kick);
+                    add(th_vs_noise);
+                    add(th_vs_shaker);
+                    add(th_vs_bass);
+                    add(th_vs_arps);
+                    add(th_vs_perc1);
+                    add(th_vs_perc2);
+                    add(th_vs_weird);
+                }});
+                put(120, new ArrayList<SoundEvent>() {{
+                    add(th_vs_synth);
+                }});
+            }}
+        ));
 
         //add regions to biomeRegions
         //ss is for all ocean biomes
