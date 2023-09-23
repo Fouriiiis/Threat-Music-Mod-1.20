@@ -27,7 +27,6 @@ public class Region {
         this.layers = layers;
         currLayers = new HashMap<Integer, SoundEvent>();
         randomizeLayers();
-        
     }
 
     public void randomizeLayers() {

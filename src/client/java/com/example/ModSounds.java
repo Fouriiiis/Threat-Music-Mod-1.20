@@ -994,14 +994,14 @@ public class ModSounds {
                 break;
             }
             //otherwise, set the region to the default region
-            newRegion = regions.get("su");
+            newRegion = regions.get("cc");
         }
 
         //if the new region is different from the current region, stop the current region
         if (currentRegion != null && !newRegion.equals(currentRegion)) {
             
             currentRegion = newRegion;
-            client.player.sendMessage(Text.of("changing music"), false);
+            //client.player.sendMessage(Text.of("changing music"), false);
         }
     }
 

@@ -81,7 +81,7 @@ public class ThreatTracker implements EndTick {
             if (threatLevel > 0 && stopped) {
                 ModSounds.changeRegion(client);
                 ModSounds.currentRegion.play(client);
-                client.player.sendMessage(Text.of("Playing music"), false);
+                //client.player.sendMessage(Text.of("Playing music"), false);
                 lastPlayed = 0;
                 stopped = false;
             } else if (threatLevel == 0 && !stopped) {
@@ -98,7 +98,7 @@ public class ThreatTracker implements EndTick {
                 lastPlayed = 0;
             }
         }
-        System.out.println(lastPlayed);
+        //System.out.println(lastPlayed);
     }
     public static boolean lineOfSight(Entity entity, PlayerEntity player) {
         Vec3d eyePos = entity.getEyePos();

@@ -16,6 +16,8 @@ public class SoundPlayer extends MovingSoundInstance {
         this.volume = 0.01f;
         this.relative = true; 
         this.requiredThreatLevel = requiredThreatLevel;
+
+        
     }
 
     @Override
@@ -32,4 +34,5 @@ public class SoundPlayer extends MovingSoundInstance {
     public float getVolume() {
         return this.volume;
     }
+
 }
