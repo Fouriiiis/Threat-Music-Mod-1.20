@@ -994,7 +994,7 @@ public class ModSounds {
                 break;
             }
             //otherwise, set the region to the default region
-            newRegion = regions.get("cc");
+            newRegion = regions.get("lm");
         }
 
         //if the new region is different from the current region, stop the current region
