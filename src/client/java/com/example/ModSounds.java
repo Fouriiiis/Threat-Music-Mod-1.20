@@ -211,6 +211,26 @@ public class ModSounds {
             }}
         ));
 
+        regions.put("test", new Region(
+            new HashMap<Integer, List<SoundEvent>>() {{
+                put(0, new ArrayList<SoundEvent>() {{
+                    add(th_cc_kick);
+                }});
+                put(30, new ArrayList<SoundEvent>() {{
+                    add(th_cc_perc2);
+                }});
+                put(60, new ArrayList<SoundEvent>() {{
+                    add(th_cc_perc1);
+                }});
+                put(90, new ArrayList<SoundEvent>() {{
+                    add(th_cc_bass);
+                }});
+                put(120, new ArrayList<SoundEvent>() {{
+                    add(th_cc_vox);
+                }});
+            }}
+        ));
+
         regions.put("ccG", new Region(
             new HashMap<Integer, List<SoundEvent>>() {{
                 put(0, new ArrayList<SoundEvent>() {{
@@ -942,6 +962,8 @@ public class ModSounds {
             }}
         ));
 
+
+
         //add regions to biomeRegions
         //ss is for all ocean biomes
         biomeRegions.put(new ArrayList<String>() {{
@@ -973,9 +995,6 @@ public class ModSounds {
             add("End Highlands");
             add("End Barrens");
         }}, regions.get("ss"));
-
-        //set default region to su
-        currentRegion = regions.get("su");
     }
 
     public static void changeRegion(MinecraftClient client) {
@@ -987,21 +1006,13 @@ public class ModSounds {
         client.player.sendMessage(Text.of(biome), false);
 
         //change the region to the region whose list of biomes contains the current biome
-        Region newRegion = null;
         for (Map.Entry<List<String>, Region> entry : biomeRegions.entrySet()) {
             if (entry.getKey().contains(biome)) {
-                newRegion = entry.getValue();
+                currentRegion = entry.getValue();
                 break;
             }
             //otherwise, set the region to the default region
-            newRegion = regions.get("lm");
-        }
-
-        //if the new region is different from the current region, stop the current region
-        if (currentRegion != null && !newRegion.equals(currentRegion)) {
-            
-            currentRegion = newRegion;
-            //client.player.sendMessage(Text.of("changing music"), false);
+            currentRegion = regions.get("cc");
         }
     }
 

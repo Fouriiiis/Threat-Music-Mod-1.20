@@ -23,37 +23,53 @@ public class Region {
     //each list of sound events is a layer
 
     public Region(HashMap<Integer, List<SoundEvent>> layers) {
-        //convert each list of sound events to a list of sound players
+
         this.layers = layers;
         currLayers = new HashMap<Integer, SoundEvent>();
-        randomizeLayers();
+        setupSoundPlayers();
     }
 
     public void randomizeLayers() {
-        //for all elements in the layers map, shuffle the list of sound events
-        for (Map.Entry<Integer, List<SoundEvent>> entry : layers.entrySet()) {
-            Collections.shuffle(entry.getValue());
+        //for each list of layers, shuffle the list
+        for(List<SoundEvent> layer : layers.values()) {
+            Collections.shuffle(layer);
+        }
+        System.out.println("Randomized layers");
+        setupSoundPlayers();
+        
+    }
 
-            //if the first element in the list is not already in the currLayers map, add it
-            for(SoundEvent soundEvent : entry.getValue()) {
-                if(!currLayers.containsValue(soundEvent)) {
+    public void setupSoundPlayers() {
+        currLayers.clear();
+        soundPlayers.clear();
+    
+        // Create a list of map entries to sort them by threat level
+        List<Map.Entry<Integer, List<SoundEvent>>> sortedEntries = new ArrayList<>(layers.entrySet());
+        sortedEntries.sort(Map.Entry.comparingByKey());
+    
+        // Iterate through the sorted entries
+        for (Map.Entry<Integer, List<SoundEvent>> entry : sortedEntries) {
+            // for all sound events in the layer list
+            for (SoundEvent soundEvent : entry.getValue()) {
+                // if the sound event is not already in the currLayers map
+                if (!currLayers.containsValue(soundEvent)) {
+                    // get the sound event from the layer list and add it to the currLayers map
                     currLayers.put(entry.getKey(), soundEvent);
+                    // create a new sound player with the sound event and add it to the soundPlayers list
+                    soundPlayers.add(new SoundPlayer(soundEvent, client, entry.getKey()));
+                    System.out.println("Added sound player with name " + soundEvent.getId().toString() + " and threat level " + entry.getKey());
                     break;
                 }
             }
         }
     }
+    
 
     public void play(MinecraftClient client){
-        //clear the sound players list
-        soundPlayers.clear();
-
         SoundManager soundManager = client.getSoundManager();
-
-        for(Map.Entry<Integer, SoundEvent> entry : currLayers.entrySet()) {
-            SoundPlayer soundPlayer = new SoundPlayer(entry.getValue(), client, entry.getKey());
-            soundPlayers.add(soundPlayer);
-            soundManager.play(soundPlayer);
+        //play all sound players and wait for them to load
+        for(int i = 0; i < soundPlayers.size(); i++) {
+            soundManager.play(soundPlayers.get(i));
         }
     }
 
@@ -63,19 +79,5 @@ public class Region {
                 client.getSoundManager().stop(soundPlayers.get(i));
             }
         }
-    }
-
-    public boolean isPlaying() {
-        //if sound players is not null
-        if(soundPlayers != null) {
-            //if any sound player is playing, return true
-            for(int i = 0; i < soundPlayers.size(); i++) {
-                if(soundPlayers.get(i).getVolume() > 0.0f) {
-                    return true;
-                }
-            }
-        }
-        return false;
-
     }
 }
