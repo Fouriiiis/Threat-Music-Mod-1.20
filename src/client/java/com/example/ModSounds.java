@@ -179,13 +179,13 @@ public class ModSounds {
                     add(th_cc_perc1);
                     add(th_cc_noise);
                 }});
-                put(30, new ArrayList<SoundEvent>() {{
+                put(20, new ArrayList<SoundEvent>() {{
                     add(th_cc_kick);
                     add(th_cc_perc2);
                     add(th_cc_perc1);
                     add(th_cc_noise);
                 }});
-                put(60, new ArrayList<SoundEvent>() {{
+                put(40, new ArrayList<SoundEvent>() {{
                     add(th_cc_kick);
                     add(th_cc_perc2);
                     add(th_cc_perc1);
@@ -194,7 +194,7 @@ public class ModSounds {
                     add(th_cc_bass);
                     add(th_cc_vox);
                 }});
-                put(90, new ArrayList<SoundEvent>() {{
+                put(60, new ArrayList<SoundEvent>() {{
                     add(th_cc_kick);
                     add(th_cc_arps);
                     add(th_cc_perc1);
@@ -204,28 +204,8 @@ public class ModSounds {
                     add(th_cc_perc2);
                     add(th_cc_vox);
                 }});
-                put(120, new ArrayList<SoundEvent>() {{
+                put(80, new ArrayList<SoundEvent>() {{
                     add(th_cc_bass);
-                    add(th_cc_vox);
-                }});
-            }}
-        ));
-
-        regions.put("test", new Region(
-            new HashMap<Integer, List<SoundEvent>>() {{
-                put(0, new ArrayList<SoundEvent>() {{
-                    add(th_cc_kick);
-                }});
-                put(30, new ArrayList<SoundEvent>() {{
-                    add(th_cc_perc2);
-                }});
-                put(60, new ArrayList<SoundEvent>() {{
-                    add(th_cc_perc1);
-                }});
-                put(90, new ArrayList<SoundEvent>() {{
-                    add(th_cc_bass);
-                }});
-                put(120, new ArrayList<SoundEvent>() {{
                     add(th_cc_vox);
                 }});
             }}
@@ -238,13 +218,13 @@ public class ModSounds {
                     add(th_cc_perc1);
                     add(th_cc_noise);
                 }});
-                put(30, new ArrayList<SoundEvent>() {{
+                put(20, new ArrayList<SoundEvent>() {{
                     add(th_cc_kick);
                     add(th_cc_perc2);
                     add(th_cc_perc1);
                     add(th_cc_noise);
                 }});
-                put(60, new ArrayList<SoundEvent>() {{
+                put(40, new ArrayList<SoundEvent>() {{
                     add(th_cc_kick);
                     add(th_cc_perc2);
                     add(th_cc_perc1);
@@ -253,7 +233,7 @@ public class ModSounds {
                     add(th_cc_gutterbass);
                     add(th_cc_guttervox);
                 }});
-                put(90, new ArrayList<SoundEvent>() {{
+                put(60, new ArrayList<SoundEvent>() {{
                     add(th_cc_kick);
                     add(th_cc_arps);
                     add(th_cc_perc1);
@@ -263,7 +243,7 @@ public class ModSounds {
                     add(th_cc_perc2);
                     add(th_cc_guttervox);
                 }});
-                put(120, new ArrayList<SoundEvent>() {{
+                put(80, new ArrayList<SoundEvent>() {{
                     add(th_cc_gutterbass);
                     add(th_cc_guttervox);
                 }});
@@ -281,13 +261,13 @@ public class ModSounds {
                     add(th_dm_bass);
                     add(th_dm_kick);
                 }});
-                put(30, new ArrayList<SoundEvent>() {{
+                put(20, new ArrayList<SoundEvent>() {{
                     add(th_dm_noise);
                     add(th_dm_bass);
                     add(th_dm_kick);
                     add(th_dm_snare);
                 }});
-                put(60, new ArrayList<SoundEvent>() {{
+                put(40, new ArrayList<SoundEvent>() {{
                     add(th_dm_noise);
                     add(th_dm_bass);
                     add(th_dm_kick);
@@ -295,7 +275,7 @@ public class ModSounds {
                     add(th_dm_lead);
                     add(th_dm_shaker);
                 }});
-                put(90, new ArrayList<SoundEvent>() {{
+                put(60, new ArrayList<SoundEvent>() {{
                     add(th_dm_noise);
                     add(th_dm_bass);
                     add(th_dm_kick);
@@ -318,11 +298,20 @@ public class ModSounds {
                     add(th_gw_perc1);
                     add(th_gw_shake);
                 }});
-                put(30, new ArrayList<SoundEvent>() {{
+                put(20, new ArrayList<SoundEvent>() {{
                     add(th_gw_kick);
                     add(th_gw_perc1);
                     add(th_gw_shake);
                     add(th_gw_bass);
+                }});
+                put(40, new ArrayList<SoundEvent>() {{
+                    add(th_gw_kick);
+                    add(th_gw_perc1);
+                    add(th_gw_shake);
+                    add(th_gw_bass);
+                    add(th_gw_noise);
+                    add(th_gw_weird);
+                    add(th_gw_vox);
                 }});
                 put(60, new ArrayList<SoundEvent>() {{
                     add(th_gw_kick);
@@ -333,16 +322,7 @@ public class ModSounds {
                     add(th_gw_weird);
                     add(th_gw_vox);
                 }});
-                put(90, new ArrayList<SoundEvent>() {{
-                    add(th_gw_kick);
-                    add(th_gw_perc1);
-                    add(th_gw_shake);
-                    add(th_gw_bass);
-                    add(th_gw_noise);
-                    add(th_gw_weird);
-                    add(th_gw_vox);
-                }});
-                put(120, new ArrayList<SoundEvent>() {{
+                put(80, new ArrayList<SoundEvent>() {{
                     add(th_gw_lead);
                 }});
             }}
@@ -360,11 +340,20 @@ public class ModSounds {
                     add(th_hi_perc1);
                     add(th_hi_shaker);
                 }});
-                put(30, new ArrayList<SoundEvent>() {{
+                put(20, new ArrayList<SoundEvent>() {{
                     add(th_hi_kick);
                     add(th_hi_perc1);
                     add(th_hi_shaker);
                     add(th_hi_snare);
+                }});
+                put(40, new ArrayList<SoundEvent>() {{
+                    add(th_hi_kick);
+                    add(th_hi_perc1);
+                    add(th_hi_shaker);
+                    add(th_hi_snare);
+                    add(th_hi_bass);
+                    add(th_hi_weird);
+                    add(th_hi_noise);
                 }});
                 put(60, new ArrayList<SoundEvent>() {{
                     add(th_hi_kick);
@@ -375,16 +364,7 @@ public class ModSounds {
                     add(th_hi_weird);
                     add(th_hi_noise);
                 }});
-                put(90, new ArrayList<SoundEvent>() {{
-                    add(th_hi_kick);
-                    add(th_hi_perc1);
-                    add(th_hi_shaker);
-                    add(th_hi_snare);
-                    add(th_hi_bass);
-                    add(th_hi_weird);
-                    add(th_hi_noise);
-                }});
-                put(120, new ArrayList<SoundEvent>() {{
+                put(80, new ArrayList<SoundEvent>() {{
                     add(th_hi_vox);
                 }});
             }}
@@ -402,13 +382,13 @@ public class ModSounds {
                 put(0, new ArrayList<SoundEvent>() {{
                     add(th_hr_kick);
                 }});
-                put(30, new ArrayList<SoundEvent>() {{
+                put(20, new ArrayList<SoundEvent>() {{
                     add(th_hr_kick);
                     add(th_hr_hat1);
                     add(th_hr_hat2);
                     add(th_hr_noise);
                 }});
-                put(60, new ArrayList<SoundEvent>() {{
+                put(40, new ArrayList<SoundEvent>() {{
                     add(th_hr_kick);
                     add(th_hr_hat1);
                     add(th_hr_hat2);
@@ -416,13 +396,13 @@ public class ModSounds {
                     add(th_hr_bass);
                     add(th_hr_snare);
                 }});
-                put(80, new ArrayList<SoundEvent>() {{
+                put(60, new ArrayList<SoundEvent>() {{
                     add(th_hr_perc);
                 }});
-                put(120, new ArrayList<SoundEvent>() {{
+                put(80, new ArrayList<SoundEvent>() {{
                     add(th_hr_lead);
                 }});
-                put(150, new ArrayList<SoundEvent>() {{
+                put(100, new ArrayList<SoundEvent>() {{
                     add(th_hr_kick);
                     add(th_hr_hat1);
                     add(th_hr_hat2);
@@ -430,7 +410,7 @@ public class ModSounds {
                     add(th_hr_bass);
                     add(th_hr_weird);
                 }});
-                put(180, new ArrayList<SoundEvent>() {{
+                put(120, new ArrayList<SoundEvent>() {{
                     add(th_hr_pad);
                 }});
             }}
@@ -448,11 +428,21 @@ public class ModSounds {
                     add(th_lc_dayatmos);
                     add(th_lc_dayshaker);
                 }});
-                put(30, new ArrayList<SoundEvent>() {{
+                put(20, new ArrayList<SoundEvent>() {{
                     add(th_lc_daykick);
                     add(th_lc_dayatmos);
                     add(th_lc_dayshaker);
                     add(th_lc_dayperc);
+                }});
+                put(40, new ArrayList<SoundEvent>() {{
+                    add(th_lc_daykick);
+                    add(th_lc_dayatmos);
+                    add(th_lc_dayshaker);
+                    add(th_lc_dayperc);
+                    add(th_lc_daysub);
+                    add(th_lc_daybreaks);
+                    add(th_lc_dayarp);
+                    add(th_lc_daysynth);
                 }});
                 put(60, new ArrayList<SoundEvent>() {{
                     add(th_lc_daykick);
@@ -463,19 +453,9 @@ public class ModSounds {
                     add(th_lc_daybreaks);
                     add(th_lc_dayarp);
                     add(th_lc_daysynth);
-                }});
-                put(90, new ArrayList<SoundEvent>() {{
-                    add(th_lc_daykick);
-                    add(th_lc_dayatmos);
-                    add(th_lc_dayshaker);
-                    add(th_lc_dayperc);
-                    add(th_lc_daysub);
-                    add(th_lc_daybreaks);
-                    add(th_lc_dayarp);
-                    add(th_lc_daysynth);
                     add(th_lc_daytom);
                 }});
-                put(120, new ArrayList<SoundEvent>() {{
+                put(80, new ArrayList<SoundEvent>() {{
                     add(th_lc_dayatmos);
                     add(th_lc_daysub);
                     add(th_lc_daybreaks);
@@ -490,11 +470,21 @@ public class ModSounds {
                     add(th_lc_nightatmos);
                     add(th_lc_nightshaker);
                 }});
-                put(30, new ArrayList<SoundEvent>() {{
+                put(20, new ArrayList<SoundEvent>() {{
                     add(th_lc_nightkick);
                     add(th_lc_nightatmos);
                     add(th_lc_nightshaker);
                     add(th_lc_nightperc);
+                }});
+                put(40, new ArrayList<SoundEvent>() {{
+                    add(th_lc_nightkick);
+                    add(th_lc_nightatmos);
+                    add(th_lc_nightshaker);
+                    add(th_lc_nightperc);
+                    add(th_lc_nightsub);
+                    add(th_lc_nightnoise);
+                    add(th_lc_nighthat);
+                    add(th_lc_nightsynth);
                 }});
                 put(60, new ArrayList<SoundEvent>() {{
                     add(th_lc_nightkick);
@@ -505,19 +495,9 @@ public class ModSounds {
                     add(th_lc_nightnoise);
                     add(th_lc_nighthat);
                     add(th_lc_nightsynth);
-                }});
-                put(90, new ArrayList<SoundEvent>() {{
-                    add(th_lc_nightkick);
-                    add(th_lc_nightatmos);
-                    add(th_lc_nightshaker);
-                    add(th_lc_nightperc);
-                    add(th_lc_nightsub);
-                    add(th_lc_nightnoise);
-                    add(th_lc_nighthat);
-                    add(th_lc_nightsynth);
                     add(th_lc_nighttom);
                 }});
-                put(120, new ArrayList<SoundEvent>() {{
+                put(80, new ArrayList<SoundEvent>() {{
                     add(th_lc_nightatmos);
                     add(th_lc_nightsub);
                     add(th_lc_nightnoise);
@@ -536,20 +516,20 @@ public class ModSounds {
                     add(th_lf_kick);
                     add(th_lf_shaker);
                 }});
-                put(30, new ArrayList<SoundEvent>() {{
+                put(20, new ArrayList<SoundEvent>() {{
                     add(th_lf_kick);
                     add(th_lf_perc2);
                     add(th_lf_perc1);
                     add(th_lf_shaker);
                 }});
-                put(60, new ArrayList<SoundEvent>() {{
+                put(40, new ArrayList<SoundEvent>() {{
                     add(th_lf_kick);
                     add(th_lf_perc2);
                     add(th_lf_perc1);
                     add(th_lf_shaker);
                     add(th_lf_bass);
                 }});
-                put(90, new ArrayList<SoundEvent>() {{
+                put(60, new ArrayList<SoundEvent>() {{
                     add(th_lf_kick);
                     add(th_lf_perc2);
                     add(th_lf_perc1);
@@ -559,7 +539,7 @@ public class ModSounds {
                     add(th_lf_arps);
                     add(th_lf_noise);
                 }});
-                put(120, new ArrayList<SoundEvent>() {{
+                put(80, new ArrayList<SoundEvent>() {{
                     add(th_lf_kick);
                     add(th_lf_perc2);
                     add(th_lf_perc1);
@@ -586,13 +566,22 @@ public class ModSounds {
                     add(th_lm_pad);
                     add(th_lm_perc1);
                 }});
-                put(30, new ArrayList<SoundEvent>() {{
+                put(20, new ArrayList<SoundEvent>() {{
                     add(th_lm_kick);
                     add(th_lm_bass);
                     add(th_lm_noise);
                     add(th_lm_pad);
                     add(th_lm_perc1);
                     add(th_lm_arps);
+                }});
+                put(40, new ArrayList<SoundEvent>() {{
+                    add(th_lm_kick);
+                    add(th_lm_bass);
+                    add(th_lm_noise);
+                    add(th_lm_pad);
+                    add(th_lm_perc1);
+                    add(th_lm_arps);
+                    add(th_lm_perc2);
                 }});
                 put(60, new ArrayList<SoundEvent>() {{
                     add(th_lm_kick);
@@ -602,18 +591,9 @@ public class ModSounds {
                     add(th_lm_perc1);
                     add(th_lm_arps);
                     add(th_lm_perc2);
-                }});
-                put(90, new ArrayList<SoundEvent>() {{
-                    add(th_lm_kick);
-                    add(th_lm_bass);
-                    add(th_lm_noise);
-                    add(th_lm_pad);
-                    add(th_lm_perc1);
-                    add(th_lm_arps);
-                    add(th_lm_perc2);
                     add(th_lm_snare);
                 }});
-                put(120, new ArrayList<SoundEvent>() {{
+                put(80, new ArrayList<SoundEvent>() {{
                     add(th_lm_kick);
                     add(th_lm_bass);
                     add(th_lm_noise);
@@ -638,28 +618,28 @@ public class ModSounds {
                 put(0, new ArrayList<SoundEvent>() {{
                     add(th_oe_noise);
                 }});
-                put(30, new ArrayList<SoundEvent>() {{
+                put(20, new ArrayList<SoundEvent>() {{
                     add(th_oe_noise);
                     add(th_oe_kickperc);
+                }});
+                put(40, new ArrayList<SoundEvent>() {{
+                    add(th_oe_noise);
+                    add(th_oe_kickperc);
+                    add(th_oe_perc2);
                 }});
                 put(60, new ArrayList<SoundEvent>() {{
                     add(th_oe_noise);
                     add(th_oe_kickperc);
                     add(th_oe_perc2);
                 }});
-                put(90, new ArrayList<SoundEvent>() {{
-                    add(th_oe_noise);
-                    add(th_oe_kickperc);
-                    add(th_oe_perc2);
-                }});
-                put(120, new ArrayList<SoundEvent>() {{
+                put(80, new ArrayList<SoundEvent>() {{
                     add(th_oe_noise);
                     add(th_oe_kickperc);
                     add(th_oe_perc2);
                     add(th_oe_lead);
                     add(th_oe_arp);
                 }});
-                put(150, new ArrayList<SoundEvent>() {{
+                put(100, new ArrayList<SoundEvent>() {{
                     add(th_oe_noise);
                     add(th_oe_kickperc);
                     add(th_oe_perc2);
@@ -675,9 +655,15 @@ public class ModSounds {
                     add(th_oe_noise);
                     add(th_oe_flow);
                 }});
-                put(30, new ArrayList<SoundEvent>() {{
+                put(20, new ArrayList<SoundEvent>() {{
                     add(th_oe_noise);
                     add(th_oe_kickperc);
+                    add(th_oe_flow);
+                }});
+                put(40, new ArrayList<SoundEvent>() {{
+                    add(th_oe_noise);
+                    add(th_oe_kickperc);
+                    add(th_oe_perc2);
                     add(th_oe_flow);
                 }});
                 put(60, new ArrayList<SoundEvent>() {{
@@ -686,19 +672,13 @@ public class ModSounds {
                     add(th_oe_perc2);
                     add(th_oe_flow);
                 }});
-                put(90, new ArrayList<SoundEvent>() {{
+                put(80, new ArrayList<SoundEvent>() {{
                     add(th_oe_noise);
                     add(th_oe_kickperc);
                     add(th_oe_perc2);
                     add(th_oe_flow);
                 }});
-                put(120, new ArrayList<SoundEvent>() {{
-                    add(th_oe_noise);
-                    add(th_oe_kickperc);
-                    add(th_oe_perc2);
-                    add(th_oe_flow);
-                }});
-                put(150, new ArrayList<SoundEvent>() {{
+                put(100, new ArrayList<SoundEvent>() {{
                     add(th_oe_noise);
                     add(th_oe_kickperc);
                     add(th_oe_perc2);
@@ -712,22 +692,22 @@ public class ModSounds {
                 put(0, new ArrayList<SoundEvent>() {{
                     add(th_oe_noise);
                 }});
-                put(30, new ArrayList<SoundEvent>() {{
+                put(20, new ArrayList<SoundEvent>() {{
                     add(th_oe_noise);
                     add(th_oe_kickperc);
+                }});
+                put(40, new ArrayList<SoundEvent>() {{
+                    add(th_oe_noise);
+                    add(th_oe_kickperc);
+                    add(th_oe_bass);
                 }});
                 put(60, new ArrayList<SoundEvent>() {{
                     add(th_oe_noise);
                     add(th_oe_kickperc);
                     add(th_oe_bass);
-                }});
-                put(90, new ArrayList<SoundEvent>() {{
-                    add(th_oe_noise);
-                    add(th_oe_kickperc);
-                    add(th_oe_bass);
                     add(th_oe_waves);
                 }});
-                put(120, new ArrayList<SoundEvent>() {{
+                put(80, new ArrayList<SoundEvent>() {{
                     add(th_oe_noise);
                     add(th_oe_kickperc);
                     add(th_oe_bass);
@@ -735,7 +715,7 @@ public class ModSounds {
                     add(th_oe_lead);
                     add(th_oe_arp);
                 }});
-                put(150, new ArrayList<SoundEvent>() {{
+                put(100, new ArrayList<SoundEvent>() {{
                     add(th_oe_noise);
                     add(th_oe_kickperc);
                     add(th_oe_bass);
@@ -758,20 +738,29 @@ public class ModSounds {
                     add(th_si_kick);
                     add(th_si_perc1);
                 }});
-                put(30, new ArrayList<SoundEvent>() {{
+                put(20, new ArrayList<SoundEvent>() {{
                     add(th_si_kick);
                     add(th_si_perc1);
                     add(th_si_shaker);
+                }});
+                put(40, new ArrayList<SoundEvent>() {{
+                    add(th_si_kick);
+                    add(th_si_perc1);
+                    add(th_si_noise);
+                    add(th_si_shaker);
+                    add(th_si_weird);
                 }});
                 put(60, new ArrayList<SoundEvent>() {{
                     add(th_si_kick);
                     add(th_si_perc1);
                     add(th_si_noise);
                     add(th_si_shaker);
+                    add(th_si_arps);
+                    add(th_si_bass);
                     add(th_si_weird);
+                    add(th_si_snare);
                 }});
-                put(90, new ArrayList<SoundEvent>() {{
-                    add(th_si_kick);
+                put(80, new ArrayList<SoundEvent>() {{
                     add(th_si_perc1);
                     add(th_si_noise);
                     add(th_si_shaker);
@@ -780,16 +769,7 @@ public class ModSounds {
                     add(th_si_weird);
                     add(th_si_snare);
                 }});
-                put(120, new ArrayList<SoundEvent>() {{
-                    add(th_si_perc1);
-                    add(th_si_noise);
-                    add(th_si_shaker);
-                    add(th_si_arps);
-                    add(th_si_bass);
-                    add(th_si_weird);
-                    add(th_si_snare);
-                }});
-                put(150, new ArrayList<SoundEvent>() {{
+                put(100, new ArrayList<SoundEvent>() {{
                     add(th_si_panic);
                 }});
             }}
@@ -806,13 +786,13 @@ public class ModSounds {
                     add(th_sl_kick);
                     add(th_sl_bass);
                 }});
-                put(30, new ArrayList<SoundEvent>() {{
+                put(20, new ArrayList<SoundEvent>() {{
                     add(th_sl_kick);
                     add(th_sl_bass);
                     add(th_sl_perc2);
                     add(th_sl_arps);
                 }});
-                put(60, new ArrayList<SoundEvent>() {{
+                put(40, new ArrayList<SoundEvent>() {{
                     add(th_sl_kick);
                     add(th_sl_bass);
                     add(th_sl_perc2);
@@ -820,7 +800,7 @@ public class ModSounds {
                     add(th_sl_noise);
                     add(th_sl_snare);
                 }});
-                put(80, new ArrayList<SoundEvent>() {{
+                put(60, new ArrayList<SoundEvent>() {{
                     add(th_sl_kick);
                     add(th_sl_bass);
                     add(th_sl_perc2);
@@ -830,7 +810,7 @@ public class ModSounds {
                     add(th_sl_perc2);
                     add(th_sl_lead);
                 }});
-                put(120, new ArrayList<SoundEvent>() {{
+                put(80, new ArrayList<SoundEvent>() {{
                     add(th_sl_kick);
                     add(th_sl_bass);
                     add(th_sl_perc2);
@@ -855,20 +835,20 @@ public class ModSounds {
                     add(th_ss_bass);
                     add(th_ss_kick);
                 }});
-                put(30, new ArrayList<SoundEvent>() {{
+                put(20, new ArrayList<SoundEvent>() {{
                     add(th_ss_noise);
                     add(th_ss_bass);
                     add(th_ss_kick);
                     add(th_ss_pop);
                 }});
-                put(60, new ArrayList<SoundEvent>() {{
+                put(40, new ArrayList<SoundEvent>() {{
                     add(th_ss_noise);
                     add(th_ss_bass);
                     add(th_ss_kick);
                     add(th_ss_pop);
                     add(th_ss_lead);
                 }});
-                put(90, new ArrayList<SoundEvent>() {{
+                put(60, new ArrayList<SoundEvent>() {{
                     add(th_ss_noise);
                     add(th_ss_bass);
                     add(th_ss_kick);
@@ -889,13 +869,13 @@ public class ModSounds {
                     add(th_su_kick);
                     add(th_su_shaker);
                 }});
-                put(30, new ArrayList<SoundEvent>() {{
+                put(20, new ArrayList<SoundEvent>() {{
                     add(th_su_kick);
                     add(th_su_shaker);
                     add(th_su_perc1);
                     add(th_su_noise);
                 }});
-                put(60, new ArrayList<SoundEvent>() {{
+                put(40, new ArrayList<SoundEvent>() {{
                     add(th_su_kick);
                     add(th_su_shaker);
                     add(th_su_perc1);
@@ -903,7 +883,7 @@ public class ModSounds {
                     add(th_su_hits);
                     add(th_su_bass);
                 }});
-                put(90, new ArrayList<SoundEvent>() {{
+                put(60, new ArrayList<SoundEvent>() {{
                     add(th_su_kick);
                     add(th_su_shaker);
                     add(th_su_perc1);
@@ -912,7 +892,7 @@ public class ModSounds {
                     add(th_su_hits);
                     add(th_su_bass);
                 }});
-                put(120, new ArrayList<SoundEvent>() {{
+                put(80, new ArrayList<SoundEvent>() {{
                     add(th_su_lead);
                     add(th_su_bass);
                 }});
@@ -930,12 +910,21 @@ public class ModSounds {
                     add(th_vs_kick);
                     add(th_vs_shaker);
                 }});
-                put(30, new ArrayList<SoundEvent>() {{
+                put(20, new ArrayList<SoundEvent>() {{
                     add(th_vs_kick);
                     add(th_vs_noise);
                     add(th_vs_shaker);
                     add(th_vs_bass);
                     add(th_vs_perc1);
+                }});
+                put(40, new ArrayList<SoundEvent>() {{
+                    add(th_vs_kick);
+                    add(th_vs_noise);
+                    add(th_vs_shaker);
+                    add(th_vs_bass);
+                    add(th_vs_arps);
+                    add(th_vs_perc1);
+                    add(th_vs_perc2);
                 }});
                 put(60, new ArrayList<SoundEvent>() {{
                     add(th_vs_kick);
@@ -945,18 +934,9 @@ public class ModSounds {
                     add(th_vs_arps);
                     add(th_vs_perc1);
                     add(th_vs_perc2);
-                }});
-                put(90, new ArrayList<SoundEvent>() {{
-                    add(th_vs_kick);
-                    add(th_vs_noise);
-                    add(th_vs_shaker);
-                    add(th_vs_bass);
-                    add(th_vs_arps);
-                    add(th_vs_perc1);
-                    add(th_vs_perc2);
                     add(th_vs_weird);
                 }});
-                put(120, new ArrayList<SoundEvent>() {{
+                put(80, new ArrayList<SoundEvent>() {{
                     add(th_vs_synth);
                 }});
             }}
@@ -985,7 +965,7 @@ public class ModSounds {
             add("Mushroom Fields Shore");
             add("Desert Lakes");
 
-        }}, regions.get("sl"));
+        }}, regions.get("lm"));
 
         //ss is for all end biomes
         biomeRegions.put(new ArrayList<String>() {{
@@ -995,6 +975,15 @@ public class ModSounds {
             add("End Highlands");
             add("End Barrens");
         }}, regions.get("ss"));
+
+        //hr is for all neather biomes
+        biomeRegions.put(new ArrayList<String>() {{
+            add("Nether Wastes");
+            add("Soul Sand Valley");
+            add("Crimson Forest");
+            add("Warped Forest");
+            add("Basalt Deltas");
+        }}, regions.get("hr"));
     }
 
     public static void changeRegion(MinecraftClient client) {
@@ -1012,7 +1001,7 @@ public class ModSounds {
                 break;
             }
             //otherwise, set the region to the default region
-            currentRegion = regions.get("cc");
+            currentRegion = regions.get("su");
         }
     }
 
