@@ -1,13 +1,10 @@
 // Import necessary classes
 package com.example;
-import java.rmi.server.Skeleton;
 import java.util.List;
 import java.util.stream.Collectors;
-
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents.EndTick;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayerEntity;
-import net.minecraft.client.render.entity.feature.WolfCollarFeatureRenderer;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.boss.WitherEntity;
@@ -22,7 +19,6 @@ import net.minecraft.entity.mob.EndermiteEntity;
 import net.minecraft.entity.mob.EvokerEntity;
 import net.minecraft.entity.mob.GhastEntity;
 import net.minecraft.entity.mob.GuardianEntity;
-import net.minecraft.entity.mob.Hoglin;
 import net.minecraft.entity.mob.HoglinEntity;
 import net.minecraft.entity.mob.HuskEntity;
 import net.minecraft.entity.mob.MagmaCubeEntity;
@@ -57,7 +53,6 @@ import net.minecraft.entity.passive.PolarBearEntity;
 import net.minecraft.entity.passive.TraderLlamaEntity;
 import net.minecraft.entity.passive.WolfEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.projectile.ShulkerBulletEntity;
 import net.minecraft.predicate.entity.EntityPredicates;
 import net.minecraft.text.Text;
 
@@ -73,8 +68,9 @@ public class ThreatTracker implements EndTick {
     private static int blockRadius2 = 48;
     public static int threatLevel = 0;
     private int lastPlayed = 0;
-    private int maxTime = 200;
+    private int maxTime = 250;
     private Boolean stopped = true;
+    private Region region;
 
     //list of entities to track
     //bee, caveSpider, dolphin, enderman, goat, ironGolem, Llama, Panda, Piglin, polarBear, Spider, striderJokey, traderLlama, wolf, zombifiedPiglin
@@ -150,9 +146,14 @@ public class ThreatTracker implements EndTick {
     @Override
     public void onEndTick(MinecraftClient client) {
 
-        threatLevel = 0;
+        
+
+    //print if it is day
+        
 
         if (client != null && client.player != null) {
+
+            threatLevel = 0;
 
             ClientPlayerEntity player = client.player;
         
@@ -160,7 +161,12 @@ public class ThreatTracker implements EndTick {
 
             List<Entity> farEntities = client.world.getEntitiesByClass(Entity.class, client.player.getBoundingBox().expand(blockRadius2, blockRadius2, blockRadius2), EntityPredicates.EXCEPT_SPECTATOR);
 
+
+            //check
+
             //filter far entities to only contain longRangeEntities
+
+            List<Entity> playerEntities = nearEntities.stream().filter(entity -> entity.equals(player)).collect(Collectors.toList());
 
             farEntities = farEntities.stream().filter(entity -> longRangeEntities.contains(entity.getClass())).collect(Collectors.toList());
 
@@ -192,48 +198,23 @@ public class ThreatTracker implements EndTick {
             //for all far entities, if they are longRangeEntities && line of sight, add health to threatLevel
 
             for (Entity entity : farEntities) {
-                if(lineOfSight(entity, player)) {
+                if(lineOfSight(entity, player) && !nearEntities.contains(entity)) {
                     threatLevel += ((LivingEntity) entity).getMaxHealth();
                 }
             }
 
-            /* for (Entity entity : filteredEntities) {
-                if (entity instanceof WardenEntity) {
-                    if(((WardenEntity) entity).getAnger() > 0) {
-                        threatLevel += ((LivingEntity) entity).getMaxHealth();
-                    }
-                } else if (entity instanceof ShulkerEntity) {
-                    if(lineOfSight(entity, player)) {
-                        threatLevel += ((LivingEntity) entity).getMaxHealth();
-                    }
-                } else if (entity instanceof GuardianEntity || entity instanceof ElderGuardianEntity) {
-                    if(lineOfSight(entity, player) && ((GuardianEntity) entity).hasBeamTarget()) {
-                        threatLevel += ((LivingEntity) entity).getMaxHealth();
-                    }
-                } else if (entity instanceof MobEntity) {
-                    if(lineOfSight(entity, player) && ((MobEntity) entity).isAttacking()) {
-                        threatLevel += ((LivingEntity) entity).getMaxHealth();
-                } else if (entity instanceof WitherEntity) {
-                    threatLevel += ((LivingEntity) entity).getMaxHealth();
-                } else if (entity instanceof SlimeEntity || entity instanceof MagmaCubeEntity) {
-                    if(lineOfSight(entity, player)) {
-                            threatLevel += ((SlimeEntity) entity).getMaxHealth();
-                        }
-                    }
-                } */
-            //}
-            //System.out.println(threatLevel);
+            
 
             if (threatLevel > 0 && stopped) {
-                ModSounds.changeRegion(client);
-                ModSounds.currentRegion.play(client);
+                region = ModSounds.changeRegion(client);
+                region.play(client);
                 //client.player.sendMessage(Text.of("Playing music"), false);
                 lastPlayed = 0;
                 stopped = false;
             } else if (threatLevel == 0 && !stopped) {
                 if (lastPlayed >= maxTime) {
-                    ModSounds.currentRegion.stop(client);
-                    ModSounds.currentRegion.randomizeLayers();
+                    region.stop(client);
+                    region.randomizeLayers();
                     client.player.sendMessage(Text.of("Stopping music"), false);
                     stopped = true;
                     lastPlayed = 0;
@@ -246,6 +227,8 @@ public class ThreatTracker implements EndTick {
         }
         //System.out.println(lastPlayed);
     }
+
+    
     
     public static boolean lineOfSight(Entity entity, PlayerEntity player) {
         Vec3d eyePos = entity.getEyePos();

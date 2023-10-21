@@ -4,15 +4,22 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
+
+import com.example.mixin.client.GetBossBarsMixin;
 
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.gui.hud.BossBarHud;
+import net.minecraft.client.gui.hud.ClientBossBar;
 import net.minecraft.client.resource.language.I18n;
+import net.minecraft.entity.mob.PillagerEntity;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.thread.MessageListener;
 import net.minecraft.world.biome.Biome;
 
 
@@ -942,30 +949,28 @@ public class ModSounds {
             }}
         ));
 
+        
+
 
 
         //add regions to biomeRegions
-        //ss is for all ocean biomes
+        //lm for all warm oceans
+        biomeRegions.put(new ArrayList<String>() {{
+            add("Warm Ocean");
+            add("Lukewarm Ocean");
+            add("Deep Warm Ocean");
+            add("Deep Lukewarm Ocean");
+        }}, regions.get("lm"));
+
+        //sl for all other oceans
         biomeRegions.put(new ArrayList<String>() {{
             add("Ocean");
             add("Deep Ocean");
-            add("Frozen Ocean");
-            add("Deep Frozen Ocean");
             add("Cold Ocean");
             add("Deep Cold Ocean");
-            add("Lukewarm Ocean");
-            add("Deep Lukewarm Ocean");
-            add("Warm Ocean");
-            add("Deep Warm Ocean");
-            add("River");
-            add("Frozen River");
-            add("Beach");
-            add("Stone Shore");
-            add("Snowy Beach");
-            add("Mushroom Fields Shore");
-            add("Desert Lakes");
-
-        }}, regions.get("lm"));
+            add("Frozen Ocean");
+            add("Deep Frozen Ocean");
+        }}, regions.get("sl"));
 
         //ss is for all end biomes
         biomeRegions.put(new ArrayList<String>() {{
@@ -976,6 +981,32 @@ public class ModSounds {
             add("End Barrens");
         }}, regions.get("ss"));
 
+        //oeS for lush caves
+        biomeRegions.put(new ArrayList<String>() {{
+            add("Lush Caves");
+        }}, regions.get("oeS"));
+
+        //dm for deep dark
+        biomeRegions.put(new ArrayList<String>() {{
+            add("Deep Dark");
+        }}, regions.get("dm"));
+
+        //oe for jungle biomes
+        biomeRegions.put(new ArrayList<String>() {{
+            add("Jungle");
+            add("Jungle Hills");
+            add("Jungle Edge");
+            add("Modified Jungle");
+            add("Modified Jungle Edge");
+            add("Bamboo Jungle");
+            add("Bamboo Jungle Hills");
+        }}, regions.get("oe"));
+
+        //vs for dripstone caves
+        biomeRegions.put(new ArrayList<String>() {{
+            add("Dripstone Caves");
+        }}, regions.get("vs"));
+
         //hr is for all neather biomes
         biomeRegions.put(new ArrayList<String>() {{
             add("Nether Wastes");
@@ -984,26 +1015,75 @@ public class ModSounds {
             add("Warped Forest");
             add("Basalt Deltas");
         }}, regions.get("hr"));
+
+        //gw for swamp biomes
+        biomeRegions.put(new ArrayList<String>() {{
+            add("Swamp");
+            add("Swamp Hills");
+            add("Mangrove Swamp");
+        }}, regions.get("gw"));
+
+        //hi for desert biomes
+        biomeRegions.put(new ArrayList<String>() {{
+            add("Desert");
+            add("Desert Hills");
+            add("Desert Lakes");
+            add("Badlands");
+            add("Badlands Plateau");
+            add("Eroded Badlands");
+            add("Modified Badlands Plateau");
+            add("Modified Wooded Badlands Plateau");
+            add("Wooded Badlands Plateau");
+        }}, regions.get("hi"));
+
+
+
     }
 
-    public static void changeRegion(MinecraftClient client) {
-        //get the current biome e.g. minecraft:plains using the value in the f3 menu
-        RegistryEntry<Biome> var27 = client.world.getBiome(client.player.getBlockPos());
-        String biome = I18n.translate(getBiomeName(var27));
+    public static Region changeRegion(MinecraftClient client) {
+        // Get the current biome at the player's position
+        RegistryEntry<Biome> currentBiomeEntry = client.world.getBiome(client.player.getBlockPos());
+        String currentBiomeName = I18n.translate(getBiomeName(currentBiomeEntry));
+    
+        // Print the current biome to the chat
+        client.player.sendMessage(Text.of(currentBiomeName), false);
 
-        //print the current biome to the chat
-        client.player.sendMessage(Text.of(biome), false);
+        Region currentRegion = regions.get("su");
 
-        //change the region to the region whose list of biomes contains the current biome
         for (Map.Entry<List<String>, Region> entry : biomeRegions.entrySet()) {
-            if (entry.getKey().contains(biome)) {
+            if (entry.getKey().contains(currentBiomeName)) {
                 currentRegion = entry.getValue();
-                break;
             }
-            //otherwise, set the region to the default region
-            currentRegion = regions.get("su");
         }
+
+        if (currentRegion == regions.get("oe")) {
+            //check if it is day or night
+            if (isDay(client)) {
+                currentRegion = regions.get("oe");
+            } else {
+                currentRegion = regions.get("oeN");
+            }
+        }
+
+        BossBarHud bossBarHud = client.inGameHud.getBossBarHud();
+        Map<UUID, ClientBossBar> bossBars = ((GetBossBarsMixin) bossBarHud).getBossBars();
+
+        //iterate through and check if the strings contain Raid
+        for (Map.Entry<UUID, ClientBossBar> entry : bossBars.entrySet()) {
+            if (entry.getValue().getName().getString().contains("Raid")) {
+                //check if it is day or night
+                if (isDay(client)) {
+                    currentRegion = regions.get("lc");
+                } else {
+                    currentRegion = regions.get("lcN");
+                }
+            }
+        }
+
+        return currentRegion;
     }
+    
+    
 
     public static String getBiomeName(RegistryEntry<Biome> biome) {
         return I18n.translate(getBiomeTranslationKey(biome));
@@ -1014,5 +1094,10 @@ public class ModSounds {
             (biomeKey) -> "biome." + biomeKey.getValue().getNamespace() + "." + biomeKey.getValue().getPath(),
             (biomeValue) -> "[unregistered " + biomeValue + "]" // For unregistered biome
         );
+    }
+
+    public static boolean isDay(MinecraftClient client) {
+        //client.world.isDay() doesn't work
+        return client.world.getTimeOfDay() % 24000 < 12000;
     }
 }
