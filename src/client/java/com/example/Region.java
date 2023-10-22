@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.List;
 
+import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
 
 import net.minecraft.client.MinecraftClient;
@@ -66,7 +67,15 @@ public class Region {
     
 
     public void play(MinecraftClient client){
+
+        //stop all sounds which are music
+
+
+
         SoundManager soundManager = client.getSoundManager();
+
+        soundManager.updateSoundVolume(SoundCategory.MUSIC, 0.0f);
+
         //play all sound players and wait for them to load
         for(int i = 0; i < soundPlayers.size(); i++) {
             soundManager.play(soundPlayers.get(i));

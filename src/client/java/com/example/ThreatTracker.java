@@ -1,6 +1,10 @@
 // Import necessary classes
 package com.example;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 import java.util.stream.Collectors;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents.EndTick;
 import net.minecraft.client.MinecraftClient;
@@ -72,10 +76,12 @@ public class ThreatTracker implements EndTick {
     private Boolean stopped = true;
     private Region region;
 
+    private static Map<UUID, Integer> hostilePlayerTimers = new HashMap<>();
+
     //list of entities to track
     //bee, caveSpider, dolphin, enderman, goat, ironGolem, Llama, Panda, Piglin, polarBear, Spider, striderJokey, traderLlama, wolf, zombifiedPiglin
 
-    List<Class> passiveEntities = List.of(
+    List<Class<? extends Entity>> passiveEntities = List.of(
         BeeEntity.class,
         CaveSpiderEntity.class,
         DolphinEntity.class,
@@ -99,7 +105,7 @@ public class ThreatTracker implements EndTick {
 
 //Slime	Spider Jockey	Stray	Vex	Vindicator	Warden	Witch	Wither Skeleton	Zoglin	Zombie	Zombie Villager
 
-    List<Class> hostileEntities = List.of(
+    List<Class<? extends Entity>> hostileEntities = List.of(
         BlazeEntity.class,
         CreeperEntity.class,
         DrownedEntity.class,
@@ -133,7 +139,7 @@ public class ThreatTracker implements EndTick {
 
         //warden, blaze, ghast, enderDragon, wither
 
-    List<Class> longRangeEntities = List.of(
+        List<Class<? extends Entity>> longRangeEntities = List.of(
         WardenEntity.class,
         BlazeEntity.class,
         GhastEntity.class,
@@ -146,11 +152,6 @@ public class ThreatTracker implements EndTick {
     @Override
     public void onEndTick(MinecraftClient client) {
 
-        
-
-    //print if it is day
-        
-
         if (client != null && client.player != null) {
 
             threatLevel = 0;
@@ -161,12 +162,17 @@ public class ThreatTracker implements EndTick {
 
             List<Entity> farEntities = client.world.getEntitiesByClass(Entity.class, client.player.getBoundingBox().expand(blockRadius2, blockRadius2, blockRadius2), EntityPredicates.EXCEPT_SPECTATOR);
 
-
-            //check
+                // Decrement timers for hostile players
+            for (UUID playerId : new ArrayList<>(hostilePlayerTimers.keySet())) {
+                int remainingTicks = hostilePlayerTimers.get(playerId);
+                if (remainingTicks <= 0) {
+                    hostilePlayerTimers.remove(playerId);
+                } else {
+                    hostilePlayerTimers.put(playerId, remainingTicks - 1);
+                }
+            }
 
             //filter far entities to only contain longRangeEntities
-
-            List<Entity> playerEntities = nearEntities.stream().filter(entity -> entity.equals(player)).collect(Collectors.toList());
 
             farEntities = farEntities.stream().filter(entity -> longRangeEntities.contains(entity.getClass())).collect(Collectors.toList());
 
@@ -183,6 +189,7 @@ public class ThreatTracker implements EndTick {
                     threatLevel += 1;
                     if(lineOfSight(entity, player)) {
                         threatLevel += ((LivingEntity) entity).getMaxHealth();
+                        threatLevel += ((LivingEntity) entity).getArmor();
                     }
                 } 
                 else if (passiveEntities.contains(entity.getClass())) {
@@ -191,6 +198,13 @@ public class ThreatTracker implements EndTick {
                         if(lineOfSight(entity, player)) {
                             threatLevel += ((LivingEntity) entity).getMaxHealth();
                         }
+                    }
+                }
+                //if a hostile player has attacked the player recently, add 1 to threatLevel
+                else if (entity.isPlayer() && hostilePlayerTimers.containsKey(entity.getUuid())) {
+                    threatLevel += 1;
+                    if(lineOfSight(entity, player)) {
+                        threatLevel += ((LivingEntity) entity).getMaxHealth() + ((LivingEntity) entity).getArmor();
                     }
                 }
             }
@@ -241,5 +255,9 @@ public class ThreatTracker implements EndTick {
             return true;
         }
         return false;
+    }
+     public static void setHostile(Entity player, int duration) {
+     UUID playerId = player.getUuid();
+     hostilePlayerTimers.put(playerId, duration);
     }
 }

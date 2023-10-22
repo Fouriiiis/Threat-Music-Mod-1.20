@@ -44,6 +44,7 @@ public class ModSounds {
         Identifier id = new Identifier("modid", name);
         return Registry.register(Registries.SOUND_EVENT, id, SoundEvent.of(id));
     }
+    
 
     public static void registerSounds() {
         SoundEvent th_cc_arps = registerSoundEvent("th_cc_arps");
