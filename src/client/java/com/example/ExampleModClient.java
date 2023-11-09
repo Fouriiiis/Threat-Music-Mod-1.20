@@ -3,13 +3,25 @@ package com.example;
 
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
+import net.minecraft.client.MinecraftClient;
 
 
 public class ExampleModClient implements ClientModInitializer {
+
+	private static ThreatTracker threatTracker;
+
 	@Override
 	public void onInitializeClient() {
 		// This entrypoint is suitable for setting up client-specific logic, such as rendering.
 		ModSounds.registerSounds();
-		ClientTickEvents.END_CLIENT_TICK.register(new ThreatTracker());
+		
+		threatTracker = new ThreatTracker();
+
+		ClientTickEvents.END_CLIENT_TICK.register(threatTracker);
 	}
+
+	public static void stop() {
+		threatTracker.stopRegion(MinecraftClient.getInstance());
+	}
+
 }

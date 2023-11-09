@@ -6,10 +6,10 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.List;
 
-import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
 
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.sound.MusicTracker;
 import net.minecraft.client.sound.SoundManager;
 
 public class Region {
@@ -23,9 +23,17 @@ public class Region {
     //constructor which takes a list of lists of sound events
     //each list of sound events is a layer
 
-    public Region(HashMap<Integer, List<SoundEvent>> layers) {
+    public Region(List<List<SoundEvent>> layers) {
 
-        this.layers = layers;
+        int offset = 100 / (layers.size() - 1);
+        int threatLevel = 0;
+
+        //for each list of sound events add it to the layers map with the threat level as the key and increment the threat level
+        this.layers = new HashMap<Integer, List<SoundEvent>>();
+        for(List<SoundEvent> layer : layers) {
+            this.layers.put(threatLevel, layer);
+            threatLevel += offset;
+        }
         currLayers = new HashMap<Integer, SoundEvent>();
         setupSoundPlayers();
     }
@@ -74,7 +82,9 @@ public class Region {
 
         SoundManager soundManager = client.getSoundManager();
 
-        soundManager.updateSoundVolume(SoundCategory.MUSIC, 0.0f);
+        MusicTracker musicTracker = client.getMusicTracker();
+
+        musicTracker.stop();
 
         //play all sound players and wait for them to load
         for(int i = 0; i < soundPlayers.size(); i++) {

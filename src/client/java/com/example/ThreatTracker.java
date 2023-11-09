@@ -1,11 +1,9 @@
 // Import necessary classes
 package com.example;
-import java.util.ArrayList;
-import java.util.HashMap;
+
 import java.util.List;
-import java.util.Map;
-import java.util.UUID;
 import java.util.stream.Collectors;
+
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents.EndTick;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayerEntity;
@@ -75,8 +73,6 @@ public class ThreatTracker implements EndTick {
     private int maxTime = 250;
     private Boolean stopped = true;
     private Region region;
-
-    private static Map<UUID, Integer> hostilePlayerTimers = new HashMap<>();
 
     //list of entities to track
     //bee, caveSpider, dolphin, enderman, goat, ironGolem, Llama, Panda, Piglin, polarBear, Spider, striderJokey, traderLlama, wolf, zombifiedPiglin
@@ -152,6 +148,9 @@ public class ThreatTracker implements EndTick {
     @Override
     public void onEndTick(MinecraftClient client) {
 
+  
+
+
         if (client != null && client.player != null) {
 
             threatLevel = 0;
@@ -161,16 +160,6 @@ public class ThreatTracker implements EndTick {
             List<Entity> nearEntities = client.world.getEntitiesByClass(Entity.class, client.player.getBoundingBox().expand(blockRadius1, blockRadius1, blockRadius1), EntityPredicates.EXCEPT_SPECTATOR);
 
             List<Entity> farEntities = client.world.getEntitiesByClass(Entity.class, client.player.getBoundingBox().expand(blockRadius2, blockRadius2, blockRadius2), EntityPredicates.EXCEPT_SPECTATOR);
-
-                // Decrement timers for hostile players
-            for (UUID playerId : new ArrayList<>(hostilePlayerTimers.keySet())) {
-                int remainingTicks = hostilePlayerTimers.get(playerId);
-                if (remainingTicks <= 0) {
-                    hostilePlayerTimers.remove(playerId);
-                } else {
-                    hostilePlayerTimers.put(playerId, remainingTicks - 1);
-                }
-            }
 
             //filter far entities to only contain longRangeEntities
 
@@ -186,25 +175,17 @@ public class ThreatTracker implements EndTick {
                 //if hostileEntities contains entity.getClass() add 1 to threatLevel
                 //if lineOfSight(entity, player) add entity.getMaxHealth() to threatLevel
                 if(hostileEntities.contains(entity.getClass())) {
-                    threatLevel += 1;
-                    if(lineOfSight(entity, player)) {
-                        threatLevel += ((LivingEntity) entity).getMaxHealth();
-                        threatLevel += ((LivingEntity) entity).getArmor();
-                    }
-                } 
-                else if (passiveEntities.contains(entity.getClass())) {
-                    if(entity instanceof MobEntity && ((MobEntity)entity).isAttacking()) {
-                        threatLevel += 1;
-                        if(lineOfSight(entity, player)) {
-                            threatLevel += ((LivingEntity) entity).getMaxHealth();
-                        }
-                    }
-                }
-                //if a hostile player has attacked the player recently, add 1 to threatLevel
-                else if (entity.isPlayer() && hostilePlayerTimers.containsKey(entity.getUuid())) {
-                    threatLevel += 1;
+                    threatLevel += (((LivingEntity) entity).getMaxHealth() + ((LivingEntity) entity).getArmor()) / 5;
                     if(lineOfSight(entity, player)) {
                         threatLevel += ((LivingEntity) entity).getMaxHealth() + ((LivingEntity) entity).getArmor();
+                    }
+                }
+                else if (passiveEntities.contains(entity.getClass())) {
+                    if(entity instanceof MobEntity && ((MobEntity)entity).isAttacking()) {
+                        threatLevel += (((LivingEntity) entity).getMaxHealth() + ((LivingEntity) entity).getArmor()) / 5;
+                        if(lineOfSight(entity, player)) {
+                            threatLevel += ((LivingEntity) entity).getMaxHealth() + ((LivingEntity) entity).getArmor();
+                        }
                     }
                 }
             }
@@ -213,9 +194,13 @@ public class ThreatTracker implements EndTick {
 
             for (Entity entity : farEntities) {
                 if(lineOfSight(entity, player) && !nearEntities.contains(entity)) {
-                    threatLevel += ((LivingEntity) entity).getMaxHealth();
+                    threatLevel += ((LivingEntity) entity).getMaxHealth() + ((LivingEntity) entity).getArmor();
                 }
             }
+
+            //print threatLevel to chat
+
+            //client.player.sendMessage(Text.of("Threat Level: " + threatLevel), false);
 
             
 
@@ -227,11 +212,7 @@ public class ThreatTracker implements EndTick {
                 stopped = false;
             } else if (threatLevel == 0 && !stopped) {
                 if (lastPlayed >= maxTime) {
-                    region.stop(client);
-                    region.randomizeLayers();
-                    client.player.sendMessage(Text.of("Stopping music"), false);
-                    stopped = true;
-                    lastPlayed = 0;
+                    stopRegion(client);
                 } else {
                     lastPlayed++;
                 }
@@ -256,8 +237,14 @@ public class ThreatTracker implements EndTick {
         }
         return false;
     }
-     public static void setHostile(Entity player, int duration) {
-     UUID playerId = player.getUuid();
-     hostilePlayerTimers.put(playerId, duration);
+
+    public void stopRegion(MinecraftClient client) {
+        if (!stopped){
+            region.stop(client);
+            region.randomizeLayers();
+            client.player.sendMessage(Text.of("Stopping music"), false);
+            stopped = true;
+            lastPlayed = 0;
+        }
     }
 }
