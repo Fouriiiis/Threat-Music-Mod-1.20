@@ -1090,6 +1090,7 @@ public class ModSounds {
             (biomeValue) -> "[unregistered " + biomeValue + "]" // For unregistered biome
         );
     }
+    
 
     public static boolean isDay(MinecraftClient client) {
         //client.world.isDay() doesn't work

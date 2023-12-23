@@ -15,7 +15,6 @@ public abstract class ClientDeathMixin {
 
     @Inject(method="requestRespawn", at=@At(value="TAIL"))
     public void requestRespawn(CallbackInfo info) {
-        System.out.println("Player died");
         //call stop on the threat tracker
         MinecraftClient client = MinecraftClient.getInstance();
         client.getMusicTracker().stop();

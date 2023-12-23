@@ -225,7 +225,7 @@ public class ThreatTracker implements EndTick {
 
     
     
-    public static boolean lineOfSight(Entity entity, PlayerEntity player) {
+    public boolean lineOfSight(Entity entity, PlayerEntity player) {
         Vec3d eyePos = entity.getEyePos();
         Vec3d platerPos = player.getPos();
         Vec3d endVec = player.getEyePos();
@@ -246,5 +246,9 @@ public class ThreatTracker implements EndTick {
             stopped = true;
             lastPlayed = 0;
         }
+    }
+
+    public boolean playing() {
+        return !stopped;
     }
 }
