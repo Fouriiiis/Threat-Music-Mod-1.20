@@ -1,10 +1,18 @@
 package com.example;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+
+import java.io.IOException;
+import java.net.URISyntaxException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.stream.Stream;
 
 import com.example.mixin.client.GetBossBarsMixin;
 
@@ -34,6 +42,9 @@ public class ModSounds {
     //map of regions indexed by name
     public static Map<String, Region> regions = new HashMap<String, Region>();
 
+    //map of sound events indexed by name
+    public static Map<String, SoundEvent> soundEvents = new HashMap<String, SoundEvent>();
+
     //map of regions indexed by list of biomes
     public static Map<List<String>, Region> biomeRegions = new HashMap<List<String>, Region>();
 
@@ -45,336 +56,78 @@ public class ModSounds {
     
 
     public static void registerSounds() {
-        SoundEvent th_cc_arps = registerSoundEvent("th_cc_arps");
-        SoundEvent th_cc_bass = registerSoundEvent("th_cc_bass");
-        SoundEvent th_cc_gutterbass = registerSoundEvent("th_cc_gutterbass");
-        SoundEvent th_cc_guttervox = registerSoundEvent("th_cc_guttervox");
-        SoundEvent th_cc_kick = registerSoundEvent("th_cc_kick");
-        SoundEvent th_cc_noise = registerSoundEvent("th_cc_noise");
-        SoundEvent th_cc_perc1 = registerSoundEvent("th_cc_perc1");
-        SoundEvent th_cc_perc2 = registerSoundEvent("th_cc_perc2");
-        SoundEvent th_cc_snare = registerSoundEvent("th_cc_snare");
-        SoundEvent th_cc_vox = registerSoundEvent("th_cc_vox");
-        SoundEvent th_dm_bass = registerSoundEvent("th_dm_bass");
-        SoundEvent th_dm_kick = registerSoundEvent("th_dm_kick");
-        SoundEvent th_dm_lead = registerSoundEvent("th_dm_lead");
-        SoundEvent th_dm_noise = registerSoundEvent("th_dm_noise");
-        SoundEvent th_dm_shaker = registerSoundEvent("th_dm_shaker");
-        SoundEvent th_dm_snare = registerSoundEvent("th_dm_snare");
-        SoundEvent th_gw_bass = registerSoundEvent("th_gw_bass");
-        SoundEvent th_gw_kick = registerSoundEvent("th_gw_kick");
-        SoundEvent th_gw_lead = registerSoundEvent("th_gw_lead");
-        SoundEvent th_gw_noise = registerSoundEvent("th_gw_noise");
-        SoundEvent th_gw_perc1 = registerSoundEvent("th_gw_perc1");
-        SoundEvent th_gw_perc2 = registerSoundEvent("th_gw_perc2");
-        SoundEvent th_gw_shake = registerSoundEvent("th_gw_shake");
-        SoundEvent th_gw_vox = registerSoundEvent("th_gw_vox");
-        SoundEvent th_gw_weird = registerSoundEvent("th_gw_weird");
-        SoundEvent th_hi_bass = registerSoundEvent("th_hi_bass");
-        SoundEvent th_hi_kick = registerSoundEvent("th_hi_kick");
-        SoundEvent th_hi_noise = registerSoundEvent("th_hi_noise");
-        SoundEvent th_hi_perc1 = registerSoundEvent("th_hi_perc1");
-        SoundEvent th_hi_render = registerSoundEvent("th_hi_render");
-        SoundEvent th_hi_shaker = registerSoundEvent("th_hi_shaker");
-        SoundEvent th_hi_snare = registerSoundEvent("th_hi_snare");
-        SoundEvent th_hi_vox = registerSoundEvent("th_hi_vox");
-        SoundEvent th_hi_weird = registerSoundEvent("th_hi_weird");
-        SoundEvent th_hr_bass = registerSoundEvent("th_hr_bass");
-        SoundEvent th_hr_hat1 = registerSoundEvent("th_hr_hat1");
-        SoundEvent th_hr_hat2 = registerSoundEvent("th_hr_hat2");
-        SoundEvent th_hr_kick = registerSoundEvent("th_hr_kick");
-        SoundEvent th_hr_lead = registerSoundEvent("th_hr_lead");
-        SoundEvent th_hr_noise = registerSoundEvent("th_hr_noise");
-        SoundEvent th_hr_pad = registerSoundEvent("th_hr_pad");
-        SoundEvent th_hr_perc = registerSoundEvent("th_hr_perc");
-        SoundEvent th_hr_snare = registerSoundEvent("th_hr_snare");
-        SoundEvent th_hr_weird = registerSoundEvent("th_hr_weird");
-        SoundEvent th_lc_dayarp = registerSoundEvent("th_lc_dayarp");
-        SoundEvent th_lc_dayatmos = registerSoundEvent("th_lc_dayatmos");
-        SoundEvent th_lc_daybreaks = registerSoundEvent("th_lc_daybreaks");
-        SoundEvent th_lc_daykick = registerSoundEvent("th_lc_daykick");
-        SoundEvent th_lc_dayperc = registerSoundEvent("th_lc_dayperc");
-        SoundEvent th_lc_dayshaker = registerSoundEvent("th_lc_dayshaker");
-        SoundEvent th_lc_daysub = registerSoundEvent("th_lc_daysub");
-        SoundEvent th_lc_daysynth = registerSoundEvent("th_lc_daysynth");
-        SoundEvent th_lc_daytom = registerSoundEvent("th_lc_daytom");
-        SoundEvent th_lc_nightatmos = registerSoundEvent("th_lc_nightatmos");
-        SoundEvent th_lc_nighthat = registerSoundEvent("th_lc_nighthat");
-        SoundEvent th_lc_nightkick = registerSoundEvent("th_lc_nightkick");
-        SoundEvent th_lc_nightnoise = registerSoundEvent("th_lc_nightnoise");
-        SoundEvent th_lc_nightperc = registerSoundEvent("th_lc_nightperc");
-        SoundEvent th_lc_nightshaker = registerSoundEvent("th_lc_nightshaker");
-        SoundEvent th_lc_nightsub = registerSoundEvent("th_lc_nightsub");
-        SoundEvent th_lc_nightsynth = registerSoundEvent("th_lc_nightsynth");
-        SoundEvent th_lc_nighttom = registerSoundEvent("th_lc_nighttom");
-        SoundEvent th_lf_arps = registerSoundEvent("th_lf_arps");
-        SoundEvent th_lf_bass = registerSoundEvent("th_lf_bass");
-        SoundEvent th_lf_chords = registerSoundEvent("th_lf_chords");
-        SoundEvent th_lf_kick = registerSoundEvent("th_lf_kick");
-        SoundEvent th_lf_noise = registerSoundEvent("th_lf_noise");
-        SoundEvent th_lf_perc1 = registerSoundEvent("th_lf_perc1");
-        SoundEvent th_lf_perc2 = registerSoundEvent("th_lf_perc2");
-        SoundEvent th_lf_shaker = registerSoundEvent("th_lf_shaker");
-        SoundEvent th_lf_snare = registerSoundEvent("th_lf_snare");
-        SoundEvent th_lm_arps = registerSoundEvent("th_lm_arps");
-        SoundEvent th_lm_bass = registerSoundEvent("th_lm_bass");
-        SoundEvent th_lm_kick = registerSoundEvent("th_lm_kick");
-        SoundEvent th_lm_noise = registerSoundEvent("th_lm_noise");
-        SoundEvent th_lm_pad = registerSoundEvent("th_lm_pad");
-        SoundEvent th_lm_perc1 = registerSoundEvent("th_lm_perc1");
-        SoundEvent th_lm_perc2 = registerSoundEvent("th_lm_perc2");
-        SoundEvent th_lm_snare = registerSoundEvent("th_lm_snare");
-        SoundEvent th_lm_weird = registerSoundEvent("th_lm_weird");
-        SoundEvent th_oe_arp = registerSoundEvent("th_oe_arp");
-        SoundEvent th_oe_bass = registerSoundEvent("th_oe_bass");
-        SoundEvent th_oe_flow = registerSoundEvent("th_oe_flow");
-        SoundEvent th_oe_kickperc = registerSoundEvent("th_oe_kickperc");
-        SoundEvent th_oe_lead = registerSoundEvent("th_oe_lead");
-        SoundEvent th_oe_noise = registerSoundEvent("th_oe_noise");
-        SoundEvent th_oe_perc2 = registerSoundEvent("th_oe_perc2");
-        SoundEvent th_oe_waves = registerSoundEvent("th_oe_waves");
-        SoundEvent th_si_arps = registerSoundEvent("th_si_arps");
-        SoundEvent th_si_bass = registerSoundEvent("th_si_bass");
-        SoundEvent th_si_kick = registerSoundEvent("th_si_kick");
-        SoundEvent th_si_noise = registerSoundEvent("th_si_noise");
-        SoundEvent th_si_panic = registerSoundEvent("th_si_panic");
-        SoundEvent th_si_perc1 = registerSoundEvent("th_si_perc1");
-        SoundEvent th_si_shaker = registerSoundEvent("th_si_shaker");
-        SoundEvent th_si_snare = registerSoundEvent("th_si_snare");
-        SoundEvent th_si_weird = registerSoundEvent("th_si_weird");
-        SoundEvent th_sl_arps = registerSoundEvent("th_sl_arps");
-        SoundEvent th_sl_bass = registerSoundEvent("th_sl_bass");
-        SoundEvent th_sl_kick = registerSoundEvent("th_sl_kick");
-        SoundEvent th_sl_lead = registerSoundEvent("th_sl_lead");
-        SoundEvent th_sl_noise = registerSoundEvent("th_sl_noise");
-        SoundEvent th_sl_perc1 = registerSoundEvent("th_sl_perc1");
-        SoundEvent th_sl_perc2 = registerSoundEvent("th_sl_perc2");
-        SoundEvent th_sl_snare = registerSoundEvent("th_sl_snare");
-        SoundEvent th_ss_bass = registerSoundEvent("th_ss_bass");
-        SoundEvent th_ss_kick = registerSoundEvent("th_ss_kick");
-        SoundEvent th_ss_lead = registerSoundEvent("th_ss_lead");
-        SoundEvent th_ss_noise = registerSoundEvent("th_ss_noise");
-        SoundEvent th_ss_pop = registerSoundEvent("th_ss_pop");
-        SoundEvent th_su_arps = registerSoundEvent("th_su_arps");
-        SoundEvent th_su_bass = registerSoundEvent("th_su_bass");
-        SoundEvent th_su_hits = registerSoundEvent("th_su_hits");
-        SoundEvent th_su_kick = registerSoundEvent("th_su_kick");
-        SoundEvent th_su_lead = registerSoundEvent("th_su_lead");
-        SoundEvent th_su_noise = registerSoundEvent("th_su_noise");
-        SoundEvent th_su_perc1 = registerSoundEvent("th_su_perc1");
-        SoundEvent th_su_shaker = registerSoundEvent("th_su_shaker");
-        SoundEvent th_vs_arps = registerSoundEvent("th_vs_arps");
-        SoundEvent th_vs_bass = registerSoundEvent("th_vs_bass");
-        SoundEvent th_vs_kick = registerSoundEvent("th_vs_kick");
-        SoundEvent th_vs_noise = registerSoundEvent("th_vs_noise");
-        SoundEvent th_vs_perc1 = registerSoundEvent("th_vs_perc1");
-        SoundEvent th_vs_perc2 = registerSoundEvent("th_vs_perc2");
-        SoundEvent th_vs_shaker = registerSoundEvent("th_vs_shaker");
-        SoundEvent th_vs_synth = registerSoundEvent("th_vs_synth");
-        SoundEvent th_vs_weird = registerSoundEvent("th_vs_weird");
-
+        String directoryPath = "assets/modid/sounds"; // Path to the sounds directory
+        try (Stream<Path> paths = Files.walk(Paths.get(ClassLoader.getSystemResource(directoryPath).toURI()))) {
+            paths.filter(Files::isRegularFile)
+                 .filter(path -> path.toString().endsWith(".ogg"))
+                 .forEach(path -> {
+                     String fileName = path.getFileName().toString();
+                     String soundName = fileName.substring(0, fileName.lastIndexOf('.'));
+                     SoundEvent soundEvent = registerSoundEvent(soundName);
+                     soundEvents.put(soundName, soundEvent);
+                 });
+        } catch (IOException | URISyntaxException e) {
+            e.printStackTrace();
+        }
+        
         //Layer : TH_CC - KICK, TH_CC - PERC1, TH_CC - NOISE
         //Layer : TH_CC - KICK, TH_CC - PERC2, TH_CC - PERC1, TH_CC - NOISE
         //Layer : TH_CC - KICK, TH_CC - PERC2, TH_CC - PERC1, TH_CC - NOISE, TH_CC - SNARE, {Chimney Canopy}TH_CC - BASS, {The Gutter}TH_CC_-_GUTTERBASS, {Chimney Canopy}TH_CC - VOX, {The Gutter}TH_CC_-_GUTTERVOX
         //Layer : TH_CC - KICK, {Chimney Canopy}TH_CC - ARPS, TH_CC - PERC1, TH_CC - NOISE, TH_CC - SNARE, {Chimney Canopy}TH_CC - BASS, {The Gutter}TH_CC_-_GUTTERBASS, TH_CC - PERC2, {Chimney Canopy}TH_CC - VOX, {The Gutter}TH_CC_-_GUTTERVOX
         //Layer : {Chimney Canopy}TH_CC - BASS, {The Gutter}TH_CC_-_GUTTERBASS, {Chimney Canopy}TH_CC - VOX, {The Gutter}TH_CC_-_GUTTERVOX
-        regions.put("cc", new Region(
-            new ArrayList<List<SoundEvent>>() {{
-                add(new ArrayList<SoundEvent>() {{
-                    add(th_cc_kick);
-                    add(th_cc_perc1);
-                    add(th_cc_noise);
-                }});
-                add(new ArrayList<SoundEvent>() {{
-                    add(th_cc_kick);
-                    add(th_cc_perc2);
-                    add(th_cc_perc1);
-                    add(th_cc_noise);
-                }});
-                add(new ArrayList<SoundEvent>() {{
-                    add(th_cc_kick);
-                    add(th_cc_perc2);
-                    add(th_cc_perc1);
-                    add(th_cc_noise);
-                    add(th_cc_snare);
-                    add(th_cc_bass);
-                    add(th_cc_vox);
-                }});
-                add(new ArrayList<SoundEvent>() {{
-                    add(th_cc_kick);
-                    add(th_cc_arps);
-                    add(th_cc_perc1);
-                    add(th_cc_noise);
-                    add(th_cc_snare);
-                    add(th_cc_bass);
-                    add(th_cc_perc2);
-                    add(th_cc_vox);
-                }});
-                add(new ArrayList<SoundEvent>() {{
-                    add(th_cc_bass);
-                    add(th_cc_vox);
-                }});
-            }}
-        ));
+        regions.put("cc", new Region(Arrays.asList(
+            Arrays.asList(soundEvents.get("th_cc_kick"), soundEvents.get("th_cc_perc1"), soundEvents.get("th_cc_noise")),
+            Arrays.asList(soundEvents.get("th_cc_kick"), soundEvents.get("th_cc_perc2"), soundEvents.get("th_cc_perc1"), soundEvents.get("th_cc_noise")),
+            Arrays.asList(soundEvents.get("th_cc_kick"), soundEvents.get("th_cc_perc2"), soundEvents.get("th_cc_perc1"), soundEvents.get("th_cc_noise"), soundEvents.get("th_cc_snare"), soundEvents.get("th_cc_bass"), soundEvents.get("th_cc_vox")),
+            Arrays.asList(soundEvents.get("th_cc_kick"), soundEvents.get("th_cc_arps"), soundEvents.get("th_cc_perc1"), soundEvents.get("th_cc_noise"), soundEvents.get("th_cc_snare"), soundEvents.get("th_cc_bass"), soundEvents.get("th_cc_perc2"), soundEvents.get("th_cc_vox")),
+            Arrays.asList(soundEvents.get("th_cc_bass"), soundEvents.get("th_cc_vox"))
+        )));
 
-        regions.put("ccG", new Region(
-            new ArrayList<List<SoundEvent>>() {{
-                add(0, new ArrayList<SoundEvent>() {{
-                    add(th_cc_kick);
-                    add(th_cc_perc1);
-                    add(th_cc_noise);
-                }});
-                add(new ArrayList<SoundEvent>() {{
-                    add(th_cc_kick);
-                    add(th_cc_perc2);
-                    add(th_cc_perc1);
-                    add(th_cc_noise);
-                }});
-                add(new ArrayList<SoundEvent>() {{
-                    add(th_cc_kick);
-                    add(th_cc_perc2);
-                    add(th_cc_perc1);
-                    add(th_cc_noise);
-                    add(th_cc_snare);
-                    add(th_cc_gutterbass);
-                    add(th_cc_guttervox);
-                }});
-                add(new ArrayList<SoundEvent>() {{
-                    add(th_cc_kick);
-                    add(th_cc_arps);
-                    add(th_cc_perc1);
-                    add(th_cc_noise);
-                    add(th_cc_snare);
-                    add(th_cc_gutterbass);
-                    add(th_cc_perc2);
-                    add(th_cc_guttervox);
-                }});
-                add(new ArrayList<SoundEvent>() {{
-                    add(th_cc_gutterbass);
-                    add(th_cc_guttervox);
-                }});
-            }}
-        ));
+        regions.put("ccG", new Region(Arrays.asList(
+            Arrays.asList(soundEvents.get("th_cc_kick"), soundEvents.get("th_cc_perc1"), soundEvents.get("th_cc_noise")),
+            Arrays.asList(soundEvents.get("th_cc_kick"), soundEvents.get("th_cc_perc2"), soundEvents.get("th_cc_perc1"), soundEvents.get("th_cc_noise")),
+            Arrays.asList(soundEvents.get("th_cc_kick"), soundEvents.get("th_cc_perc2"), soundEvents.get("th_cc_perc1"), soundEvents.get("th_cc_noise"), soundEvents.get("th_cc_snare"), soundEvents.get("th_cc_gutterbass"), soundEvents.get("th_cc_guttervox")),
+            Arrays.asList(soundEvents.get("th_cc_kick"), soundEvents.get("th_cc_arps"), soundEvents.get("th_cc_perc1"), soundEvents.get("th_cc_noise"), soundEvents.get("th_cc_snare"), soundEvents.get("th_cc_gutterbass"), soundEvents.get("th_cc_perc2"), soundEvents.get("th_cc_guttervox")),
+            Arrays.asList(soundEvents.get("th_cc_gutterbass"), soundEvents.get("th_cc_guttervox"))
+        )));
+
 
         //Layer : TH_DM - NOISE, TH_DM - BASS, TH_DM - KICK
         //Layer : TH_DM - NOISE, TH_DM - BASS, TH_DM - KICK, TH_DM - SNARE
         //Layer : TH_DM - NOISE, TH_DM - BASS, TH_DM - KICK, TH_DM - SNARE, TH_DM - LEAD, TH_DM - SHAKER
         //Layer : TH_DM - NOISE, TH_DM - BASS, TH_DM - KICK, TH_DM - SNARE, TH_DM - LEAD, TH_DM - SHAKER
-        regions.put("dm", new Region(
-            new ArrayList<List<SoundEvent>>() {{
-                add(new ArrayList<SoundEvent>() {{
-                    add(th_dm_noise);
-                    add(th_dm_bass);
-                    add(th_dm_kick);
-                }});
-                add(new ArrayList<SoundEvent>() {{
-                    add(th_dm_noise);
-                    add(th_dm_bass);
-                    add(th_dm_kick);
-                    add(th_dm_snare);
-                }});
-                add(new ArrayList<SoundEvent>() {{
-                    add(th_dm_noise);
-                    add(th_dm_bass);
-                    add(th_dm_kick);
-                    add(th_dm_snare);
-                    add(th_dm_lead);
-                    add(th_dm_shaker);
-                }});
-                add(new ArrayList<SoundEvent>() {{
-                    add(th_dm_noise);
-                    add(th_dm_bass);
-                    add(th_dm_kick);
-                    add(th_dm_snare);
-                    add(th_dm_lead);
-                    add(th_dm_shaker);
-                }});
-            }}
-        ));
+        regions.put("dm", new Region(Arrays.asList(
+            Arrays.asList(soundEvents.get("th_dm_noise"), soundEvents.get("th_dm_bass"), soundEvents.get("th_dm_kick")),
+            Arrays.asList(soundEvents.get("th_dm_noise"), soundEvents.get("th_dm_bass"), soundEvents.get("th_dm_kick"), soundEvents.get("th_dm_snare")),
+            Arrays.asList(soundEvents.get("th_dm_noise"), soundEvents.get("th_dm_bass"), soundEvents.get("th_dm_kick"), soundEvents.get("th_dm_snare"), soundEvents.get("th_dm_lead"), soundEvents.get("th_dm_shaker")),
+            Arrays.asList(soundEvents.get("th_dm_noise"), soundEvents.get("th_dm_bass"), soundEvents.get("th_dm_kick"), soundEvents.get("th_dm_snare"), soundEvents.get("th_dm_lead"), soundEvents.get("th_dm_shaker"))
+        )));
 
         //Layer : TH_GW - KICK, TH_GW - PERC1, TH_GW - SHAKE
         //Layer : TH_GW - KICK, TH_GW - PERC1, TH_GW - SHAKE, TH_GW - BASS
         //Layer : TH_GW - KICK, TH_GW - PERC1, TH_GW - SHAKE, TH_GW - BASS, TH_GW - NOISE, TH_GW - WEIRD, TH_GW - VOX
         //Layer : TH_GW - KICK, TH_GW - PERC1, TH_GW - SHAKE, TH_GW - BASS, TH_GW - NOISE, TH_GW - WEIRD, TH_GW - VOX
         //Layer : TH_GW - LEAD
-        regions.put("gw", new Region(
-            new ArrayList<List<SoundEvent>>() {{
-                add(new ArrayList<SoundEvent>() {{
-                    add(th_gw_kick);
-                    add(th_gw_perc1);
-                    add(th_gw_shake);
-                }});
-                add(new ArrayList<SoundEvent>() {{
-                    add(th_gw_kick);
-                    add(th_gw_perc1);
-                    add(th_gw_shake);
-                    add(th_gw_bass);
-                }});
-                add(new ArrayList<SoundEvent>() {{
-                    add(th_gw_kick);
-                    add(th_gw_perc1);
-                    add(th_gw_shake);
-                    add(th_gw_bass);
-                    add(th_gw_noise);
-                    add(th_gw_weird);
-                    add(th_gw_vox);
-                }});
-                add(new ArrayList<SoundEvent>() {{
-                    add(th_gw_kick);
-                    add(th_gw_perc1);
-                    add(th_gw_shake);
-                    add(th_gw_bass);
-                    add(th_gw_noise);
-                    add(th_gw_weird);
-                    add(th_gw_vox);
-                }});
-                add(new ArrayList<SoundEvent>() {{
-                    add(th_gw_lead);
-                }});
-            }}
-        ));
+        regions.put("gw", new Region(Arrays.asList(
+            Arrays.asList(soundEvents.get("th_gw_kick"), soundEvents.get("th_gw_perc1"), soundEvents.get("th_gw_shake")),
+            Arrays.asList(soundEvents.get("th_gw_kick"), soundEvents.get("th_gw_perc1"), soundEvents.get("th_gw_shake"), soundEvents.get("th_gw_bass")),
+            Arrays.asList(soundEvents.get("th_gw_kick"), soundEvents.get("th_gw_perc1"), soundEvents.get("th_gw_shake"), soundEvents.get("th_gw_bass"), soundEvents.get("th_gw_noise"), soundEvents.get("th_gw_weird"), soundEvents.get("th_gw_vox")),
+            Arrays.asList(soundEvents.get("th_gw_kick"), soundEvents.get("th_gw_perc1"), soundEvents.get("th_gw_shake"), soundEvents.get("th_gw_bass"), soundEvents.get("th_gw_noise"), soundEvents.get("th_gw_weird"), soundEvents.get("th_gw_vox")),
+            Arrays.asList(soundEvents.get("th_gw_lead"))
+        )));
 
         //Layer : TH_HI - KICK, TH_HI - PERC1, TH_HI - SHAKER
         //Layer : TH_HI - KICK, TH_HI - PERC1, TH_HI - SHAKER, TH_HI - SNARE
         //Layer : TH_HI - KICK, TH_HI - PERC1, TH_HI - SHAKER, TH_HI - SNARE, TH_HI - BASS, TH_HI - WEIRD, TH_HI - NOISE
         //Layer : TH_HI - KICK, TH_HI - PERC1, TH_HI - SHAKER, TH_HI - SNARE, TH_HI - BASS, TH_HI - WEIRD, TH_HI - NOISE
         //Layer : TH_HI - VOX
-        regions.put("hi", new Region(
-            new ArrayList<List<SoundEvent>>() {{
-                add(new ArrayList<SoundEvent>() {{
-                    add(th_hi_kick);
-                    add(th_hi_perc1);
-                    add(th_hi_shaker);
-                }});
-                add(new ArrayList<SoundEvent>() {{
-                    add(th_hi_kick);
-                    add(th_hi_perc1);
-                    add(th_hi_shaker);
-                    add(th_hi_snare);
-                }});
-                add(new ArrayList<SoundEvent>() {{
-                    add(th_hi_kick);
-                    add(th_hi_perc1);
-                    add(th_hi_shaker);
-                    add(th_hi_snare);
-                    add(th_hi_bass);
-                    add(th_hi_weird);
-                    add(th_hi_noise);
-                }});
-                add(new ArrayList<SoundEvent>() {{
-                    add(th_hi_kick);
-                    add(th_hi_perc1);
-                    add(th_hi_shaker);
-                    add(th_hi_snare);
-                    add(th_hi_bass);
-                    add(th_hi_weird);
-                    add(th_hi_noise);
-                }});
-                add(new ArrayList<SoundEvent>() {{
-                    add(th_hi_vox);
-                }});
-            }}
-        ));
+        regions.put("hi", new Region(Arrays.asList(
+            Arrays.asList(soundEvents.get("th_hi_kick"), soundEvents.get("th_hi_perc1"), soundEvents.get("th_hi_shaker")),
+            Arrays.asList(soundEvents.get("th_hi_kick"), soundEvents.get("th_hi_perc1"), soundEvents.get("th_hi_shaker"), soundEvents.get("th_hi_snare")),
+            Arrays.asList(soundEvents.get("th_hi_kick"), soundEvents.get("th_hi_perc1"), soundEvents.get("th_hi_shaker"), soundEvents.get("th_hi_snare"), soundEvents.get("th_hi_bass"), soundEvents.get("th_hi_weird"), soundEvents.get("th_hi_noise")),
+            Arrays.asList(soundEvents.get("th_hi_kick"), soundEvents.get("th_hi_perc1"), soundEvents.get("th_hi_shaker"), soundEvents.get("th_hi_snare"), soundEvents.get("th_hi_bass"), soundEvents.get("th_hi_weird"), soundEvents.get("th_hi_noise")),
+            Arrays.asList(soundEvents.get("th_hi_vox"))
+        )));
 
         //Layer : TH_HR - KICK
         //Layer : TH_HR - KICK, TH_HR - HAT1, TH_HR - HAT2, TH_HR - NOISE
@@ -383,235 +136,63 @@ public class ModSounds {
         //Layer : TH_HR - LEAD
         //Layer : TH_HR - KICK, TH_HR - HAT1, TH_HR - HAT2, TH_HR - NOISE, TH_HR - BASS, TH_HR - WEIRD
         //Layer : TH_HR - PAD
-        regions.put("hr", new Region(
-            new ArrayList<List<SoundEvent>>() {{
-                add(new ArrayList<SoundEvent>() {{
-                    add(th_hr_kick);
-                }});
-                add(new ArrayList<SoundEvent>() {{
-                    add(th_hr_kick);
-                    add(th_hr_hat1);
-                    add(th_hr_hat2);
-                    add(th_hr_noise);
-                }});
-                add(new ArrayList<SoundEvent>() {{
-                    add(th_hr_kick);
-                    add(th_hr_hat1);
-                    add(th_hr_hat2);
-                    add(th_hr_noise);
-                    add(th_hr_bass);
-                    add(th_hr_snare);
-                }});
-                add(new ArrayList<SoundEvent>() {{
-                    add(th_hr_perc);
-                }});
-                add(new ArrayList<SoundEvent>() {{
-                    add(th_hr_lead);
-                }});
-                add(new ArrayList<SoundEvent>() {{
-                    add(th_hr_kick);
-                    add(th_hr_hat1);
-                    add(th_hr_hat2);
-                    add(th_hr_noise);
-                    add(th_hr_bass);
-                    add(th_hr_weird);
-                }});
-                add(new ArrayList<SoundEvent>() {{
-                    add(th_hr_pad);
-                }});
-            }}
-        ));
+        regions.put("hr", new Region(Arrays.asList(
+            Arrays.asList(soundEvents.get("th_hr_kick")),
+            Arrays.asList(soundEvents.get("th_hr_kick"), soundEvents.get("th_hr_hat1"), soundEvents.get("th_hr_hat2"), soundEvents.get("th_hr_noise")),
+            Arrays.asList(soundEvents.get("th_hr_kick"), soundEvents.get("th_hr_hat1"), soundEvents.get("th_hr_hat2"), soundEvents.get("th_hr_noise"), soundEvents.get("th_hr_bass"), soundEvents.get("th_hr_snare")),
+            Arrays.asList(soundEvents.get("th_hr_perc")),
+            Arrays.asList(soundEvents.get("th_hr_lead")),
+            Arrays.asList(soundEvents.get("th_hr_kick"), soundEvents.get("th_hr_hat1"), soundEvents.get("th_hr_hat2"), soundEvents.get("th_hr_noise"), soundEvents.get("th_hr_bass"), soundEvents.get("th_hr_weird")),
+            Arrays.asList(soundEvents.get("th_hr_pad"))
+        )));
 
         //Layer : {D}TH_LC - DAYKICK, {D}TH_LC - DAYATMOS, {D}TH_LC - DAYSHAKER, {N}TH_LC - NIGHTKICK, {N}TH_LC - NIGHTATMOS, {N}TH_LC - NIGHTSHAKER
         //Layer : {D}TH_LC - DAYKICK, {D}TH_LC - DAYATMOS, {D}TH_LC - DAYSHAKER, {D}TH_LC - DAYPERC, {N}TH_LC - NIGHTKICK, {N}TH_LC - NIGHTATMOS, {N}TH_LC - NIGHTSHAKER, {N}TH_LC - NIGHTPERC
         //Layer : {D}TH_LC - DAYKICK, {D}TH_LC - DAYATMOS, {D}TH_LC - DAYSHAKER, {D}TH_LC - DAYPERC, {D}TH_LC - DAYSUB, {D}TH_LC - DAYBREAKS, {D}TH_LC - DAYARP, {D}TH_LC - DAYSYNTH, {N}TH_LC - NIGHTKICK, {N}TH_LC - NIGHTATMOS, {N}TH_LC - NIGHTSHAKER, {N}TH_LC - NIGHTPERC, {N}TH_LC - NIGHTSUB, {N}TH_LC - NIGHTNOISE, {N}TH_LC - NIGHTHAT, {N}TH_LC - NIGHTSYNTH
         //Layer : {D}TH_LC - DAYKICK, {D}TH_LC - DAYATMOS, {D}TH_LC - DAYSHAKER, {D}TH_LC - DAYPERC, {D}TH_LC - DAYSUB, {D}TH_LC - DAYBREAKS, {D}TH_LC - DAYARP, {D}TH_LC - DAYSYNTH, {D}TH_LC - DAYTOM, {N}TH_LC - NIGHTKICK, {N}TH_LC - NIGHTATMOS, {N}TH_LC - NIGHTSHAKER, {N}TH_LC - NIGHTPERC, {N}TH_LC - NIGHTSUB, {N}TH_LC - NIGHTNOISE, {N}TH_LC - NIGHTHAT, {N}TH_LC - NIGHTSYNTH, {N}TH_LC - NIGHTTOM
         //Layer : {D}TH_LC - DAYATMOS, {D}TH_LC - DAYSUB, {D}TH_LC - DAYBREAKS, {N}TH_LC - NIGHTATMOS, {N}TH_LC - NIGHTSUB, {N}TH_LC - NIGHTNOISE
-        regions.put("lc", new Region(
-            new ArrayList<List<SoundEvent>>() {{
-                add(new ArrayList<SoundEvent>() {{
-                    add(th_lc_daykick);
-                    add(th_lc_dayatmos);
-                    add(th_lc_dayshaker);
-                }});
-                add(new ArrayList<SoundEvent>() {{
-                    add(th_lc_daykick);
-                    add(th_lc_dayatmos);
-                    add(th_lc_dayshaker);
-                    add(th_lc_dayperc);
-                }});
-                add(new ArrayList<SoundEvent>() {{
-                    add(th_lc_daykick);
-                    add(th_lc_dayatmos);
-                    add(th_lc_dayshaker);
-                    add(th_lc_dayperc);
-                    add(th_lc_daysub);
-                    add(th_lc_daybreaks);
-                    add(th_lc_dayarp);
-                    add(th_lc_daysynth);
-                }});
-                add(new ArrayList<SoundEvent>() {{
-                    add(th_lc_daykick);
-                    add(th_lc_dayatmos);
-                    add(th_lc_dayshaker);
-                    add(th_lc_dayperc);
-                    add(th_lc_daysub);
-                    add(th_lc_daybreaks);
-                    add(th_lc_dayarp);
-                    add(th_lc_daysynth);
-                    add(th_lc_daytom);
-                }});
-                add(new ArrayList<SoundEvent>() {{
-                    add(th_lc_dayatmos);
-                    add(th_lc_daysub);
-                    add(th_lc_daybreaks);
-                }});
-            }}
-        ));
+        regions.put("lc", new Region(Arrays.asList(
+            Arrays.asList(soundEvents.get("th_lc_daykick"), soundEvents.get("th_lc_dayatmos"), soundEvents.get("th_lc_dayshaker")),
+            Arrays.asList(soundEvents.get("th_lc_daykick"), soundEvents.get("th_lc_dayatmos"), soundEvents.get("th_lc_dayshaker"), soundEvents.get("th_lc_dayperc")),
+            Arrays.asList(soundEvents.get("th_lc_daykick"), soundEvents.get("th_lc_dayatmos"), soundEvents.get("th_lc_dayshaker"), soundEvents.get("th_lc_dayperc"), soundEvents.get("th_lc_daysub"), soundEvents.get("th_lc_daybreaks"), soundEvents.get("th_lc_dayarp"), soundEvents.get("th_lc_daysynth")),
+            Arrays.asList(soundEvents.get("th_lc_daykick"), soundEvents.get("th_lc_dayatmos"), soundEvents.get("th_lc_dayshaker"), soundEvents.get("th_lc_dayperc"), soundEvents.get("th_lc_daysub"), soundEvents.get("th_lc_daybreaks"), soundEvents.get("th_lc_dayarp"), soundEvents.get("th_lc_daysynth"), soundEvents.get("th_lc_daytom")),
+            Arrays.asList(soundEvents.get("th_lc_dayatmos"), soundEvents.get("th_lc_daysub"), soundEvents.get("th_lc_daybreaks"))
+        )));
 
-        regions.put("lcN", new Region(
-            new ArrayList<List<SoundEvent>>() {{
-                add(new ArrayList<SoundEvent>() {{
-                    add(th_lc_nightkick);
-                    add(th_lc_nightatmos);
-                    add(th_lc_nightshaker);
-                }});
-                add(new ArrayList<SoundEvent>() {{
-                    add(th_lc_nightkick);
-                    add(th_lc_nightatmos);
-                    add(th_lc_nightshaker);
-                    add(th_lc_nightperc);
-                }});
-                add(new ArrayList<SoundEvent>() {{
-                    add(th_lc_nightkick);
-                    add(th_lc_nightatmos);
-                    add(th_lc_nightshaker);
-                    add(th_lc_nightperc);
-                    add(th_lc_nightsub);
-                    add(th_lc_nightnoise);
-                    add(th_lc_nighthat);
-                    add(th_lc_nightsynth);
-                }});
-                add(new ArrayList<SoundEvent>() {{
-                    add(th_lc_nightkick);
-                    add(th_lc_nightatmos);
-                    add(th_lc_nightshaker);
-                    add(th_lc_nightperc);
-                    add(th_lc_nightsub);
-                    add(th_lc_nightnoise);
-                    add(th_lc_nighthat);
-                    add(th_lc_nightsynth);
-                    add(th_lc_nighttom);
-                }});
-                add(new ArrayList<SoundEvent>() {{
-                    add(th_lc_nightatmos);
-                    add(th_lc_nightsub);
-                    add(th_lc_nightnoise);
-                }});
-            }}
-        ));
+
+        regions.put("lcN", new Region(Arrays.asList(
+            Arrays.asList(soundEvents.get("th_lc_nightkick"), soundEvents.get("th_lc_nightatmos"), soundEvents.get("th_lc_nightshaker")),
+            Arrays.asList(soundEvents.get("th_lc_nightkick"), soundEvents.get("th_lc_nightatmos"), soundEvents.get("th_lc_nightshaker"), soundEvents.get("th_lc_nightperc")),
+            Arrays.asList(soundEvents.get("th_lc_nightkick"), soundEvents.get("th_lc_nightatmos"), soundEvents.get("th_lc_nightshaker"), soundEvents.get("th_lc_nightperc"), soundEvents.get("th_lc_nightsub"), soundEvents.get("th_lc_nightnoise"), soundEvents.get("th_lc_nighthat"), soundEvents.get("th_lc_nightsynth")),
+            Arrays.asList(soundEvents.get("th_lc_nightkick"), soundEvents.get("th_lc_nightatmos"), soundEvents.get("th_lc_nightshaker"), soundEvents.get("th_lc_nightperc"), soundEvents.get("th_lc_nightsub"), soundEvents.get("th_lc_nightnoise"), soundEvents.get("th_lc_nighthat"), soundEvents.get("th_lc_nightsynth"), soundEvents.get("th_lc_nighttom")),
+            Arrays.asList(soundEvents.get("th_lc_nightatmos"), soundEvents.get("th_lc_nightsub"), soundEvents.get("th_lc_nightnoise"))
+        )));
 
         //Layer : TH_LF - KICK, TH_LF - SHAKER
         //Layer : TH_LF - KICK, TH_LF - PERC2, TH_LF - PERC1, TH_LF - SHAKER
         //Layer : TH_LF - KICK, TH_LF - PERC2, TH_LF - PERC1, TH_LF - SHAKER, TH_LF - BASS
         //Layer : TH_LF - KICK, TH_LF - PERC2, TH_LF - PERC1, TH_LF - SHAKER, TH_LF - SNARE, TH_LF - BASS, TH_LF - ARPS, TH_LF - NOISE
         //Layer : TH_LF - KICK, TH_LF - PERC2, TH_LF - PERC1, TH_LF - SHAKER, TH_LF - SNARE, TH_LF - BASS, TH_LF - ARPS, TH_LF - NOISE
-        regions.put("lf", new Region(
-            new ArrayList<List<SoundEvent>>() {{
-                add(new ArrayList<SoundEvent>() {{
-                    add(th_lf_kick);
-                    add(th_lf_shaker);
-                }});
-                add(new ArrayList<SoundEvent>() {{
-                    add(th_lf_kick);
-                    add(th_lf_perc2);
-                    add(th_lf_perc1);
-                    add(th_lf_shaker);
-                }});
-                add(new ArrayList<SoundEvent>() {{
-                    add(th_lf_kick);
-                    add(th_lf_perc2);
-                    add(th_lf_perc1);
-                    add(th_lf_shaker);
-                    add(th_lf_bass);
-                }});
-                add(new ArrayList<SoundEvent>() {{
-                    add(th_lf_kick);
-                    add(th_lf_perc2);
-                    add(th_lf_perc1);
-                    add(th_lf_shaker);
-                    add(th_lf_snare);
-                    add(th_lf_bass);
-                    add(th_lf_arps);
-                    add(th_lf_noise);
-                }});
-                add(new ArrayList<SoundEvent>() {{
-                    add(th_lf_kick);
-                    add(th_lf_perc2);
-                    add(th_lf_perc1);
-                    add(th_lf_shaker);
-                    add(th_lf_snare);
-                    add(th_lf_bass);
-                    add(th_lf_arps);
-                    add(th_lf_noise);
-                }});
-            }}
-        ));
+        regions.put("lf", new Region(Arrays.asList(
+            Arrays.asList(soundEvents.get("th_lf_kick"), soundEvents.get("th_lf_shaker")),
+            Arrays.asList(soundEvents.get("th_lf_kick"), soundEvents.get("th_lf_perc2"), soundEvents.get("th_lf_perc1"), soundEvents.get("th_lf_shaker")),
+            Arrays.asList(soundEvents.get("th_lf_kick"), soundEvents.get("th_lf_perc2"), soundEvents.get("th_lf_perc1"), soundEvents.get("th_lf_shaker"), soundEvents.get("th_lf_bass")),
+            Arrays.asList(soundEvents.get("th_lf_kick"), soundEvents.get("th_lf_perc2"), soundEvents.get("th_lf_perc1"), soundEvents.get("th_lf_shaker"), soundEvents.get("th_lf_snare"), soundEvents.get("th_lf_bass"), soundEvents.get("th_lf_arps"), soundEvents.get("th_lf_noise")),
+            Arrays.asList(soundEvents.get("th_lf_kick"), soundEvents.get("th_lf_perc2"), soundEvents.get("th_lf_perc1"), soundEvents.get("th_lf_shaker"), soundEvents.get("th_lf_snare"), soundEvents.get("th_lf_bass"), soundEvents.get("th_lf_arps"), soundEvents.get("th_lf_noise"))
+        )));
 
         //Layer : TH_LM - KICK, TH_LM - BASS, TH_LM - NOISE, TH_LM - PAD, TH_LM - PERC1
         //Layer : TH_LM - KICK, TH_LM - BASS, TH_LM - NOISE, TH_LM - PAD, TH_LM - PERC1, TH_LM - ARPS
         //Layer : TH_LM - KICK, TH_LM - BASS, TH_LM - NOISE, TH_LM - PAD, TH_LM - PERC1, TH_LM - ARPS, TH_LM - PERC2
         //Layer : TH_LM - KICK, TH_LM - BASS, TH_LM - NOISE, TH_LM - PAD, TH_LM - PERC1, TH_LM - ARPS, TH_LM - PERC2, TH_LM - SNARE
         //Layer : TH_LM - KICK, TH_LM - BASS, TH_LM - NOISE, TH_LM - PAD, TH_LM - PERC1, TH_LM - ARPS, TH_LM - PERC2, TH_LM - SNARE, TH_LM - WEIRD
-        regions.put("lm", new Region(
-            new ArrayList<List<SoundEvent>>() {{
-                add(new ArrayList<SoundEvent>() {{
-                    add(th_lm_kick);
-                    add(th_lm_bass);
-                    add(th_lm_noise);
-                    add(th_lm_pad);
-                    add(th_lm_perc1);
-                }});
-                add(new ArrayList<SoundEvent>() {{
-                    add(th_lm_kick);
-                    add(th_lm_bass);
-                    add(th_lm_noise);
-                    add(th_lm_pad);
-                    add(th_lm_perc1);
-                    add(th_lm_arps);
-                }});
-                add(new ArrayList<SoundEvent>() {{
-                    add(th_lm_kick);
-                    add(th_lm_bass);
-                    add(th_lm_noise);
-                    add(th_lm_pad);
-                    add(th_lm_perc1);
-                    add(th_lm_arps);
-                    add(th_lm_perc2);
-                }});
-                add(new ArrayList<SoundEvent>() {{
-                    add(th_lm_kick);
-                    add(th_lm_bass);
-                    add(th_lm_noise);
-                    add(th_lm_pad);
-                    add(th_lm_perc1);
-                    add(th_lm_arps);
-                    add(th_lm_perc2);
-                    add(th_lm_snare);
-                }});
-                add(new ArrayList<SoundEvent>() {{
-                    add(th_lm_kick);
-                    add(th_lm_bass);
-                    add(th_lm_noise);
-                    add(th_lm_pad);
-                    add(th_lm_perc1);
-                    add(th_lm_arps);
-                    add(th_lm_perc2);
-                    add(th_lm_snare);
-                    add(th_lm_weird);
-                }});
-            }}
-        ));
+        regions.put("lm", new Region(Arrays.asList(
+            Arrays.asList(soundEvents.get("th_lm_kick"), soundEvents.get("th_lm_bass"), soundEvents.get("th_lm_noise"), soundEvents.get("th_lm_pad"), soundEvents.get("th_lm_perc1")),
+            Arrays.asList(soundEvents.get("th_lm_kick"), soundEvents.get("th_lm_bass"), soundEvents.get("th_lm_noise"), soundEvents.get("th_lm_pad"), soundEvents.get("th_lm_perc1"), soundEvents.get("th_lm_arps")),
+            Arrays.asList(soundEvents.get("th_lm_kick"), soundEvents.get("th_lm_bass"), soundEvents.get("th_lm_noise"), soundEvents.get("th_lm_pad"), soundEvents.get("th_lm_perc1"), soundEvents.get("th_lm_arps"), soundEvents.get("th_lm_perc2")),
+            Arrays.asList(soundEvents.get("th_lm_kick"), soundEvents.get("th_lm_bass"), soundEvents.get("th_lm_noise"), soundEvents.get("th_lm_pad"), soundEvents.get("th_lm_perc1"), soundEvents.get("th_lm_arps"), soundEvents.get("th_lm_perc2"), soundEvents.get("th_lm_snare")),
+            Arrays.asList(soundEvents.get("th_lm_kick"), soundEvents.get("th_lm_bass"), soundEvents.get("th_lm_noise"), soundEvents.get("th_lm_pad"), soundEvents.get("th_lm_perc1"), soundEvents.get("th_lm_arps"), soundEvents.get("th_lm_perc2"), soundEvents.get("th_lm_snare"), soundEvents.get("th_lm_weird"))
+        )));
 
         //Layer : TH_OE - NOISE, {N}TH_OE - FLOW
         //Layer : TH_OE - NOISE, TH_OE - KICKPERC, {N}TH_OE - FLOW
@@ -619,118 +200,34 @@ public class ModSounds {
         //Layer : TH_OE - NOISE, TH_OE - KICKPERC, {Sunken Pier}TH_OE - BASS, {Outer Expanse|Journey's End}TH_OE - PERC2, {Sunken Pier}TH_OE - WAVES, {N}TH_OE - FLOW
         //Layer : TH_OE - NOISE, TH_OE - KICKPERC, {Sunken Pier}TH_OE - BASS, {Outer Expanse|Journey's End}TH_OE - PERC2, {Sunken Pier}TH_OE - WAVES, {D}TH_OE - LEAD, {D}TH_OE - ARP, {N}TH_OE - FLOW
         //Layer : TH_OE - NOISE, TH_OE - KICKPERC, {Sunken Pier}TH_OE - BASS, {Outer Expanse|Journey's End}TH_OE - PERC2, {Sunken Pier}TH_OE - WAVES, {D}TH_OE - LEAD, {D}TH_OE - ARP, {N}TH_OE - FLOW
-        regions.put("oe", new Region(
-            new ArrayList<List<SoundEvent>>() {{
-                add(new ArrayList<SoundEvent>() {{
-                    add(th_oe_noise);
-                }});
-                add(new ArrayList<SoundEvent>() {{
-                    add(th_oe_noise);
-                    add(th_oe_kickperc);
-                }});
-                add(new ArrayList<SoundEvent>() {{
-                    add(th_oe_noise);
-                    add(th_oe_kickperc);
-                    add(th_oe_perc2);
-                }});
-                add(new ArrayList<SoundEvent>() {{
-                    add(th_oe_noise);
-                    add(th_oe_kickperc);
-                    add(th_oe_perc2);
-                }});
-                add(new ArrayList<SoundEvent>() {{
-                    add(th_oe_noise);
-                    add(th_oe_kickperc);
-                    add(th_oe_perc2);
-                    add(th_oe_lead);
-                    add(th_oe_arp);
-                }});
-                add(new ArrayList<SoundEvent>() {{
-                    add(th_oe_noise);
-                    add(th_oe_kickperc);
-                    add(th_oe_perc2);
-                    add(th_oe_lead);
-                    add(th_oe_arp);
-                }});
-            }}
-        ));
+        regions.put("oe", new Region(Arrays.asList(
+            Arrays.asList(soundEvents.get("th_oe_noise")),
+            Arrays.asList(soundEvents.get("th_oe_noise"), soundEvents.get("th_oe_kickperc")),
+            Arrays.asList(soundEvents.get("th_oe_noise"), soundEvents.get("th_oe_kickperc"), soundEvents.get("th_oe_perc2")),
+            Arrays.asList(soundEvents.get("th_oe_noise"), soundEvents.get("th_oe_kickperc"), soundEvents.get("th_oe_perc2")),
+            Arrays.asList(soundEvents.get("th_oe_noise"), soundEvents.get("th_oe_kickperc"), soundEvents.get("th_oe_perc2"), soundEvents.get("th_oe_lead"), soundEvents.get("th_oe_arp")),
+            Arrays.asList(soundEvents.get("th_oe_noise"), soundEvents.get("th_oe_kickperc"), soundEvents.get("th_oe_perc2"), soundEvents.get("th_oe_lead"), soundEvents.get("th_oe_arp"))
+        )));
 
-        regions.put("oeN", new Region(
-            new ArrayList<List<SoundEvent>>() {{
-                add(new ArrayList<SoundEvent>() {{
-                    add(th_oe_noise);
-                    add(th_oe_flow);
-                }});
-                add(new ArrayList<SoundEvent>() {{
-                    add(th_oe_noise);
-                    add(th_oe_kickperc);
-                    add(th_oe_flow);
-                }});
-                add(new ArrayList<SoundEvent>() {{
-                    add(th_oe_noise);
-                    add(th_oe_kickperc);
-                    add(th_oe_perc2);
-                    add(th_oe_flow);
-                }});
-                add(new ArrayList<SoundEvent>() {{
-                    add(th_oe_noise);
-                    add(th_oe_kickperc);
-                    add(th_oe_perc2);
-                    add(th_oe_flow);
-                }});
-                add(new ArrayList<SoundEvent>() {{
-                    add(th_oe_noise);
-                    add(th_oe_kickperc);
-                    add(th_oe_perc2);
-                    add(th_oe_flow);
-                }});
-                add(new ArrayList<SoundEvent>() {{
-                    add(th_oe_noise);
-                    add(th_oe_kickperc);
-                    add(th_oe_perc2);
-                    add(th_oe_flow);
-                }});
-            }}
-        ));
 
-        regions.put("oeS", new Region(
-            new ArrayList<List<SoundEvent>>() {{
-                add(new ArrayList<SoundEvent>() {{
-                    add(th_oe_noise);
-                }});
-                add(new ArrayList<SoundEvent>() {{
-                    add(th_oe_noise);
-                    add(th_oe_kickperc);
-                }});
-                add(new ArrayList<SoundEvent>() {{
-                    add(th_oe_noise);
-                    add(th_oe_kickperc);
-                    add(th_oe_bass);
-                }});
-                add(new ArrayList<SoundEvent>() {{
-                    add(th_oe_noise);
-                    add(th_oe_kickperc);
-                    add(th_oe_bass);
-                    add(th_oe_waves);
-                }});
-                add(new ArrayList<SoundEvent>() {{
-                    add(th_oe_noise);
-                    add(th_oe_kickperc);
-                    add(th_oe_bass);
-                    add(th_oe_waves);
-                    add(th_oe_lead);
-                    add(th_oe_arp);
-                }});
-                add(new ArrayList<SoundEvent>() {{
-                    add(th_oe_noise);
-                    add(th_oe_kickperc);
-                    add(th_oe_bass);
-                    add(th_oe_waves);
-                    add(th_oe_lead);
-                    add(th_oe_arp);
-                }});
-            }}
-        ));
+        regions.put("oeN", new Region(Arrays.asList(
+            Arrays.asList(soundEvents.get("th_oe_noise"), soundEvents.get("th_oe_flow")),
+            Arrays.asList(soundEvents.get("th_oe_noise"), soundEvents.get("th_oe_kickperc"), soundEvents.get("th_oe_flow")),
+            Arrays.asList(soundEvents.get("th_oe_noise"), soundEvents.get("th_oe_kickperc"), soundEvents.get("th_oe_perc2"), soundEvents.get("th_oe_flow")),
+            Arrays.asList(soundEvents.get("th_oe_noise"), soundEvents.get("th_oe_kickperc"), soundEvents.get("th_oe_perc2"), soundEvents.get("th_oe_flow")),
+            Arrays.asList(soundEvents.get("th_oe_noise"), soundEvents.get("th_oe_kickperc"), soundEvents.get("th_oe_perc2"), soundEvents.get("th_oe_flow")),
+            Arrays.asList(soundEvents.get("th_oe_noise"), soundEvents.get("th_oe_kickperc"), soundEvents.get("th_oe_perc2"), soundEvents.get("th_oe_flow"))
+        )));
+            
+
+        regions.put("oeS", new Region(Arrays.asList(
+            Arrays.asList(soundEvents.get("th_oe_noise")),
+            Arrays.asList(soundEvents.get("th_oe_noise"), soundEvents.get("th_oe_kickperc")),
+            Arrays.asList(soundEvents.get("th_oe_noise"), soundEvents.get("th_oe_kickperc"), soundEvents.get("th_oe_bass")),
+            Arrays.asList(soundEvents.get("th_oe_noise"), soundEvents.get("th_oe_kickperc"), soundEvents.get("th_oe_bass"), soundEvents.get("th_oe_waves")),
+            Arrays.asList(soundEvents.get("th_oe_noise"), soundEvents.get("th_oe_kickperc"), soundEvents.get("th_oe_bass"), soundEvents.get("th_oe_waves"), soundEvents.get("th_oe_lead"), soundEvents.get("th_oe_arp")),
+            Arrays.asList(soundEvents.get("th_oe_noise"), soundEvents.get("th_oe_kickperc"), soundEvents.get("th_oe_bass"), soundEvents.get("th_oe_waves"), soundEvents.get("th_oe_lead"), soundEvents.get("th_oe_arp"))
+        )));
 
         //Layer : TH_SI - KICK, TH_SI - PERC1 
         //Layer : TH_SI - KICK, TH_SI - PERC1, TH_SI - SHAKER
@@ -738,215 +235,65 @@ public class ModSounds {
         //Layer : TH_SI - KICK, TH_SI - PERC1, TH_SI - NOISE, TH_SI - SHAKER, TH_SI - ARPS, TH_SI - BASS, TH_SI - WEIRD, TH_SI -SNARE
         //Layer : TH_SI - PERC1, TH_SI - NOISE, TH_SI - SHAKER, TH_SI - ARPS, TH_SI - BASS, TH_SI - WEIRD, TH_SI -SNARE
         //Layer : TH_SI - PANIC
-        regions.put("si", new Region(
-            new ArrayList<List<SoundEvent>>() {{
-                add(new ArrayList<SoundEvent>() {{
-                    add(th_si_kick);
-                    add(th_si_perc1);
-                }});
-                add(new ArrayList<SoundEvent>() {{
-                    add(th_si_kick);
-                    add(th_si_perc1);
-                    add(th_si_shaker);
-                }});
-                add(new ArrayList<SoundEvent>() {{
-                    add(th_si_kick);
-                    add(th_si_perc1);
-                    add(th_si_noise);
-                    add(th_si_shaker);
-                    add(th_si_weird);
-                }});
-                add(new ArrayList<SoundEvent>() {{
-                    add(th_si_kick);
-                    add(th_si_perc1);
-                    add(th_si_noise);
-                    add(th_si_shaker);
-                    add(th_si_arps);
-                    add(th_si_bass);
-                    add(th_si_weird);
-                    add(th_si_snare);
-                }});
-                add(new ArrayList<SoundEvent>() {{
-                    add(th_si_perc1);
-                    add(th_si_noise);
-                    add(th_si_shaker);
-                    add(th_si_arps);
-                    add(th_si_bass);
-                    add(th_si_weird);
-                    add(th_si_snare);
-                }});
-                add(new ArrayList<SoundEvent>() {{
-                    add(th_si_panic);
-                }});
-            }}
-        ));
+        regions.put("si", new Region(Arrays.asList(
+            Arrays.asList(soundEvents.get("th_si_kick"), soundEvents.get("th_si_perc1")),
+            Arrays.asList(soundEvents.get("th_si_kick"), soundEvents.get("th_si_perc1"), soundEvents.get("th_si_shaker")),
+            Arrays.asList(soundEvents.get("th_si_kick"), soundEvents.get("th_si_perc1"), soundEvents.get("th_si_noise"), soundEvents.get("th_si_shaker"), soundEvents.get("th_si_weird")),
+            Arrays.asList(soundEvents.get("th_si_kick"), soundEvents.get("th_si_perc1"), soundEvents.get("th_si_noise"), soundEvents.get("th_si_shaker"), soundEvents.get("th_si_arps"), soundEvents.get("th_si_bass"), soundEvents.get("th_si_weird"), soundEvents.get("th_si_snare")),
+            Arrays.asList(soundEvents.get("th_si_perc1"), soundEvents.get("th_si_noise"), soundEvents.get("th_si_shaker"), soundEvents.get("th_si_arps"), soundEvents.get("th_si_bass"), soundEvents.get("th_si_weird"), soundEvents.get("th_si_snare")),
+            Arrays.asList(soundEvents.get("th_si_panic"))
+        )));
 
         //Layer : TH_SL - KICK, TH_SL - BASS
         //Layer : TH_SL - KICK, TH_SL - BASS, TH_SL - PERC2, TH_SL - ARPS
         //Layer : TH_SL - KICK, TH_SL - BASS, TH_SL - PERC2, TH_SL - ARPS, TH_SL - NOISE, TH_SL - SNARE
         //Layer : TH_SL - KICK, TH_SL - BASS, TH_SL - PERC2, TH_SL - ARPS, TH_SL - NOISE, TH_SL - SNARE, TH_SL - PERC2, TH_SL - LEAD
         //Layer : TH_SL - KICK, TH_SL - BASS, TH_SL - PERC2, TH_SL - ARPS, TH_SL - NOISE, TH_SL - SNARE, TH_SL - PERC2, TH_SL - LEAD
-        regions.put("sl", new Region(
-            new ArrayList<List<SoundEvent>>() {{
-                add(new ArrayList<SoundEvent>() {{
-                    add(th_sl_kick);
-                    add(th_sl_bass);
-                }});
-                add(new ArrayList<SoundEvent>() {{
-                    add(th_sl_kick);
-                    add(th_sl_bass);
-                    add(th_sl_perc2);
-                    add(th_sl_arps);
-                }});
-                add(new ArrayList<SoundEvent>() {{
-                    add(th_sl_kick);
-                    add(th_sl_bass);
-                    add(th_sl_perc2);
-                    add(th_sl_arps);
-                    add(th_sl_noise);
-                    add(th_sl_snare);
-                }});
-                add(new ArrayList<SoundEvent>() {{
-                    add(th_sl_kick);
-                    add(th_sl_bass);
-                    add(th_sl_perc2);
-                    add(th_sl_arps);
-                    add(th_sl_noise);
-                    add(th_sl_snare);
-                    add(th_sl_perc2);
-                    add(th_sl_lead);
-                }});
-                add(new ArrayList<SoundEvent>() {{
-                    add(th_sl_kick);
-                    add(th_sl_bass);
-                    add(th_sl_perc2);
-                    add(th_sl_arps);
-                    add(th_sl_noise);
-                    add(th_sl_snare);
-                    add(th_sl_perc2);
-                    add(th_sl_lead);
-                }});
-            }}
-        ));
+        regions.put("sl", new Region(Arrays.asList(
+            Arrays.asList(soundEvents.get("th_sl_kick"), soundEvents.get("th_sl_bass")),
+            Arrays.asList(soundEvents.get("th_sl_kick"), soundEvents.get("th_sl_bass"), soundEvents.get("th_sl_perc2"), soundEvents.get("th_sl_arps")),
+            Arrays.asList(soundEvents.get("th_sl_kick"), soundEvents.get("th_sl_bass"), soundEvents.get("th_sl_perc2"), soundEvents.get("th_sl_arps"), soundEvents.get("th_sl_noise"), soundEvents.get("th_sl_snare")),
+            Arrays.asList(soundEvents.get("th_sl_kick"), soundEvents.get("th_sl_bass"), soundEvents.get("th_sl_perc2"), soundEvents.get("th_sl_arps"), soundEvents.get("th_sl_noise"), soundEvents.get("th_sl_snare"), soundEvents.get("th_sl_perc2"), soundEvents.get("th_sl_lead")),
+            Arrays.asList(soundEvents.get("th_sl_kick"), soundEvents.get("th_sl_bass"), soundEvents.get("th_sl_perc2"), soundEvents.get("th_sl_arps"), soundEvents.get("th_sl_noise"), soundEvents.get("th_sl_snare"), soundEvents.get("th_sl_perc2"), soundEvents.get("th_sl_lead"))
+        )));
 
         //Layer : TH_SS - NOISE, TH_SS - BASS, TH_SS - KICK
         //Layer : TH_SS - NOISE, TH_SS - BASS, TH_SS - KICK, TH_SS - POP
         //Layer : TH_SS - NOISE, TH_SS - BASS, TH_SS - KICK, TH_SS - POP, TH_SS - LEAD
         //Layer : TH_SS - NOISE, TH_SS - BASS, TH_SS - KICK, TH_SS - POP, TH_SS - LEAD
 
-        regions.put("ss", new Region(
-            new ArrayList<List<SoundEvent>>() {{
-                add(new ArrayList<SoundEvent>() {{
-                    add(th_ss_noise);
-                    add(th_ss_bass);
-                    add(th_ss_kick);
-                }});
-                add(new ArrayList<SoundEvent>() {{
-                    add(th_ss_noise);
-                    add(th_ss_bass);
-                    add(th_ss_kick);
-                    add(th_ss_pop);
-                }});
-                add(new ArrayList<SoundEvent>() {{
-                    add(th_ss_noise);
-                    add(th_ss_bass);
-                    add(th_ss_kick);
-                    add(th_ss_pop);
-                    add(th_ss_lead);
-                }});
-                add(new ArrayList<SoundEvent>() {{
-                    add(th_ss_noise);
-                    add(th_ss_bass);
-                    add(th_ss_kick);
-                    add(th_ss_pop);
-                    add(th_ss_lead);
-                }});
-            }}
-        ));
+        regions.put("ss", new Region(Arrays.asList(
+            Arrays.asList(soundEvents.get("th_ss_noise"), soundEvents.get("th_ss_bass"), soundEvents.get("th_ss_kick")),
+            Arrays.asList(soundEvents.get("th_ss_noise"), soundEvents.get("th_ss_bass"), soundEvents.get("th_ss_kick"), soundEvents.get("th_ss_pop")),
+            Arrays.asList(soundEvents.get("th_ss_noise"), soundEvents.get("th_ss_bass"), soundEvents.get("th_ss_kick"), soundEvents.get("th_ss_pop"), soundEvents.get("th_ss_lead")),
+            Arrays.asList(soundEvents.get("th_ss_noise"), soundEvents.get("th_ss_bass"), soundEvents.get("th_ss_kick"), soundEvents.get("th_ss_pop"), soundEvents.get("th_ss_lead"))
+        )));
 
         // Layer : TH_SU - KICK, TH_SU - SHAKER
         // Layer : TH_SU - KICK, TH_SU - SHAKER, TH_SU - PERC1, TH_SU - NOISE
         // Layer : TH_SU - KICK, TH_SU - SHAKER, TH_SU - PERC1, TH_SU - NOISE, TH_SU - HITS, TH_SU - BASS
         // Layer : TH_SU - KICK, TH_SU - SHAKER, TH_SU - PERC1, TH_SU - ARPS, TH_SU - NOISE, TH_SU - HITS, TH_SU - BASS
         // Layer : TH_SU - LEAD, TH_SU - BASS
-        regions.put("su", new Region(
-            new ArrayList<List<SoundEvent>>() {{
-                add(new ArrayList<SoundEvent>() {{
-                    add(th_su_kick);
-                    add(th_su_shaker);
-                }});
-                add(new ArrayList<SoundEvent>() {{
-                    add(th_su_kick);
-                    add(th_su_shaker);
-                    add(th_su_perc1);
-                    add(th_su_noise);
-                }});
-                add(new ArrayList<SoundEvent>() {{
-                    add(th_su_kick);
-                    add(th_su_shaker);
-                    add(th_su_perc1);
-                    add(th_su_noise);
-                    add(th_su_hits);
-                    add(th_su_bass);
-                }});
-                add(new ArrayList<SoundEvent>() {{
-                    add(th_su_kick);
-                    add(th_su_shaker);
-                    add(th_su_perc1);
-                    add(th_su_arps);
-                    add(th_su_noise);
-                    add(th_su_hits);
-                    add(th_su_bass);
-                }});
-                add(new ArrayList<SoundEvent>() {{
-                    add(th_su_lead);
-                    add(th_su_bass);
-                }});
-            }}
-        ));
+        regions.put("su", new Region(Arrays.asList(
+            Arrays.asList(soundEvents.get("th_su_kick"), soundEvents.get("th_su_shaker")),
+            Arrays.asList(soundEvents.get("th_su_kick"), soundEvents.get("th_su_shaker"), soundEvents.get("th_su_perc1"), soundEvents.get("th_su_noise")),
+            Arrays.asList(soundEvents.get("th_su_kick"), soundEvents.get("th_su_shaker"), soundEvents.get("th_su_perc1"), soundEvents.get("th_su_noise"), soundEvents.get("th_su_hits"), soundEvents.get("th_su_bass")),
+            Arrays.asList(soundEvents.get("th_su_kick"), soundEvents.get("th_su_shaker"), soundEvents.get("th_su_perc1"), soundEvents.get("th_su_arps"), soundEvents.get("th_su_noise"), soundEvents.get("th_su_hits"), soundEvents.get("th_su_bass")),
+            Arrays.asList(soundEvents.get("th_su_lead"), soundEvents.get("th_su_bass"))
+        )));
 
         //Layer : TH_VS - KICK, TH_VS - SHAKER
         //Layer : TH_VS - KICK, TH_VS - NOISE, TH_VS - SHAKER, TH_VS - BASS, TH_VS - PERC1
         //Layer : TH_VS - KICK, TH_VS - NOISE, TH_VS - SHAKER, TH_VS - BASS, TH_VS - ARPS, TH_VS - PERC1, TH_VS - PERC2
         //Layer : TH_VS - KICK, TH_VS - NOISE, TH_VS - SHAKER, TH_VS - BASS, TH_VS - ARPS, TH_VS - PERC1, TH_VS - PERC2, TH_VS - WEIRD
         //Layer : TH_VS - SYNTH
-        regions.put("vs", new Region(
-            new ArrayList<List<SoundEvent>>() {{
-                add(new ArrayList<SoundEvent>() {{
-                    add(th_vs_kick);
-                    add(th_vs_shaker);
-                }});
-                add(new ArrayList<SoundEvent>() {{
-                    add(th_vs_kick);
-                    add(th_vs_noise);
-                    add(th_vs_shaker);
-                    add(th_vs_bass);
-                    add(th_vs_perc1);
-                }});
-                add(new ArrayList<SoundEvent>() {{
-                    add(th_vs_kick);
-                    add(th_vs_noise);
-                    add(th_vs_shaker);
-                    add(th_vs_bass);
-                    add(th_vs_arps);
-                    add(th_vs_perc1);
-                    add(th_vs_perc2);
-                }});
-                add(new ArrayList<SoundEvent>() {{
-                    add(th_vs_kick);
-                    add(th_vs_noise);
-                    add(th_vs_shaker);
-                    add(th_vs_bass);
-                    add(th_vs_arps);
-                    add(th_vs_perc1);
-                    add(th_vs_perc2);
-                    add(th_vs_weird);
-                }});
-                add(new ArrayList<SoundEvent>() {{
-                    add(th_vs_synth);
-                }});
-            }}
-        ));
+        regions.put("vs", new Region(Arrays.asList(
+            Arrays.asList(soundEvents.get("th_vs_kick"), soundEvents.get("th_vs_shaker")),
+            Arrays.asList(soundEvents.get("th_vs_kick"), soundEvents.get("th_vs_noise"), soundEvents.get("th_vs_shaker"), soundEvents.get("th_vs_bass"), soundEvents.get("th_vs_perc1")),
+            Arrays.asList(soundEvents.get("th_vs_kick"), soundEvents.get("th_vs_noise"), soundEvents.get("th_vs_shaker"), soundEvents.get("th_vs_bass"), soundEvents.get("th_vs_arps"), soundEvents.get("th_vs_perc1"), soundEvents.get("th_vs_perc2")),
+            Arrays.asList(soundEvents.get("th_vs_kick"), soundEvents.get("th_vs_noise"), soundEvents.get("th_vs_shaker"), soundEvents.get("th_vs_bass"), soundEvents.get("th_vs_arps"), soundEvents.get("th_vs_perc1"), soundEvents.get("th_vs_perc2"), soundEvents.get("th_vs_weird")),
+            Arrays.asList(soundEvents.get("th_vs_synth"))
+        )));
 
         //add regions to biomeRegions
         //lm for all warm oceans

@@ -8,6 +8,9 @@ import java.util.List;
 
 import net.minecraft.sound.SoundEvent;
 
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.sound.MusicTracker;
 import net.minecraft.client.sound.SoundManager;
@@ -75,28 +78,28 @@ public class Region {
     
 
     public void play(MinecraftClient client){
-
-        //stop all sounds which are music
-
-
-
         SoundManager soundManager = client.getSoundManager();
-
         MusicTracker musicTracker = client.getMusicTracker();
-
+        ExecutorService executor = Executors.newCachedThreadPool();
+    
         musicTracker.stop();
-
-        //play all sound players and wait for them to load
-        for(int i = 0; i < soundPlayers.size(); i++) {
-            soundManager.play(soundPlayers.get(i));
+    
+        for (SoundPlayer soundPlayer : soundPlayers) {
+            executor.execute(() -> soundManager.play(soundPlayer));
         }
+    
+        executor.shutdown(); // Initiates an orderly shutdown in which previously submitted tasks are executed, but no new tasks will be accepted.
     }
 
     public void stop(MinecraftClient client){
-        if(soundPlayers != null) {
-            for(int i = 0; i < soundPlayers.size(); i++) {
-                client.getSoundManager().stop(soundPlayers.get(i));
+        if (soundPlayers != null) {
+            ExecutorService executor = Executors.newCachedThreadPool();
+    
+            for (SoundPlayer soundPlayer : soundPlayers) {
+                executor.execute(() -> client.getSoundManager().stop(soundPlayer));
             }
+    
+            executor.shutdown(); // Initiates an orderly shutdown in which previously submitted tasks are executed, but no new tasks will be accepted.
         }
     }
 }
