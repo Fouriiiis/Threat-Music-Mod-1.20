@@ -1014,5 +1014,37 @@
               "stream": true
           }
       ]
-  }
+  },
+  "test1": {
+      "sounds": [
+          {
+              "name": "modid:test1",
+              "stream": true
+          }
+      ]
+  },
+    "test2": {
+        "sounds": [
+            {
+                "name": "modid:test2",
+                "stream": true
+            }
+        ]
+    },
+    "test3": {
+        "sounds": [
+            {
+                "name": "modid:test3",
+                "stream": true
+            }
+        ]
+    },
+    "test4": {
+        "sounds": [
+            {
+                "name": "modid:test4",
+                "stream": true
+            }
+        ]
+    }
 }

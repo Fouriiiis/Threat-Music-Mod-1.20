@@ -88,7 +88,7 @@ public class Region {
             executor.execute(() -> soundManager.play(soundPlayer));
         }
     
-        executor.shutdown(); // Initiates an orderly shutdown in which previously submitted tasks are executed, but no new tasks will be accepted.
+        executor.shutdown();
     }
 
     public void stop(MinecraftClient client){

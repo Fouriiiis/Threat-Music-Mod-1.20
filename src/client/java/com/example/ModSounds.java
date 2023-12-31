@@ -295,6 +295,13 @@ public class ModSounds {
             Arrays.asList(soundEvents.get("th_vs_synth"))
         )));
 
+        regions.put("test", new Region(Arrays.asList(
+            Arrays.asList(soundEvents.get("test1")),
+            Arrays.asList(soundEvents.get("test2")),
+            Arrays.asList(soundEvents.get("test3")),
+            Arrays.asList(soundEvents.get("test4"))
+        )));
+
         //add regions to biomeRegions
         //lm for all warm oceans
         biomeRegions.put(new ArrayList<String>() {{
@@ -390,7 +397,7 @@ public class ModSounds {
         // Print the current biome to the chat
         client.player.sendMessage(Text.of(currentBiomeName), false);
 
-        Region currentRegion = regions.get("su");
+        Region currentRegion = regions.get("test");
 
         for (Map.Entry<List<String>, Region> entry : biomeRegions.entrySet()) {
             if (entry.getKey().contains(currentBiomeName)) {
