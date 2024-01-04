@@ -1,7 +1,10 @@
 // Import necessary classes
 package com.example;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents.EndTick;
@@ -62,6 +65,9 @@ import net.minecraft.util.hit.HitResult;
 
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.RaycastContext;
+
+//import ThreatDetermination.java
+import com.example.ThreatDetermination;
 
 
 public class ThreatTracker implements EndTick {
@@ -143,19 +149,21 @@ public class ThreatTracker implements EndTick {
         WitherEntity.class
     );
         
+    public static Map<Entity, Float> trackedEntities = new HashMap<Entity, Float>();
 
+    List<Float> threatLevels = new ArrayList<Float>();
 
     @Override
     public void onEndTick(MinecraftClient client) {
-
-  
-
-
         if (client != null && client.player != null) {
 
             threatLevel = 0;
 
+            threatLevels.clear();
+
             ClientPlayerEntity player = client.player;
+
+            
         
             List<Entity> nearEntities = client.world.getEntitiesByClass(Entity.class, client.player.getBoundingBox().expand(blockRadius1, blockRadius1, blockRadius1), EntityPredicates.EXCEPT_SPECTATOR);
 
@@ -169,74 +177,134 @@ public class ThreatTracker implements EndTick {
 
             nearEntities = nearEntities.stream().filter(entity -> hostileEntities.contains(entity.getClass()) || passiveEntities.contains(entity.getClass())).collect(Collectors.toList());
 
-            //for all near entities, if they are hostile && line of sight, add to threatLevel
-
             for (Entity entity : nearEntities) {
-                //if hostileEntities contains entity.getClass() add 1 to threatLevel
-                //if lineOfSight(entity, player) add entity.getMaxHealth() to threatLevel
-                if(hostileEntities.contains(entity.getClass())) {
-                    threatLevel += (((LivingEntity) entity).getMaxHealth() + ((LivingEntity) entity).getArmor()) / 5;
-                    if(lineOfSight(entity, player)) {
-                        threatLevel += ((LivingEntity) entity).getMaxHealth() + ((LivingEntity) entity).getArmor();
-                    }
-                }
-                else if (passiveEntities.contains(entity.getClass())) {
-                    if(entity instanceof MobEntity && ((MobEntity)entity).isAttacking()) {
-                        threatLevel += (((LivingEntity) entity).getMaxHealth() + ((LivingEntity) entity).getArmor()) / 5;
-                        if(lineOfSight(entity, player)) {
-                            threatLevel += ((LivingEntity) entity).getMaxHealth() + ((LivingEntity) entity).getArmor();
-                        }
-                    }
-                }
-            }
+                //if lineOfSight(entity, player) add to trackedEntities
 
-            //for all far entities, if they are longRangeEntities && line of sight, add health to threatLevel
+                HitResult result = raycast(entity, player);
+
+                if(lineOfSight(result)) {
+                    trackedEntities.put(entity, 0.0f);
+                }
+
+                threatLevels.add(ThreatDetermination.threatOfEntity(entity, trackedEntities.get(entity), result, player));
+
+            }
 
             for (Entity entity : farEntities) {
-                if(lineOfSight(entity, player) && !nearEntities.contains(entity)) {
-                    threatLevel += ((LivingEntity) entity).getMaxHealth() + ((LivingEntity) entity).getArmor();
+                //if lineOfSight(entity, player) add to trackedEntities
+
+                HitResult result = raycast(entity, player);
+
+                if(lineOfSight(result)) {
+                    trackedEntities.put(entity, 0.0f);
                 }
+
+                threatLevels.add(ThreatDetermination.threatOfEntity(entity, trackedEntities.get(entity), result, player));
             }
 
-            //print threatLevel to chat
+            // Increment last seen value for all entities and remove if value reaches 600
 
-            //client.player.sendMessage(Text.of("Threat Level: " + threatLevel), false);
+            trackedEntities.entrySet().removeIf(entry -> {
+                entry.setValue(entry.getValue() + 1.0f);
+                return entry.getValue() >= 600.0f;
+            });
+
+            //log the number of entities being tracked
+
+            //System.out.println(trackedEntities.size());
+
+            //log the first threatLevel
+
+            if (!threatLevels.isEmpty()) {
+                System.out.println(threatLevels.get(0));
+            }
 
             
 
-            if (threatLevel > 0 && stopped) {
-                region = ModSounds.changeRegion(client);
-                region.play(client);
-                //client.player.sendMessage(Text.of("Playing music"), false);
-                lastPlayed = 0;
-                stopped = false;
-            } else if (threatLevel == 0 && !stopped) {
-                if (lastPlayed >= maxTime) {
-                    stopRegion(client);
-                } else {
-                    lastPlayed++;
-                }
-            } else if (threatLevel > 0 && !stopped) {
-                lastPlayed = 0;
-            }
-        }
+            // list of threat levels
+
+            //List<Float> threatLevels = new ArrayList<Float>();
+
+
+
+            //for all near entities, if they are hostile && line of sight, add to threatLevel
+
+            // for (Entity entity : nearEntities) {
+            //     //if hostileEntities contains entity.getClass() add 1 to threatLevel
+            //     //if lineOfSight(entity, player) add entity.getMaxHealth() to threatLevel
+            //     if(hostileEntities.contains(entity.getClass())) {
+            //         threatLevel += (((LivingEntity) entity).getMaxHealth() + ((LivingEntity) entity).getArmor()) / 5;
+            //         if(lineOfSight(entity, player)) {
+            //             threatLevel += ((LivingEntity) entity).getMaxHealth() + ((LivingEntity) entity).getArmor();
+            //         }
+            //     }
+            //     else if (passiveEntities.contains(entity.getClass())) {
+            //         if(entity instanceof MobEntity && ((MobEntity)entity).isAttacking()) {
+            //             threatLevel += (((LivingEntity) entity).getMaxHealth() + ((LivingEntity) entity).getArmor()) / 5;
+            //             if(lineOfSight(entity, player)) {
+            //                 threatLevel += ((LivingEntity) entity).getMaxHealth() + ((LivingEntity) entity).getArmor();
+            //             }
+            //         }
+            //     }
+            // }
+
+            //for all far entities, if they are longRangeEntities && line of sight, add health to threatLevel
+
+        //     for (Entity entity : farEntities) {
+        //         if(lineOfSight(entity, player) && !nearEntities.contains(entity)) {
+        //             threatLevel += ((LivingEntity) entity).getMaxHealth() + ((LivingEntity) entity).getArmor();
+        //         }
+        //     }
+
+        //     //print threatLevel to chat
+
+        //     //client.player.sendMessage(Text.of("Threat Level: " + threatLevel), false);
+
+            
+
+        //     if (threatLevel > 0 && stopped) {
+        //         region = ModSounds.changeRegion(client);
+        //         region.play(client);
+        //         //client.player.sendMessage(Text.of("Playing music"), false);
+        //         lastPlayed = 0;
+        //         stopped = false;
+        //     } else if (threatLevel == 0 && !stopped) {
+        //         if (lastPlayed >= maxTime) {
+        //             stopRegion(client);
+        //         } else {
+        //             lastPlayed++;
+        //         }
+        //     } else if (threatLevel > 0 && !stopped) {
+        //         lastPlayed = 0;
+        //     }
+         }
         //System.out.println(lastPlayed);
     }
 
-    
-    
-    public boolean lineOfSight(Entity entity, PlayerEntity player) {
-        Vec3d eyePos = entity.getEyePos();
-        Vec3d platerPos = player.getPos();
-        Vec3d endVec = player.getEyePos();
-        
-        HitResult result = entity.getWorld().raycast(new RaycastContext(eyePos, endVec, RaycastContext.ShapeType.COLLIDER, RaycastContext.FluidHandling.NONE, entity));
-        HitResult result2 = entity.getWorld().raycast(new RaycastContext(eyePos, platerPos, RaycastContext.ShapeType.COLLIDER, RaycastContext.FluidHandling.NONE, entity));
-        if (result.getType() == HitResult.Type.MISS || result2.getType() == HitResult.Type.MISS) {
+    public boolean lineOfSight(HitResult result) {
+        if (result.getType() == HitResult.Type.MISS) {
             return true;
         }
         return false;
+
+        
     }
+
+    public HitResult raycast(Entity entity, PlayerEntity player) {
+        Vec3d eyePos = entity.getEyePos();
+        Vec3d platerPos = player.getPos();
+        Vec3d endVec = player.getEyePos();
+
+        HitResult result = entity.getWorld().raycast(new RaycastContext(eyePos, endVec, RaycastContext.ShapeType.COLLIDER, RaycastContext.FluidHandling.NONE, entity));
+        HitResult result2 = entity.getWorld().raycast(new RaycastContext(eyePos, platerPos, RaycastContext.ShapeType.COLLIDER, RaycastContext.FluidHandling.NONE, entity));
+        if (result2.getType() == HitResult.Type.MISS) {
+            return result2;
+        }
+        return result;
+
+    }
+    
+    
 
     public void stopRegion(MinecraftClient client) {
         if (!stopped){
