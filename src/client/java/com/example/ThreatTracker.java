@@ -215,9 +215,9 @@ public class ThreatTracker implements EndTick {
 
             //log the first threatLevel
 
-            if (!threatLevels.isEmpty()) {
-                System.out.println(threatLevels.get(0));
-            }
+            //if (!threatLevels.isEmpty()) {
+                //System.out.println(threatLevels.get(0));
+            //}
 
             
 

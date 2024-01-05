@@ -16,23 +16,35 @@ public class ThreatDetermination {
     static Float threatOfEntity(Entity entity, Float lastSeen, HitResult result, ClientPlayerEntity player) {
         //Threat = Base * Dead * Aggro * Find * Dist * Speed
 
-        float D = (float) result.getPos().distanceTo(player.getPos());
+        float D = (float) entity.getPos().distanceTo(player.getPos()) * 16;
+        System.out.println("D: " + D);
 
-        return baseThreat((LivingEntity) entity) * 
-        deadThreat((LivingEntity) entity) * 
-        aggroThreat((LivingEntity) entity) * 
-        findThreat((LivingEntity) entity, lastSeen) * 
-        distThreat(entity, result, player, D) * 
-        speedThreat(entity, D);
+        float Base = baseThreat((LivingEntity) entity);
+        float Dead = deadThreat((LivingEntity) entity);
+        float Aggro = aggroThreat((LivingEntity) entity);
+        float Find = findThreat((LivingEntity) entity, lastSeen);
+        float Dist = distThreat(result, D);
+        float Speed = speedThreat(entity, D);
+        float Threat = Base * Dead * Aggro * Find * Dist * Speed;
 
+        System.out.println("Base: " + Base);
+        System.out.println("Dead: " + Dead);
+        System.out.println("Aggro: " + Aggro);
+        System.out.println("Find: " + Find);
+        System.out.println("Dist: " + Dist);
+        System.out.println("Speed: " + Speed);
+        System.out.println("Threat: " + Threat);
 
+        return Threat;
     }
 
     private static Float baseThreat(LivingEntity entity) {
 
-        Float totalHP = entity.getHealth() + entity.getArmor();
-    
-        return (float) (Math.log((1/6)*(totalHP+6))/1.4);
+        Float totalHP = entity.getMaxHealth() + entity.getArmor();
+        float base = (float) (Math.log10((1f/6f)*(totalHP + 6f))/1.4f);
+
+
+        return MathHelper.clamp(base, 0, 1);
     }
 
     private static Float deadThreat(LivingEntity entity) {
@@ -50,23 +62,26 @@ public class ThreatDetermination {
     private static Float findThreat(LivingEntity entity, Float lastSeen) {
         //(1+2*find(entity)^0.75)/3
 
-        //if last seen is null, return 0
-        if(lastSeen == null) {
-            return 0f;
-        }
-        return (float) ((1 + 2 * Math.pow(find(lastSeen), 0.75)) / 3);
+
+        return (float) ((1f + 2f * Math.pow(find(lastSeen), 0.75f)) / 3f);
     }
 
-    private static float find(float lastSeen) {
-        
+    private static float find(Float lastSeen) {
+
+        //if last seen is null, return 0
+        if(lastSeen == null) {
+            return 0;
+        }
 
         float t1 = t1(lastSeen);
+
+        System.out.println("t1: " + t1);
 
         //if t1 < 45
 
         if(t1 < 45) {
             // = Clamp(1, 0, [1.007 - (1 + exp[5 - (t1 / 12)])^-1]
-            return MathHelper.clamp(0, 1, (float) (1.007 - Math.pow((1 + Math.exp(5 - (t1 / 12))), -1)));
+            return MathHelper.clamp((float) (1.007 - Math.pow((1 + Math.exp(5 - (t1 / 12))), -1)), 0, 1);
         //if t1 >= 45
         // = 30 / (t1 - 7)
         } else {
@@ -75,10 +90,10 @@ public class ThreatDetermination {
     }
 
     private static Float t1(Float ticks) {
-        return 10 * ((ticks / 100) + 100) + (ticks / 4);
+        return 10 * ((ticks + 100) / 100) + (ticks / 4);
     }
 
-    private static Float distThreat(Entity entity, HitResult result, ClientPlayerEntity player, Float D) {
+    private static Float distThreat(HitResult result, Float D) {
         // float S = 1 if there is a line of sight between the player and the entity, 0 otherwise
         float S = 0;
         if(result.getType() == HitResult.Type.MISS) {
@@ -88,7 +103,9 @@ public class ThreatDetermination {
         // float D = the distance between the player and the entity
 
         //= 1 - (1 - 0.2 * S) * Clamp(0, 1, (d - 300) / 2100)
-        return 1 - (1 - 0.2f * S) * MathHelper.clamp(0, 1, (D - 300) / 2100);
+
+        return 1f - (1f - (0.2f * S)) * MathHelper.clamp((D - 300f) / 2100f, 0, 1);
+
     }
 
     private static Float speedThreat(Entity entity, Float D) {
@@ -97,6 +114,6 @@ public class ThreatDetermination {
 
         // = (1 + Clamp(0, 1, ((300 - D)/280) * Clamp(0, 1, ((velocity - 2)/5)))
 
-        return (1 + MathHelper.clamp(0, 1, ((300 - D)/280) * MathHelper.clamp(0, 1, ((velocity - 2)/5))));
+        return (1 + MathHelper.clamp(((300 - D)/280) * MathHelper.clamp((velocity - 2)/5, 0, 1), 0, 1));
     }
 }
