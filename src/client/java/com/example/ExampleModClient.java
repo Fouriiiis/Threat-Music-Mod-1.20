@@ -6,12 +6,6 @@ import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 
 import net.minecraft.client.MinecraftClient;
 
-import net.minecraft.client.sound.AmbientSoundLoops.MusicLoop;
-import net.minecraft.client.sound.BiomeEffectSoundPlayer;
-
-
-
-
 
 public class ExampleModClient implements ClientModInitializer {
 
@@ -25,6 +19,8 @@ public class ExampleModClient implements ClientModInitializer {
 		threatTracker = new ThreatTracker();
 
 		ClientTickEvents.END_CLIENT_TICK.register(threatTracker);
+
+		KeyInputHandler.register();
 	}
 
 	public static void stop() {

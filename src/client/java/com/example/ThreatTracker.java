@@ -177,6 +177,11 @@ public class ThreatTracker implements EndTick {
 
             nearEntities = nearEntities.stream().filter(entity -> hostileEntities.contains(entity.getClass()) || passiveEntities.contains(entity.getClass())).collect(Collectors.toList());
 
+            trackedEntities.entrySet().removeIf(entry -> {
+                entry.setValue(entry.getValue() + 1.0f);
+                return entry.getValue() >= 600.0f;
+            });
+
             for (Entity entity : nearEntities) {
                 //if lineOfSight(entity, player) add to trackedEntities
 
@@ -202,12 +207,20 @@ public class ThreatTracker implements EndTick {
                 threatLevels.add(ThreatDetermination.threatOfEntity(entity, trackedEntities.get(entity), result, player));
             }
 
-            // Increment last seen value for all entities and remove if value reaches 600
+            //input variation score = Vx + Vy + Vp +2(Vj + Vt)
+            //Vx = variation in horizontal input (A,D)
+            //Vy = variation in vertical input (W,S)
+            //Vp = variation in select item input
+            //Vj = variation in jump input (space)
+            //Vt = variation in use item input (left click, right click)
 
-            trackedEntities.entrySet().removeIf(entry -> {
-                entry.setValue(entry.getValue() + 1.0f);
-                return entry.getValue() >= 600.0f;
-            });
+            System.out.println("Vx: " + KeyInputHandler.getVx());
+            System.out.println("Vy: " + KeyInputHandler.getVy());
+            System.out.println("Vp: " + KeyInputHandler.getVp());
+            System.out.println("Vj: " + KeyInputHandler.getVj());
+            System.out.println("Vt: " + KeyInputHandler.getVt());
+
+
 
             //log the number of entities being tracked
 

@@ -16,24 +16,25 @@ public class ThreatDetermination {
     static Float threatOfEntity(Entity entity, Float lastSeen, HitResult result, ClientPlayerEntity player) {
         //Threat = Base * Dead * Aggro * Find * Dist * Speed
 
-        float D = (float) entity.getPos().distanceTo(player.getPos()) * 16;
+        float D = (float) entity.getPos().distanceTo(player.getPos()) * 20;
+        float lastSeenConv = lastSeen * 2;
         System.out.println("D: " + D);
 
         float Base = baseThreat((LivingEntity) entity);
         float Dead = deadThreat((LivingEntity) entity);
         float Aggro = aggroThreat((LivingEntity) entity);
-        float Find = findThreat((LivingEntity) entity, lastSeen);
+        float Find = findThreat((LivingEntity) entity, lastSeenConv);
         float Dist = distThreat(result, D);
         float Speed = speedThreat(entity, D);
         float Threat = Base * Dead * Aggro * Find * Dist * Speed;
 
-        System.out.println("Base: " + Base);
-        System.out.println("Dead: " + Dead);
-        System.out.println("Aggro: " + Aggro);
-        System.out.println("Find: " + Find);
-        System.out.println("Dist: " + Dist);
-        System.out.println("Speed: " + Speed);
-        System.out.println("Threat: " + Threat);
+        // System.out.println("Base: " + Base);
+        // System.out.println("Dead: " + Dead);
+        // System.out.println("Aggro: " + Aggro);
+        // System.out.println("Find: " + Find);
+        // System.out.println("Dist: " + Dist);
+        // System.out.println("Speed: " + Speed);
+        // System.out.println("Threat: " + Threat);
 
         return Threat;
     }
@@ -90,7 +91,7 @@ public class ThreatDetermination {
     }
 
     private static Float t1(Float ticks) {
-        return 10 * ((ticks + 100) / 100) + (ticks / 4);
+        return 10 * (ticks / 100) + (ticks / 4);
     }
 
     private static Float distThreat(HitResult result, Float D) {
@@ -104,16 +105,19 @@ public class ThreatDetermination {
 
         //= 1 - (1 - 0.2 * S) * Clamp(0, 1, (d - 300) / 2100)
 
-        return 1f - (1f - (0.2f * S)) * MathHelper.clamp((D - 300f) / 2100f, 0, 1);
+        return (1f - (1f - (0.2f * S)) * MathHelper.clamp((D - 300f) / 2100f, 0, 1));
 
     }
 
     private static Float speedThreat(Entity entity, Float D) {
         //float speed = the speed of the entity
-        float velocity = (float) entity.getVelocity().length();
+        float velocity = (float) entity.getVelocity().length() * 20;
+        System.out.println("Velocity: " + velocity);
 
         // = (1 + Clamp(0, 1, ((300 - D)/280) * Clamp(0, 1, ((velocity - 2)/5)))
 
-        return (1 + MathHelper.clamp(((300 - D)/280) * MathHelper.clamp((velocity - 2)/5, 0, 1), 0, 1));
+        float speedThreat = 1f + MathHelper.clamp(((300f - D)/280f), 0, 1) * MathHelper.clamp((velocity - 2f)/5f, 0, 1);
+
+        return speedThreat;
     }
 }
