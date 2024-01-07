@@ -349,21 +349,21 @@ public class ThreatTracker implements EndTick {
 
             
 
-        //     if (threatLevel > 0 && stopped) {
-        //         region = ModSounds.changeRegion(client);
-        //         region.play(client);
-        //         //client.player.sendMessage(Text.of("Playing music"), false);
-        //         lastPlayed = 0;
-        //         stopped = false;
-        //     } else if (threatLevel == 0 && !stopped) {
-        //         if (lastPlayed >= maxTime) {
-        //             stopRegion(client);
-        //         } else {
-        //             lastPlayed++;
-        //         }
-        //     } else if (threatLevel > 0 && !stopped) {
-        //         lastPlayed = 0;
-        //     }
+            if (currentThreat > 0 && stopped) {
+                region = ModSounds.changeRegion(client);
+                region.play(client);
+                //client.player.sendMessage(Text.of("Playing music"), false);
+                lastPlayed = 0;
+                stopped = false;
+            } else if (currentThreat == 0 && !stopped) {
+                if (lastPlayed >= maxTime) {
+                    stopRegion(client);
+                } else {
+                    lastPlayed++;
+                }
+            } else if (currentThreat > 0 && !stopped) {
+                lastPlayed = 0;
+            }
          }
         //System.out.println(lastPlayed);
     }

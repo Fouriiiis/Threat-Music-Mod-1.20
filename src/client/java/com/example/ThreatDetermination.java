@@ -18,7 +18,7 @@ public class ThreatDetermination {
 
         float D = (float) entity.getPos().distanceTo(player.getPos()) * 20;
         
-        System.out.println("D: " + D);
+        //System.out.println("D: " + D);
 
         float Base = baseThreat((LivingEntity) entity);
         float Dead = deadThreat((LivingEntity) entity);
@@ -114,7 +114,7 @@ public class ThreatDetermination {
     private static Float speedThreat(Entity entity, Float D) {
         //float speed = the speed of the entity
         float velocity = (float) entity.getVelocity().length() * 20;
-        System.out.println("Velocity: " + velocity);
+        //System.out.println("Velocity: " + velocity);
 
         // = (1 + Clamp(0, 1, ((300 - D)/280) * Clamp(0, 1, ((velocity - 2)/5)))
 
