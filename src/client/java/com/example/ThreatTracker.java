@@ -62,7 +62,7 @@ import net.minecraft.predicate.entity.EntityPredicates;
 import net.minecraft.text.Text;
 
 import net.minecraft.util.hit.HitResult;
-
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.RaycastContext;
 
@@ -74,7 +74,10 @@ public class ThreatTracker implements EndTick {
 
     private static int blockRadius1 = 16;
     private static int blockRadius2 = 48;
-    public static int threatLevel = 0;
+    public static float currentThreat = 0;
+    private static float targetThreat = 0;
+    private static float threatDeclineCounter = 0;
+
     private int lastPlayed = 0;
     private int maxTime = 250;
     private Boolean stopped = true;
@@ -157,7 +160,7 @@ public class ThreatTracker implements EndTick {
     public void onEndTick(MinecraftClient client) {
         if (client != null && client.player != null) {
 
-            threatLevel = 0;
+            targetThreat = 0;
 
             threatLevels.clear();
 
@@ -214,12 +217,83 @@ public class ThreatTracker implements EndTick {
             //Vj = variation in jump input (space)
             //Vt = variation in use item input (left click, right click)
 
-            System.out.println("Vx: " + KeyInputHandler.getVx());
-            System.out.println("Vy: " + KeyInputHandler.getVy());
-            System.out.println("Vp: " + KeyInputHandler.getVp());
-            System.out.println("Vj: " + KeyInputHandler.getVj());
-            System.out.println("Vt: " + KeyInputHandler.getVt());
+            // System.out.println("Vx: " + KeyInputHandler.getVx());
+            // System.out.println("Vy: " + KeyInputHandler.getVy());
+            // System.out.println("Vp: " + KeyInputHandler.getVp());
+            // System.out.println("Vj: " + KeyInputHandler.getVj());
+            // System.out.println("Vt: " + KeyInputHandler.getVt());
 
+            //sort threatLevels in descending order
+
+            //threatLevels.sort((a, b) -> b.compareTo(a));
+
+            //each individual threat updates TargetThreat by setting it to 0.25(TargetThreat + IndividualThreat + 3 * Greatest[TargetThreat, IndividualThreat])
+
+            for (Float threat : threatLevels) {
+                targetThreat = 0.25f * (targetThreat + threat + 3 * Math.max(targetThreat, threat));
+            }
+
+            //targetThreat is raised to the power of 1.2-0.4*Clamp 0 1 [(Sv-5)/25]
+
+            targetThreat = (float) Math.pow(targetThreat, 1.2 - 0.4 * MathHelper.clamp((KeyInputHandler.getSv() - 5) / 25, 0, 1));
+
+            //adjustment towards 50%
+
+            //targetThreat is set to targetThreat + (0.5-TargetThreat)*Clamp 0 1 [(0.25-abs[TargetThreat-0.5])/0.25]
+
+            targetThreat = targetThreat + (0.5f - targetThreat) * MathHelper.clamp((0.25f - Math.abs(targetThreat - 0.5f)) / 0.25f, 0, 1);
+
+            //reduce threatDeclineCounter by 1 if it is greater than 0
+
+            if (threatDeclineCounter > 0) {
+                threatDeclineCounter--;
+            }
+
+            //if targetThreat is at least 35% lower than currentThreat, set threatDeclineCounter to 10 unless it is already greater than 10
+
+            if (targetThreat <= 0.65f * currentThreat && threatDeclineCounter < 10) {
+                threatDeclineCounter = 10;
+            }
+
+            //if trackedEntities is empty, set threatDeclineCounter to 120
+
+            if (trackedEntities.isEmpty()) {
+                threatDeclineCounter = 120;
+            }
+
+            //update current threat
+
+            //if targetThreat is greater than currentThreat, increase currentThreat by (280-(200*targetThreat))^-1
+
+            if (targetThreat > currentThreat) {
+                currentThreat += Math.pow((280 - (200 * targetThreat)), -1);
+            }
+
+            //if targetThreat is less than currentThreat, and threatDeclineCounter is > 0, decrease currentThreat by (800+(3400*targetThreat))^-1
+
+            if (targetThreat < currentThreat && threatDeclineCounter > 0) {
+                currentThreat -= Math.pow((800 + (3400 * targetThreat)), -1);
+            }
+
+            //if targetThreat is less than currentThreat, and threatDeclineCounter is 0, decrease currentThreat by (1600+(22000*targetThreat^0.25))^-1
+
+            if (targetThreat < currentThreat && threatDeclineCounter == 0) {
+                currentThreat -= Math.pow((1600 + (22000 * Math.pow(targetThreat, 0.25))), -1);
+            }
+
+            //clamp currentThreat between 0 and 1
+
+            currentThreat = MathHelper.clamp(currentThreat, 0, 1);
+
+            //if the player is in spectator mode, set currentThreat to 0
+
+            if (client.player.isSpectator()) {
+                currentThreat = 0;
+            }
+
+            System.out.println("Current Threat: " + currentThreat);
+            System.out.println("Target Threat: " + targetThreat);
+            System.out.println("Threat Decline Counter: " + threatDeclineCounter);
 
 
             //log the number of entities being tracked

@@ -17,13 +17,13 @@ public class ThreatDetermination {
         //Threat = Base * Dead * Aggro * Find * Dist * Speed
 
         float D = (float) entity.getPos().distanceTo(player.getPos()) * 20;
-        float lastSeenConv = lastSeen * 2;
+        
         System.out.println("D: " + D);
 
         float Base = baseThreat((LivingEntity) entity);
         float Dead = deadThreat((LivingEntity) entity);
         float Aggro = aggroThreat((LivingEntity) entity);
-        float Find = findThreat((LivingEntity) entity, lastSeenConv);
+        float Find = findThreat((LivingEntity) entity, lastSeen);
         float Dist = distThreat(result, D);
         float Speed = speedThreat(entity, D);
         float Threat = Base * Dead * Aggro * Find * Dist * Speed;
@@ -74,9 +74,11 @@ public class ThreatDetermination {
             return 0;
         }
 
-        float t1 = t1(lastSeen);
 
-        System.out.println("t1: " + t1);
+
+        float t1 = t1(lastSeen * 2);
+
+        //System.out.println("t1: " + t1);
 
         //if t1 < 45
 
