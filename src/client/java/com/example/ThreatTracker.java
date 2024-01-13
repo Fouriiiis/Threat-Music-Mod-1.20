@@ -86,7 +86,7 @@ public class ThreatTracker implements EndTick {
     //list of entities to track
     //bee, caveSpider, dolphin, enderman, goat, ironGolem, Llama, Panda, Piglin, polarBear, Spider, striderJokey, traderLlama, wolf, zombifiedPiglin
 
-    List<Class<? extends Entity>> passiveEntities = List.of(
+    public static List<Class<? extends Entity>> passiveEntities = List.of(
         BeeEntity.class,
         CaveSpiderEntity.class,
         DolphinEntity.class,
@@ -255,7 +255,7 @@ public class ThreatTracker implements EndTick {
                 threatDeclineCounter = 10;
             }
 
-            //if trackedEntities is empty, set threatDeclineCounter to 120
+            //if trackedEntities becomes empty, set threatDeclineCounter to 120
 
             if (trackedEntities.isEmpty()) {
                 threatDeclineCounter = 120;
@@ -265,21 +265,33 @@ public class ThreatTracker implements EndTick {
 
             //if targetThreat is greater than currentThreat, increase currentThreat by (280-(200*targetThreat))^-1
 
-            if (targetThreat > currentThreat) {
-                currentThreat += Math.pow((280 - (200 * targetThreat)), -1);
+            // if (currentThreat < threat)
+			// {
+			// 	currentThreat = Mathf.Min(1f, currentThreat + 1f / Mathf.Lerp(280f, 80f, threat));
+			// }
+			// else if (threatDeclineCounter > 0)
+			// {
+			// 	currentThreat = Mathf.Max(0f, currentThreat - 1f / Mathf.Lerp(800f, 4200f, threat));
+			// }
+			// else
+			// {
+			// 	currentThreat = Mathf.Max(0f, currentThreat - 1f / Mathf.Lerp(1600f, 22000f, Mathf.Pow(threat, 0.25f)));
+			// }
+
+            if (currentThreat < targetThreat) {
+                currentThreat = (float) Math.min(1, currentThreat + 1f / lerp(280f, 80f, targetThreat));
             }
-
-            //if targetThreat is less than currentThreat, and threatDeclineCounter is > 0, decrease currentThreat by (800+(3400*targetThreat))^-1
-
-            if (targetThreat < currentThreat && threatDeclineCounter > 0) {
-                currentThreat -= Math.pow((800 + (3400 * targetThreat)), -1);
+            else if (threatDeclineCounter > 0) {
+                currentThreat = (float) Math.max(0, currentThreat - 1f / lerp(800f, 4200f, targetThreat));
             }
-
-            //if targetThreat is less than currentThreat, and threatDeclineCounter is 0, decrease currentThreat by (1600+(22000*targetThreat^0.25))^-1
-
-            if (targetThreat < currentThreat && threatDeclineCounter == 0) {
-                currentThreat -= Math.pow((1600 + (22000 * Math.pow(targetThreat, 0.25))), -1);
+            else {
+                currentThreat = (float) Math.max(0, currentThreat - 1f / lerp(1600f, 22000f, Math.pow(targetThreat, 0.25f)));
             }
+            
+            
+            
+
+            
 
             //clamp currentThreat between 0 and 1
 
@@ -287,13 +299,13 @@ public class ThreatTracker implements EndTick {
 
             //if the player is in spectator mode, set currentThreat to 0
 
-            if (client.player.isSpectator()) {
-                currentThreat = 0;
-            }
+            // if (client.player.isSpectator()) {
+            //     currentThreat = 0;
+            // }
 
-            System.out.println("Current Threat: " + currentThreat);
-            System.out.println("Target Threat: " + targetThreat);
-            System.out.println("Threat Decline Counter: " + threatDeclineCounter);
+            //System.out.println("Current Threat: " + currentThreat);
+            //System.out.println("Target Threat: " + targetThreat);
+            //System.out.println("Threat Decline Counter: " + threatDeclineCounter);
 
 
             //log the number of entities being tracked
@@ -349,23 +361,29 @@ public class ThreatTracker implements EndTick {
 
             
 
-            if (currentThreat > 0 && stopped) {
+            if (currentThreat > 0.05 && stopped) {
                 region = ModSounds.changeRegion(client);
                 region.play(client);
                 //client.player.sendMessage(Text.of("Playing music"), false);
                 lastPlayed = 0;
                 stopped = false;
-            } else if (currentThreat == 0 && !stopped) {
+            } else if (currentThreat >= 0.05 && !stopped) {
                 if (lastPlayed >= maxTime) {
                     stopRegion(client);
                 } else {
                     lastPlayed++;
                 }
-            } else if (currentThreat > 0 && !stopped) {
+            } else if (currentThreat > 0.05 && !stopped) {
                 lastPlayed = 0;
             }
          }
         //System.out.println(lastPlayed);
+    }
+
+    // Helper function to mimic Unity's Mathf.Lerp
+    private double lerp(double a, double b, double t) {
+        t = Math.max(0, Math.min(1, t)); // Clamp t between 0 and 1
+        return a + t * (b - a);
     }
 
     public boolean lineOfSight(HitResult result) {

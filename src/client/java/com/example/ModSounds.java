@@ -392,6 +392,7 @@ public class ModSounds {
     public static Region changeRegion(MinecraftClient client) {
         // Get the current biome at the player's position
         RegistryEntry<Biome> currentBiomeEntry = client.world.getBiome(client.player.getBlockPos());
+
         String currentBiomeName = I18n.translate(getBiomeName(currentBiomeEntry));
     
         // Print the current biome to the chat

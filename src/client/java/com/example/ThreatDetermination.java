@@ -5,6 +5,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.entity.mob.MobEntity;
 
 //include ThreatTracker.java
 
@@ -57,8 +58,18 @@ public class ThreatDetermination {
     }
 
     private static Float aggroThreat(LivingEntity entity) {
+        // Check if the entity is a passive entity
+        if (ThreatTracker.passiveEntities.contains(entity.getClass())) {
+            // Cast to MobEntity and return 1 if it's attacking, 0 otherwise
+            return ((MobEntity) entity).isAttacking() ? 1.0f : 0.0f;
+        }
+        // Additional logic for non-passive entities (if needed) goes here
+    
+        // Return a default value (e.g., 0.0f) if the entity is not passive
+        // or if other conditions are not met
         return 1.0f;
     }
+    
 
     private static Float findThreat(LivingEntity entity, Float lastSeen) {
         //(1+2*find(entity)^0.75)/3
