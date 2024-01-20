@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.UUID;
 
 import java.io.IOException;
@@ -16,6 +17,7 @@ import java.util.stream.Stream;
 
 import com.example.mixin.client.GetBossBarsMixin;
 
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.hud.BossBarHud;
 import net.minecraft.client.gui.hud.ClientBossBar;
@@ -56,19 +58,44 @@ public class ModSounds {
     
 
     public static void registerSounds() {
-        String directoryPath = "assets/modid/sounds"; // Path to the sounds directory
-        try (Stream<Path> paths = Files.walk(Paths.get(ClassLoader.getSystemResource(directoryPath).toURI()))) {
-            paths.filter(Files::isRegularFile)
-                 .filter(path -> path.toString().endsWith(".ogg"))
-                 .forEach(path -> {
-                     String fileName = path.getFileName().toString();
-                     String soundName = fileName.substring(0, fileName.lastIndexOf('.'));
-                     SoundEvent soundEvent = registerSoundEvent(soundName);
-                     soundEvents.put(soundName, soundEvent);
-                 });
-        } catch (IOException | URISyntaxException e) {
-            e.printStackTrace();
+
+        // check .minecraft\config\modid\ exists, and if not, create it
+        Path configPath = Paths.get(System.getProperty("user.home"), ".minecraft", "config", "modid");
+        if (!Files.exists(configPath)) {
+            try {
+                Files.createDirectories(configPath);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
+
+        System.out.println("directoryPath: " + configPath);
+
+
+
+
+
+        Optional<Path> directoryPath = FabricLoader.getInstance()
+                                           .getModContainer("modid")
+                                           .flatMap(modContainer -> modContainer.findPath("assets/modid/sounds"));
+
+        if (directoryPath.isPresent()) {
+            try (Stream<Path> paths = Files.walk(directoryPath.get())) {
+                paths.filter(Files::isRegularFile)
+                    .filter(path -> path.toString().endsWith(".ogg"))
+                    .forEach(path -> {
+                        String fileName = path.getFileName().toString();
+                        String soundName = fileName.substring(0, fileName.lastIndexOf('.'));
+                        SoundEvent soundEvent = registerSoundEvent(soundName);
+                        soundEvents.put(soundName, soundEvent);
+                    });
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else {
+            System.out.println("Directory not found: assets/modid/sounds");
+        }
+
         
         //Layer : TH_CC - KICK, TH_CC - PERC1, TH_CC - NOISE
         //Layer : TH_CC - KICK, TH_CC - PERC2, TH_CC - PERC1, TH_CC - NOISE
@@ -398,7 +425,7 @@ public class ModSounds {
         // Print the current biome to the chat
         client.player.sendMessage(Text.of(currentBiomeName), false);
 
-        Region currentRegion = regions.get("test");
+        Region currentRegion = regions.get("su");
 
         for (Map.Entry<List<String>, Region> entry : biomeRegions.entrySet()) {
             if (entry.getKey().contains(currentBiomeName)) {

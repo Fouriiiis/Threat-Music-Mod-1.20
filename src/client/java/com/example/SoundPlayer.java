@@ -29,9 +29,9 @@ public class SoundPlayer extends MovingSoundInstance {
         float threatLevel = ThreatTracker.currentThreat;
 
         if(threatLevel < MinThreatLevel) {
-            this.volume = 0;
+            this.volume = 0.01f;
         } else if(threatLevel > MaxThreatLevel) {
-            this.volume = 1;
+            this.volume = 1f;
         } else {
             this.volume = (threatLevel - MinThreatLevel) / (MaxThreatLevel - MinThreatLevel);
         }

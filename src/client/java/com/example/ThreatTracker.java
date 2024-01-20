@@ -1,6 +1,7 @@
 // Import necessary classes
 package com.example;
 
+import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -67,7 +68,6 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.RaycastContext;
 
 //import ThreatDetermination.java
-import com.example.ThreatDetermination;
 
 
 public class ThreatTracker implements EndTick {
@@ -79,7 +79,7 @@ public class ThreatTracker implements EndTick {
     private static float threatDeclineCounter = 0;
 
     private int lastPlayed = 0;
-    private int maxTime = 250;
+    private int maxTime = 75;
     private Boolean stopped = true;
     private Region region;
 
@@ -210,24 +210,7 @@ public class ThreatTracker implements EndTick {
                 threatLevels.add(ThreatDetermination.threatOfEntity(entity, trackedEntities.get(entity), result, player));
             }
 
-            //input variation score = Vx + Vy + Vp +2(Vj + Vt)
-            //Vx = variation in horizontal input (A,D)
-            //Vy = variation in vertical input (W,S)
-            //Vp = variation in select item input
-            //Vj = variation in jump input (space)
-            //Vt = variation in use item input (left click, right click)
-
-            // System.out.println("Vx: " + KeyInputHandler.getVx());
-            // System.out.println("Vy: " + KeyInputHandler.getVy());
-            // System.out.println("Vp: " + KeyInputHandler.getVp());
-            // System.out.println("Vj: " + KeyInputHandler.getVj());
-            // System.out.println("Vt: " + KeyInputHandler.getVt());
-
-            //sort threatLevels in descending order
-
-            //threatLevels.sort((a, b) -> b.compareTo(a));
-
-            //each individual threat updates TargetThreat by setting it to 0.25(TargetThreat + IndividualThreat + 3 * Greatest[TargetThreat, IndividualThreat])
+            
 
             for (Float threat : threatLevels) {
                 targetThreat = 0.25f * (targetThreat + threat + 3 * Math.max(targetThreat, threat));
@@ -261,22 +244,6 @@ public class ThreatTracker implements EndTick {
                 threatDeclineCounter = 120;
             }
 
-            //update current threat
-
-            //if targetThreat is greater than currentThreat, increase currentThreat by (280-(200*targetThreat))^-1
-
-            // if (currentThreat < threat)
-			// {
-			// 	currentThreat = Mathf.Min(1f, currentThreat + 1f / Mathf.Lerp(280f, 80f, threat));
-			// }
-			// else if (threatDeclineCounter > 0)
-			// {
-			// 	currentThreat = Mathf.Max(0f, currentThreat - 1f / Mathf.Lerp(800f, 4200f, threat));
-			// }
-			// else
-			// {
-			// 	currentThreat = Mathf.Max(0f, currentThreat - 1f / Mathf.Lerp(1600f, 22000f, Mathf.Pow(threat, 0.25f)));
-			// }
 
             if (currentThreat < targetThreat) {
                 currentThreat = (float) Math.min(1, currentThreat + 1f / lerp(280f, 80f, targetThreat));
@@ -299,85 +266,35 @@ public class ThreatTracker implements EndTick {
 
             //if the player is in spectator mode, set currentThreat to 0
 
-            // if (client.player.isSpectator()) {
-            //     currentThreat = 0;
-            // }
+            if (client.player.isSpectator()) {
+                 currentThreat = 0;
+            }
 
-            //System.out.println("Current Threat: " + currentThreat);
+            System.out.println("Current Threat: " + currentThreat);
             //System.out.println("Target Threat: " + targetThreat);
-            //System.out.println("Threat Decline Counter: " + threatDeclineCounter);
-
-
-            //log the number of entities being tracked
-
-            //System.out.println(trackedEntities.size());
-
-            //log the first threatLevel
-
-            //if (!threatLevels.isEmpty()) {
-                //System.out.println(threatLevels.get(0));
-            //}
-
-            
-
-            // list of threat levels
-
-            //List<Float> threatLevels = new ArrayList<Float>();
-
-
-
-            //for all near entities, if they are hostile && line of sight, add to threatLevel
-
-            // for (Entity entity : nearEntities) {
-            //     //if hostileEntities contains entity.getClass() add 1 to threatLevel
-            //     //if lineOfSight(entity, player) add entity.getMaxHealth() to threatLevel
-            //     if(hostileEntities.contains(entity.getClass())) {
-            //         threatLevel += (((LivingEntity) entity).getMaxHealth() + ((LivingEntity) entity).getArmor()) / 5;
-            //         if(lineOfSight(entity, player)) {
-            //             threatLevel += ((LivingEntity) entity).getMaxHealth() + ((LivingEntity) entity).getArmor();
-            //         }
-            //     }
-            //     else if (passiveEntities.contains(entity.getClass())) {
-            //         if(entity instanceof MobEntity && ((MobEntity)entity).isAttacking()) {
-            //             threatLevel += (((LivingEntity) entity).getMaxHealth() + ((LivingEntity) entity).getArmor()) / 5;
-            //             if(lineOfSight(entity, player)) {
-            //                 threatLevel += ((LivingEntity) entity).getMaxHealth() + ((LivingEntity) entity).getArmor();
-            //             }
-            //         }
-            //     }
-            // }
-
-            //for all far entities, if they are longRangeEntities && line of sight, add health to threatLevel
-
-        //     for (Entity entity : farEntities) {
-        //         if(lineOfSight(entity, player) && !nearEntities.contains(entity)) {
-        //             threatLevel += ((LivingEntity) entity).getMaxHealth() + ((LivingEntity) entity).getArmor();
-        //         }
-        //     }
-
-        //     //print threatLevel to chat
-
-        //     //client.player.sendMessage(Text.of("Threat Level: " + threatLevel), false);
-
-            
+            //System.out.println("Threat Decline Counter: " + threatDeclineCounter);            
 
             if (currentThreat > 0.05 && stopped) {
+                // Start playing music
                 region = ModSounds.changeRegion(client);
                 region.play(client);
                 //client.player.sendMessage(Text.of("Playing music"), false);
                 lastPlayed = 0;
                 stopped = false;
-            } else if (currentThreat >= 0.05 && !stopped) {
+            } else if (currentThreat <= 0.05 && !stopped) {
+                // If threat drops to 0, wait for 75 ticks before stopping the music
                 if (lastPlayed >= maxTime) {
                     stopRegion(client);
                 } else {
                     lastPlayed++;
                 }
             } else if (currentThreat > 0.05 && !stopped) {
+                // If the threat level rises again, reset the counter
                 lastPlayed = 0;
             }
-         }
-        //System.out.println(lastPlayed);
+        System.out.println("lastPlayed: " + lastPlayed);
+        }
+       
     }
 
     // Helper function to mimic Unity's Mathf.Lerp
@@ -412,7 +329,7 @@ public class ThreatTracker implements EndTick {
     
 
     public void stopRegion(MinecraftClient client) {
-        if (!stopped){
+        if (!stopped) {
             region.stop(client);
             region.randomizeLayers();
             client.player.sendMessage(Text.of("Stopping music"), false);
@@ -424,4 +341,5 @@ public class ThreatTracker implements EndTick {
     public boolean playing() {
         return !stopped;
     }
+
 }

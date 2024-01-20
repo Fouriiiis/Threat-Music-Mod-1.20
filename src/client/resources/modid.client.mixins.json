@@ -6,8 +6,7 @@
 		"ExampleClientMixin",
 		"GetBossBarsMixin",
 		"ClientDeathMixin",
-		"MusicStopMixin",
-		"OggMixin"
+		"MusicStopMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1

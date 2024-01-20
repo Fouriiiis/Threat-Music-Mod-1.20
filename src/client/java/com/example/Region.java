@@ -8,7 +8,7 @@ import java.util.List;
 
 import net.minecraft.sound.SoundEvent;
 
-import net.minecraft.client.sound.OggAudioStream;
+
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -89,7 +89,7 @@ public class Region {
         musicTracker.stop();
     
         for (SoundPlayer soundPlayer : soundPlayers) {
-            //executor.execute(() -> soundManager.play(soundPlayer));
+            executor.execute(() -> soundManager.play(soundPlayer));
         }
     
         executor.shutdown();
@@ -100,7 +100,7 @@ public class Region {
             ExecutorService executor = Executors.newCachedThreadPool();
     
             for (SoundPlayer soundPlayer : soundPlayers) {
-                //executor.execute(() -> client.getSoundManager().stop(soundPlayer));
+                executor.execute(() -> client.getSoundManager().stop(soundPlayer));
             }
     
             executor.shutdown(); // Initiates an orderly shutdown in which previously submitted tasks are executed, but no new tasks will be accepted.
