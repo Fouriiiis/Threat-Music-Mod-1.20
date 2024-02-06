@@ -88,24 +88,34 @@ public class ThreatSettingsScreen extends Screen {
       }
   
       public void addBiomeEntry(BiomeListEntry entry) {
-          this.addEntry(entry); // This calls the protected addEntry method
+          this.addEntry(entry);
       }
   }
 
     private class BiomeListEntry extends ElementListWidget.Entry<BiomeListEntry> {
         private final Text label;
-        private final ButtonWidget button;
+        private final ButtonWidget cycleRegionButton;
+        private final ButtonWidget extraButton;
         private List<String> regionKeys;
 
         public BiomeListEntry(String biomeId) {
             this.label = Text.literal(getUserFriendlyBiomeName(new Identifier(biomeId)));
-            this.button = ButtonWidget.builder(Text.literal(ModSounds.biomeRegionKeys.get(biomeId)), button -> {
+            this.cycleRegionButton = ButtonWidget.builder(Text.literal(ModSounds.biomeRegionKeys.get(biomeId)), button -> {
                 cycleRegion(biomeId);
             })
             .position(0, 0)
             .size(100, 20)
             .build();
 
+            // New extra button initialization with a placeholder action
+            this.extraButton = ButtonWidget.builder(Text.literal("..."), button -> {
+                System.out.println("Extra button clicked");
+            })
+            .position(0, 0)
+            .size(20, 20)
+            .build();
+
+            //regionKeys are the keyset of the biomeRegionKeys map
             regionKeys = ModSounds.regions.keySet().stream().toList();
         }
 
@@ -115,29 +125,35 @@ public class ThreatSettingsScreen extends Screen {
             int nextIndex = (currentIndex + 1) % regionKeys.size();
             ModSounds.biomeRegionKeys.put(biomeId, regionKeys.get(nextIndex));
             ModSounds.savedBiomeRegionKeys.put(biomeId, regionKeys.get(nextIndex));
-            button.setMessage(Text.literal(regionKeys.get(nextIndex)));
+            cycleRegionButton.setMessage(Text.literal(regionKeys.get(nextIndex)));
         }
 
         @Override
         public List<? extends Element> children() {
-            return List.of(button);
+            return List.of(cycleRegionButton, extraButton);
         }
 
         @Override
         public List<? extends Selectable> selectableChildren() {
-            return List.of(button);
+            return List.of(cycleRegionButton, extraButton);
         }
 
         @Override
         public void render(DrawContext context, int index, int y, int x, int entryWidth, int entryHeight, int mouseX, int mouseY, boolean hovered, float delta) {
             int middleX = width / 2;
-            button.setY(y);
-            button.setX(x);
-            button.render(context, mouseX, mouseY, delta);
+
+            extraButton.setY(y);
+            extraButton.setX(x - 25);
+
+            // Update the cycleRegionButton's position
+            cycleRegionButton.setY(y);
+            cycleRegionButton.setX(x);
+
+            extraButton.render(context, mouseX, mouseY, delta);
+            cycleRegionButton.render(context, mouseX, mouseY, delta);
 
             int labelX = middleX + 20;
             int labelY = y + (entryHeight - 8) / 2;
-            
             context.drawTextWithShadow(textRenderer, label, labelX, labelY, 0xFFFFFF);
         }
     }
