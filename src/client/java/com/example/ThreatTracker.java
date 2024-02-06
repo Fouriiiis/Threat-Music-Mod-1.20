@@ -1,7 +1,7 @@
 // Import necessary classes
 package com.example;
 
-import java.nio.ByteBuffer;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -12,7 +12,7 @@ import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents.EndTic
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
+
 import net.minecraft.entity.boss.WitherEntity;
 import net.minecraft.entity.boss.dragon.EnderDragonEntity;
 import net.minecraft.entity.mob.BlazeEntity;
@@ -28,7 +28,7 @@ import net.minecraft.entity.mob.GuardianEntity;
 import net.minecraft.entity.mob.HoglinEntity;
 import net.minecraft.entity.mob.HuskEntity;
 import net.minecraft.entity.mob.MagmaCubeEntity;
-import net.minecraft.entity.mob.MobEntity;
+
 import net.minecraft.entity.mob.PhantomEntity;
 import net.minecraft.entity.mob.PiglinBruteEntity;
 import net.minecraft.entity.mob.PiglinEntity;
@@ -270,7 +270,7 @@ public class ThreatTracker implements EndTick {
                  currentThreat = 0;
             }
 
-            System.out.println("Current Threat: " + currentThreat);
+            //System.out.println("Current Threat: " + currentThreat);
             //System.out.println("Target Threat: " + targetThreat);
             //System.out.println("Threat Decline Counter: " + threatDeclineCounter);            
 
@@ -292,7 +292,7 @@ public class ThreatTracker implements EndTick {
                 // If the threat level rises again, reset the counter
                 lastPlayed = 0;
             }
-        System.out.println("lastPlayed: " + lastPlayed);
+        //System.out.println("lastPlayed: " + lastPlayed);
         }
        
     }

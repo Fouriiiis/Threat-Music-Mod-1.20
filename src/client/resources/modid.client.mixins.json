@@ -6,7 +6,8 @@
 		"ExampleClientMixin",
 		"GetBossBarsMixin",
 		"ClientDeathMixin",
-		"MusicStopMixin"
+		"MusicStopMixin",
+		"MixinSoundOptionsScreen"
 	],
 	"injectors": {
 		"defaultRequire": 1

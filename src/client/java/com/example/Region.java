@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 import java.util.List;
 
 import net.minecraft.sound.SoundEvent;
@@ -17,30 +18,64 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.sound.MusicTracker;
 import net.minecraft.client.sound.SoundManager;
 
+
+
+
 public class Region {
 
     private Map<Float, SoundEvent> currLayers;
     private List<SoundPlayer> soundPlayers = new ArrayList<SoundPlayer>();
+    private List<SoundPlayer> nightSoundPlayers = new ArrayList<SoundPlayer>();
     private Map<Float, List<SoundEvent>> layers;
+    private Map<Float, List<SoundEvent>> nightLayers;
+
+    private List<SoundEvent> music;
+
+    //playing layers
+
+    private List<SoundPlayer> playingLayers = new ArrayList<SoundPlayer>();
+
     MinecraftClient client = MinecraftClient.getInstance();
     float offset;
+    boolean hasNightLayers = false;
 
 
     //constructor which takes a list of lists of sound events
     //each list of sound events is a layer
 
-    public Region(List<List<SoundEvent>> layers) {
-
-        offset = 0.95f / (layers.size());
+    public Region(List<List<SoundEvent>> dayLayers, Optional<List<List<SoundEvent>>> optionalNightLayers, Optional<List<SoundEvent>> optionalMusic) {
+        this.layers = new HashMap<>();
+        this.nightLayers = new HashMap<>();
+        this.currLayers = new HashMap<>();
+        this.soundPlayers = new ArrayList<>();
+        this.nightSoundPlayers = new ArrayList<>();
+        this.playingLayers = new ArrayList<>();
+    
+        // Set day layers
+        offset = 0.95f / (dayLayers.size());
         float threatLevel = 0.05f;
-
-        //for each list of sound events add it to the layers map with the threat level as the key and increment the threat level
-        this.layers = new HashMap<Float, List<SoundEvent>>();
-        for(List<SoundEvent> layer : layers) {
+        for (List<SoundEvent> layer : dayLayers) {
             this.layers.put(threatLevel, layer);
             threatLevel += offset;
         }
-        currLayers = new HashMap<Float, SoundEvent>();
+    
+        // Check and set night layers if present
+        if (optionalNightLayers.isPresent()) {
+            hasNightLayers = true;
+            List<List<SoundEvent>> nightLayers = optionalNightLayers.get();
+            offset = 0.95f / (nightLayers.size());
+            threatLevel = 0.05f;
+            for (List<SoundEvent> layer : nightLayers) {
+                this.nightLayers.put(threatLevel, layer);
+                threatLevel += offset;
+            }
+        } else {
+            hasNightLayers = false;
+        }
+    
+        // Set music if present
+        this.music = optionalMusic.orElseGet(Collections::emptyList);
+    
         setupSoundPlayers();
     }
 
@@ -57,6 +92,7 @@ public class Region {
     public void setupSoundPlayers() {
         currLayers.clear();
         soundPlayers.clear();
+        nightSoundPlayers.clear();
     
         // Create a list of map entries to sort them by threat level
         List<Map.Entry<Float, List<SoundEvent>>> sortedEntries = new ArrayList<>(layers.entrySet());
@@ -78,6 +114,23 @@ public class Region {
                 }
             }
         }
+
+        if (hasNightLayers) {
+            List<Map.Entry<Float, List<SoundEvent>>> nightSortedEntries = new ArrayList<>(nightLayers.entrySet());
+            nightSortedEntries.sort(Map.Entry.comparingByKey());
+        
+            for (Map.Entry<Float, List<SoundEvent>> entry : nightSortedEntries) {
+                for (SoundEvent soundEvent : entry.getValue()) {
+                    if (!currLayers.containsValue(soundEvent)) {
+                        float key = entry.getKey();
+                        currLayers.put(entry.getKey(), soundEvent);
+                        nightSoundPlayers.add(new SoundPlayer(soundEvent, client, key, key + offset));
+                        System.out.println("Added night sound player with name " + soundEvent.getId().toString() + " and threat level " + key + " to " + (key + offset));
+                        break;
+                    }
+                }
+            }
+        }
     }
     
 
@@ -87,23 +140,37 @@ public class Region {
         ExecutorService executor = Executors.newCachedThreadPool();
     
         musicTracker.stop();
+
+        //C:\Users\charl\Downloads\New folder
     
-        for (SoundPlayer soundPlayer : soundPlayers) {
-            executor.execute(() -> soundManager.play(soundPlayer));
+        if (soundPlayers != null) {
+            if (isDay(client) || !hasNightLayers) {
+                for (SoundPlayer soundPlayer : soundPlayers) {
+                    executor.execute(() -> soundManager.play(soundPlayer));
+                    //add the sound player to the playingLayers list
+                    playingLayers.add(soundPlayer);
+                }
+            } else {
+                for (SoundPlayer soundPlayer : nightSoundPlayers) {
+                    executor.execute(() -> soundManager.play(soundPlayer));
+                    playingLayers.add(soundPlayer);
+                }
+            }
         }
-    
+        
         executor.shutdown();
     }
 
     public void stop(MinecraftClient client){
-        if (soundPlayers != null) {
-            ExecutorService executor = Executors.newCachedThreadPool();
-    
-            for (SoundPlayer soundPlayer : soundPlayers) {
-                executor.execute(() -> client.getSoundManager().stop(soundPlayer));
-            }
-    
-            executor.shutdown(); // Initiates an orderly shutdown in which previously submitted tasks are executed, but no new tasks will be accepted.
+        SoundManager soundManager = client.getSoundManager();
+        for (SoundPlayer soundPlayer : playingLayers) {
+            soundManager.stop(soundPlayer);
         }
+        playingLayers.clear();
+    }
+
+    public static boolean isDay(MinecraftClient client) {
+        //client.world.isDay() doesn't work
+        return client.world.getTimeOfDay() % 24000 < 12000;
     }
 }

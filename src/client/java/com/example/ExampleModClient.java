@@ -11,8 +11,15 @@ public class ExampleModClient implements ClientModInitializer {
 
 	private static ThreatTracker threatTracker;
 
+
 	@Override
 	public void onInitializeClient() {
+
+		BiomeRegistryListener.init();
+
+		
+
+
 		// This entrypoint is suitable for setting up client-specific logic, such as rendering.
 		ModSounds.registerSounds();
 		

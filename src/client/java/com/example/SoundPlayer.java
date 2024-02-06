@@ -36,4 +36,14 @@ public class SoundPlayer extends MovingSoundInstance {
             this.volume = (threatLevel - MinThreatLevel) / (MaxThreatLevel - MinThreatLevel);
         }
     }
+
+    public void stop() {
+        this.setDone();
+        this.volume = 0f;
+    }
+
+
+    public Object getSoundEvent() {
+        return this.sound;
+    }
 }
