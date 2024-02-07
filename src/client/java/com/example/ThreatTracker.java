@@ -342,4 +342,13 @@ public class ThreatTracker implements EndTick {
         return !stopped;
     }
 
+    public void playMusic(MinecraftClient client) {
+        //call the play method of the region
+        if (client != null && client.player != null) {
+            if (!playing()) {
+                region = ModSounds.changeRegion(client);
+                region.playMusic(client);
+            }
+        }
+    }
 }
