@@ -161,6 +161,21 @@ public class Region {
         executor.shutdown();
     }
 
+    public void playMusic(MinecraftClient client){
+        //plays a single random music track from the list of music
+        SoundManager soundManager = client.getSoundManager();
+        MusicTracker musicTracker = client.getMusicTracker();
+        ExecutorService executor = Executors.newCachedThreadPool();
+        musicTracker.stop();
+        if (music != null && !music.isEmpty()) {
+            SoundEvent musicEvent = music.get((int) (Math.random() * music.size()));
+            MusicPlayer musicPlayer = new MusicPlayer(musicEvent, client);
+            executor.execute(() -> soundManager.play(musicPlayer));
+            System.out.println("MusicPlaying set to true");
+        }
+        executor.shutdown();
+    }
+
     public void stop(MinecraftClient client){
         SoundManager soundManager = client.getSoundManager();
         for (SoundPlayer soundPlayer : playingLayers) {

@@ -1,18 +1,14 @@
 package com.example;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.stream.Stream;
-
 import com.example.mixin.client.GetBossBarsMixin;
 
 import net.fabricmc.loader.api.FabricLoader;
@@ -53,6 +49,8 @@ public class ModSounds {
     public static Map<String, SoundEvent> soundEvents = new HashMap<String, SoundEvent>();
 
     public static ConfigManager configManager = new ConfigManager();
+
+    
 
 
 
@@ -105,7 +103,10 @@ public class ModSounds {
             Arrays.asList(soundEvents.get("th_cc_kick"), soundEvents.get("th_cc_perc2"), soundEvents.get("th_cc_perc1"), soundEvents.get("th_cc_noise"), soundEvents.get("th_cc_snare"), soundEvents.get("th_cc_bass"), soundEvents.get("th_cc_vox")),
             Arrays.asList(soundEvents.get("th_cc_kick"), soundEvents.get("th_cc_arps"), soundEvents.get("th_cc_perc1"), soundEvents.get("th_cc_noise"), soundEvents.get("th_cc_snare"), soundEvents.get("th_cc_bass"), soundEvents.get("th_cc_perc2"), soundEvents.get("th_cc_vox")),
             Arrays.asList(soundEvents.get("th_cc_bass"), soundEvents.get("th_cc_vox"))
-        ), java.util.Optional.empty(), java.util.Optional.empty()));
+        ), java.util.Optional.empty(), 
+        //use a muic track for the region
+        Optional.of(Arrays.asList(soundEvents.get("th_cc_noise")))));
+
 
         regions.put("The Gutter", new Region(Arrays.asList(
             Arrays.asList(soundEvents.get("th_cc_kick"), soundEvents.get("th_cc_perc1"), soundEvents.get("th_cc_noise")),

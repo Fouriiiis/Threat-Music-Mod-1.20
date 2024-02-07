@@ -9,6 +9,7 @@ import net.minecraft.client.gui.Selectable;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.gui.widget.ElementListWidget;
+import net.minecraft.client.gui.widget.TexturedButtonWidget;
 import net.minecraft.client.resource.language.I18n;
 import net.minecraft.screen.ScreenTexts;
 import net.minecraft.text.Text;
@@ -36,7 +37,7 @@ public class ThreatSettingsScreen extends Screen {
     @Override
     protected void init() {
         super.init();
-        biomeListWidget = new BiomeListWidget(client, width + 50, height, 32, height - 32);
+        biomeListWidget = new BiomeListWidget(client, width, height, 32, height - 32);
 
         ModSounds.biomeRegionKeys.keySet().forEach(biomeId ->
                 biomeListWidget.addBiomeEntry(new BiomeListEntry(biomeId.toString())));
@@ -90,13 +91,24 @@ public class ThreatSettingsScreen extends Screen {
       public void addBiomeEntry(BiomeListEntry entry) {
           this.addEntry(entry);
       }
-  }
+
+        // @Override
+        // protected boolean isSelectedEntry(int index) {
+        //     return true;
+        // }
+
+        @Override
+        public int getRowWidth() {
+            return super.getRowWidth()+52;
+        }
+    }
 
     private class BiomeListEntry extends ElementListWidget.Entry<BiomeListEntry> {
         private final Text label;
         private final ButtonWidget cycleRegionButton;
         private final ButtonWidget extraButton;
         private List<String> regionKeys;
+        private static final Identifier SPEAKER_ICON_TEXTURE = new Identifier("modid", "textures/gui/speaker_icon.png");
 
         public BiomeListEntry(String biomeId) {
             this.label = Text.literal(getUserFriendlyBiomeName(new Identifier(biomeId)));
@@ -108,12 +120,26 @@ public class ThreatSettingsScreen extends Screen {
             .build();
 
             // New extra button initialization with a placeholder action
-            this.extraButton = ButtonWidget.builder(Text.literal("..."), button -> {
-                System.out.println("Extra button clicked");
-            })
-            .position(0, 0)
-            .size(20, 20)
-            .build();
+            //src\main\resources\assets\modid\textures\Speaker_Icon.png
+
+            this.extraButton = new TexturedButtonWidget(
+                0, // Use the x position defined above
+                0, // Use the y position defined above
+                20, // Button width
+                20, // Button height
+                0,   // U start
+                0,   // V start
+                20,   // Hovered V Offset (if your texture has a hover state, otherwise 0)
+                SPEAKER_ICON_TEXTURE, // Texture Identifier
+                20, // Texture width (should match the actual texture size)
+                40, // Texture height (should match the actual texture size)
+                button -> { /* Your press action code here */ 
+                    System.out.println("Button pressed");
+                },
+                Text.literal("Tooltip") // Tooltip text
+            );
+
+            
 
             //regionKeys are the keyset of the biomeRegionKeys map
             regionKeys = ModSounds.regions.keySet().stream().toList();
@@ -143,16 +169,17 @@ public class ThreatSettingsScreen extends Screen {
             int middleX = width / 2;
 
             extraButton.setY(y);
-            extraButton.setX(x - 25);
+            extraButton.setX(x);
 
             // Update the cycleRegionButton's position
             cycleRegionButton.setY(y);
-            cycleRegionButton.setX(x);
+            cycleRegionButton.setX(x + 25);
 
             extraButton.render(context, mouseX, mouseY, delta);
             cycleRegionButton.render(context, mouseX, mouseY, delta);
 
-            int labelX = middleX + 20;
+            int labelX = middleX;
+            // + 20;
             int labelY = y + (entryHeight - 8) / 2;
             context.drawTextWithShadow(textRenderer, label, labelX, labelY, 0xFFFFFF);
         }
