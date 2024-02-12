@@ -103,9 +103,11 @@ public class ModSounds {
             Arrays.asList(soundEvents.get("th_cc_kick"), soundEvents.get("th_cc_perc2"), soundEvents.get("th_cc_perc1"), soundEvents.get("th_cc_noise"), soundEvents.get("th_cc_snare"), soundEvents.get("th_cc_bass"), soundEvents.get("th_cc_vox")),
             Arrays.asList(soundEvents.get("th_cc_kick"), soundEvents.get("th_cc_arps"), soundEvents.get("th_cc_perc1"), soundEvents.get("th_cc_noise"), soundEvents.get("th_cc_snare"), soundEvents.get("th_cc_bass"), soundEvents.get("th_cc_perc2"), soundEvents.get("th_cc_vox")),
             Arrays.asList(soundEvents.get("th_cc_bass"), soundEvents.get("th_cc_vox"))
-        ), java.util.Optional.empty(), 
-        //use a muic track for the region
-        Optional.of(Arrays.asList(soundEvents.get("th_cc_noise")))));
+        ), java.util.Optional.empty(),
+        java.util.Optional.of(Arrays.asList(
+            soundEvents.get("cc_clairvoyant_canopy"),
+            soundEvents.get("cc_sky_sprite"),
+            soundEvents.get("cc_wind_chimes")))));
 
 
         regions.put("The Gutter", new Region(Arrays.asList(
@@ -139,7 +141,13 @@ public class ModSounds {
             Arrays.asList(soundEvents.get("th_gw_kick"), soundEvents.get("th_gw_perc1"), soundEvents.get("th_gw_shake"), soundEvents.get("th_gw_bass"), soundEvents.get("th_gw_noise"), soundEvents.get("th_gw_weird"), soundEvents.get("th_gw_vox")),
             Arrays.asList(soundEvents.get("th_gw_kick"), soundEvents.get("th_gw_perc1"), soundEvents.get("th_gw_shake"), soundEvents.get("th_gw_bass"), soundEvents.get("th_gw_noise"), soundEvents.get("th_gw_weird"), soundEvents.get("th_gw_vox")),
             Arrays.asList(soundEvents.get("th_gw_lead"))
-        ), java.util.Optional.empty(), java.util.Optional.empty()));
+        ), java.util.Optional.empty(),
+        java.util.Optional.of(Arrays.asList(
+            soundEvents.get("gw_albino"),
+            soundEvents.get("gw_garbage_city_shuffle"),
+            soundEvents.get("gw_garbage_worms"),
+            soundEvents.get("gw_lack_of_comfort"),
+            soundEvents.get("gw_stone_heads")))));
 
         //Layer : TH_HI - KICK, TH_HI - PERC1, TH_HI - SHAKER
         //Layer : TH_HI - KICK, TH_HI - PERC1, TH_HI - SHAKER, TH_HI - SNARE
@@ -152,7 +160,11 @@ public class ModSounds {
             Arrays.asList(soundEvents.get("th_hi_kick"), soundEvents.get("th_hi_perc1"), soundEvents.get("th_hi_shaker"), soundEvents.get("th_hi_snare"), soundEvents.get("th_hi_bass"), soundEvents.get("th_hi_weird"), soundEvents.get("th_hi_noise")),
             Arrays.asList(soundEvents.get("th_hi_kick"), soundEvents.get("th_hi_perc1"), soundEvents.get("th_hi_shaker"), soundEvents.get("th_hi_snare"), soundEvents.get("th_hi_bass"), soundEvents.get("th_hi_weird"), soundEvents.get("th_hi_noise")),
             Arrays.asList(soundEvents.get("th_hi_vox"))
-        ), java.util.Optional.empty(), java.util.Optional.empty()));
+        ), java.util.Optional.empty(),
+        java.util.Optional.of(Arrays.asList(
+            soundEvents.get("hi_bio-engineering"),
+            soundEvents.get("hi_industrial_atrium"),
+            soundEvents.get("hi_mist_engine")))));
 
         //Layer : TH_HR - KICK
         //Layer : TH_HR - KICK, TH_HR - HAT1, TH_HR - HAT2, TH_HR - NOISE
@@ -205,7 +217,14 @@ public class ModSounds {
             Arrays.asList(soundEvents.get("th_lf_kick"), soundEvents.get("th_lf_perc2"), soundEvents.get("th_lf_perc1"), soundEvents.get("th_lf_shaker"), soundEvents.get("th_lf_bass")),
             Arrays.asList(soundEvents.get("th_lf_kick"), soundEvents.get("th_lf_perc2"), soundEvents.get("th_lf_perc1"), soundEvents.get("th_lf_shaker"), soundEvents.get("th_lf_snare"), soundEvents.get("th_lf_bass"), soundEvents.get("th_lf_arps"), soundEvents.get("th_lf_noise")),
             Arrays.asList(soundEvents.get("th_lf_kick"), soundEvents.get("th_lf_perc2"), soundEvents.get("th_lf_perc1"), soundEvents.get("th_lf_shaker"), soundEvents.get("th_lf_snare"), soundEvents.get("th_lf_bass"), soundEvents.get("th_lf_arps"), soundEvents.get("th_lf_noise"))
-        ), java.util.Optional.empty(), java.util.Optional.empty()));
+        ), java.util.Optional.empty(),
+        java.util.Optional.of(Arrays.asList(
+            soundEvents.get("lf_all_thats_left"),
+            soundEvents.get("lf_distance"),
+            soundEvents.get("lf_emotion_thread"),
+            soundEvents.get("lf_maze_of_soil"),
+            soundEvents.get("lf_nest_in_metal"),
+            soundEvents.get("lf_raindeer_ride")))));
 
         //Layer : TH_LM - KICK, TH_LM - BASS, TH_LM - NOISE, TH_LM - PAD, TH_LM - PERC1
         //Layer : TH_LM - KICK, TH_LM - BASS, TH_LM - NOISE, TH_LM - PAD, TH_LM - PERC1, TH_LM - ARPS
@@ -268,7 +287,17 @@ public class ModSounds {
             Arrays.asList(soundEvents.get("th_si_kick"), soundEvents.get("th_si_perc1"), soundEvents.get("th_si_noise"), soundEvents.get("th_si_shaker"), soundEvents.get("th_si_arps"), soundEvents.get("th_si_bass"), soundEvents.get("th_si_weird"), soundEvents.get("th_si_snare")),
             Arrays.asList(soundEvents.get("th_si_perc1"), soundEvents.get("th_si_noise"), soundEvents.get("th_si_shaker"), soundEvents.get("th_si_arps"), soundEvents.get("th_si_bass"), soundEvents.get("th_si_weird"), soundEvents.get("th_si_snare")),
             Arrays.asList(soundEvents.get("th_si_panic"))
-        ), java.util.Optional.empty(), java.util.Optional.empty()));
+        ), java.util.Optional.empty(),
+        //use si_bio-engineering
+        java.util.Optional.of(Arrays.asList(
+            soundEvents.get("si_crystalline"),
+            soundEvents.get("si_kayava"),
+            soundEvents.get("si_lovely_arps"),
+            soundEvents.get("si_serpentine_struts"),
+            soundEvents.get("si_speaking_systems")))));
+
+
+
 
         //Layer : TH_SL - KICK, TH_SL - BASS
         //Layer : TH_SL - KICK, TH_SL - BASS, TH_SL - PERC2, TH_SL - ARPS
@@ -282,7 +311,13 @@ public class ModSounds {
                 Arrays.asList(soundEvents.get("th_sl_kick"), soundEvents.get("th_sl_bass"), soundEvents.get("th_sl_perc2"), soundEvents.get("th_sl_arps"), soundEvents.get("th_sl_noise"), soundEvents.get("th_sl_snare")),
                 Arrays.asList(soundEvents.get("th_sl_kick"), soundEvents.get("th_sl_bass"), soundEvents.get("th_sl_perc2"), soundEvents.get("th_sl_arps"), soundEvents.get("th_sl_noise"), soundEvents.get("th_sl_snare"), soundEvents.get("th_sl_perc2"), soundEvents.get("th_sl_lead")),
                 Arrays.asList(soundEvents.get("th_sl_kick"), soundEvents.get("th_sl_bass"), soundEvents.get("th_sl_perc2"), soundEvents.get("th_sl_arps"), soundEvents.get("th_sl_noise"), soundEvents.get("th_sl_snare"), soundEvents.get("th_sl_perc2"), soundEvents.get("th_sl_lead"))
-            ), java.util.Optional.empty(), java.util.Optional.empty()));
+            ), java.util.Optional.empty(),
+            java.util.Optional.of(Arrays.asList(
+                soundEvents.get("sl_gate_to_the_shoreline"),
+                soundEvents.get("sl_lonesound"),
+                soundEvents.get("sl_moondown"),
+                soundEvents.get("sl_new_terra"),
+                soundEvents.get("sl_the_captain")))));
 
         //Layer : TH_SS - NOISE, TH_SS - BASS, TH_SS - KICK
         //Layer : TH_SS - NOISE, TH_SS - BASS, TH_SS - KICK, TH_SS - POP
@@ -294,7 +329,13 @@ public class ModSounds {
             Arrays.asList(soundEvents.get("th_ss_noise"), soundEvents.get("th_ss_bass"), soundEvents.get("th_ss_kick"), soundEvents.get("th_ss_pop")),
             Arrays.asList(soundEvents.get("th_ss_noise"), soundEvents.get("th_ss_bass"), soundEvents.get("th_ss_kick"), soundEvents.get("th_ss_pop"), soundEvents.get("th_ss_lead")),
             Arrays.asList(soundEvents.get("th_ss_noise"), soundEvents.get("th_ss_bass"), soundEvents.get("th_ss_kick"), soundEvents.get("th_ss_pop"), soundEvents.get("th_ss_lead"))
-        ), java.util.Optional.empty(), java.util.Optional.empty()));
+        ), java.util.Optional.empty(),
+        java.util.Optional.of(Arrays.asList(
+            soundEvents.get("ss_drainage_duct"),
+            soundEvents.get("ss_drastic_fm"),
+            soundEvents.get("ss_energy_circuit"),
+            soundEvents.get("ss_interest_pad"),
+            soundEvents.get("ss_random_gods")))));
 
 
         // Layer : TH_SU - KICK, TH_SU - SHAKER
@@ -308,7 +349,11 @@ public class ModSounds {
             Arrays.asList(soundEvents.get("th_su_kick"), soundEvents.get("th_su_shaker"), soundEvents.get("th_su_perc1"), soundEvents.get("th_su_noise"), soundEvents.get("th_su_hits"), soundEvents.get("th_su_bass")),
             Arrays.asList(soundEvents.get("th_su_kick"), soundEvents.get("th_su_shaker"), soundEvents.get("th_su_perc1"), soundEvents.get("th_su_arps"), soundEvents.get("th_su_noise"), soundEvents.get("th_su_hits"), soundEvents.get("th_su_bass")),
             Arrays.asList(soundEvents.get("th_su_lead"), soundEvents.get("th_su_bass"))
-        ), java.util.Optional.empty(), java.util.Optional.empty()));
+        ), java.util.Optional.empty(),
+        java.util.Optional.of(Arrays.asList(
+            soundEvents.get("su_proxima"),
+            soundEvents.get("su_unseen_lands"),
+            soundEvents.get("su_urban_jungle")))));
 
         //Layer : TH_VS - KICK, TH_VS - SHAKER
         //Layer : TH_VS - KICK, TH_VS - NOISE, TH_VS - SHAKER, TH_VS - BASS, TH_VS - PERC1
@@ -322,6 +367,34 @@ public class ModSounds {
             Arrays.asList(soundEvents.get("th_vs_kick"), soundEvents.get("th_vs_noise"), soundEvents.get("th_vs_shaker"), soundEvents.get("th_vs_bass"), soundEvents.get("th_vs_arps"), soundEvents.get("th_vs_perc1"), soundEvents.get("th_vs_perc2"), soundEvents.get("th_vs_weird")),
             Arrays.asList(soundEvents.get("th_vs_synth"))
         ), java.util.Optional.empty(), java.util.Optional.empty()));
+
+        regions.put("Subterranean", new Region(Arrays.asList(), java.util.Optional.empty(),
+        java.util.Optional.of(Arrays.asList(
+            soundEvents.get("sb_deep_energy"),
+            soundEvents.get("sb_ferrous_forest"),
+            soundEvents.get("sb_grumblebum"),
+            soundEvents.get("sb_leviathan_cave"),
+            soundEvents.get("sb_silent_construct")))));
+
+        regions.put("Shaded Citadel", new Region(Arrays.asList(), java.util.Optional.empty(),
+        java.util.Optional.of(Arrays.asList(
+            soundEvents.get("sh_black_moonlight"),
+            soundEvents.get("sh_dark_sus"),
+            soundEvents.get("sh_demonic_riser"),
+            soundEvents.get("sh_dripping_time"),
+            soundEvents.get("sh_floes"),
+            soundEvents.get("sh_lantern_mice"),
+            soundEvents.get("sh_memory_crypts")))));
+
+        regions.put("The Wall", new Region(Arrays.asList(), java.util.Optional.empty(),
+        java.util.Optional.of(Arrays.asList(
+            soundEvents.get("tw_stargazer"),
+            soundEvents.get("tw_the_wall")))));
+
+        regions.put("Underhang", new Region(Arrays.asList(), java.util.Optional.empty(),
+        java.util.Optional.of(Arrays.asList(
+            soundEvents.get("uw_underhang"),
+            soundEvents.get("uw_white_lizard")))));
 
         regions.put("None", new Region(Arrays.asList(), java.util.Optional.empty(), java.util.Optional.empty()));
     }

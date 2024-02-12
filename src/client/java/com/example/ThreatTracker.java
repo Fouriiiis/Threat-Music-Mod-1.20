@@ -8,9 +8,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents.EndTick;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayerEntity;
+import net.minecraft.client.sound.MusicTracker;
+import net.minecraft.client.sound.SoundInstance;
 import net.minecraft.entity.Entity;
 
 import net.minecraft.entity.boss.WitherEntity;
@@ -61,13 +64,10 @@ import net.minecraft.entity.passive.WolfEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.predicate.entity.EntityPredicates;
 import net.minecraft.text.Text;
-
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.RaycastContext;
-
-//import ThreatDetermination.java
 
 
 public class ThreatTracker implements EndTick {
@@ -75,8 +75,10 @@ public class ThreatTracker implements EndTick {
     private static int blockRadius1 = 16;
     private static int blockRadius2 = 48;
     public static float currentThreat = 0;
-    private static float targetThreat = 0;
+    public static float targetThreat = 0;
     private static float threatDeclineCounter = 0;
+
+    private boolean demo = false;
 
     private int lastPlayed = 0;
     private int maxTime = 75;
@@ -158,7 +160,7 @@ public class ThreatTracker implements EndTick {
 
     @Override
     public void onEndTick(MinecraftClient client) {
-        if (client != null && client.player != null) {
+        if (client != null && client.player != null && !client.isPaused()) {
 
             targetThreat = 0;
 
@@ -293,8 +295,13 @@ public class ThreatTracker implements EndTick {
                 lastPlayed = 0;
             }
         //System.out.println("lastPlayed: " + lastPlayed);
+        } else if(demo) {
+            targetThreat = 1.0f;
+            currentThreat = (float) Math.min(1, currentThreat + 1f / lerp(280f, 80f, targetThreat));
+            //clamp currentThreat between 0 and 1
+            currentThreat = MathHelper.clamp(currentThreat, 0, 1);
+            System.out.println("threat level: " + ThreatTracker.currentThreat);
         }
-       
     }
 
     // Helper function to mimic Unity's Mathf.Lerp
@@ -308,8 +315,6 @@ public class ThreatTracker implements EndTick {
             return true;
         }
         return false;
-
-        
     }
 
     public HitResult raycast(Entity entity, PlayerEntity player) {
@@ -326,14 +331,28 @@ public class ThreatTracker implements EndTick {
 
     }
     
-    
+    public void playDemo(Region thisRegion, MinecraftClient client) {
+        //print if region is null
+        System.out.println("region is :" + region == null);
+        //stop the current region
+        MusicTracker musicTracker = client.getMusicTracker();
+        //stop the threat music
+        musicTracker.stop();
+        region = thisRegion;
+        currentThreat = 0.0f;
+        demo = true;
+        region.playDemo(client);
+        stopped = false;
+    }
 
     public void stopRegion(MinecraftClient client) {
-        if (!stopped) {
+        if (!stopped && region != null) {
             region.stop(client);
             region.randomizeLayers();
-            client.player.sendMessage(Text.of("Stopping music"), false);
+            //client.player.sendMessage(Text.of("Stopping music"), false);
             stopped = true;
+            demo = false;
+            currentThreat = 0;
             lastPlayed = 0;
         }
     }
@@ -342,13 +361,11 @@ public class ThreatTracker implements EndTick {
         return !stopped;
     }
 
-    public void playMusic(MinecraftClient client) {
-        //call the play method of the region
-        if (client != null && client.player != null) {
-            if (!playing()) {
-                region = ModSounds.changeRegion(client);
-                region.playMusic(client);
-            }
+    public SoundInstance getMusic(MinecraftClient client) {
+        if (!playing()) {
+            region = ModSounds.changeRegion(client);
+            return region.getMusic(client);
         }
+        return null;
     }
 }

@@ -16,6 +16,7 @@ import java.util.concurrent.Executors;
 
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.sound.MusicTracker;
+import net.minecraft.client.sound.SoundInstance;
 import net.minecraft.client.sound.SoundManager;
 
 
@@ -24,8 +25,8 @@ import net.minecraft.client.sound.SoundManager;
 public class Region {
 
     private Map<Float, SoundEvent> currLayers;
-    private List<SoundPlayer> soundPlayers = new ArrayList<SoundPlayer>();
-    private List<SoundPlayer> nightSoundPlayers = new ArrayList<SoundPlayer>();
+    private List<ThreatMusicPlayer> soundPlayers = new ArrayList<ThreatMusicPlayer>();
+    private List<ThreatMusicPlayer> nightSoundPlayers = new ArrayList<ThreatMusicPlayer>();
     private Map<Float, List<SoundEvent>> layers;
     private Map<Float, List<SoundEvent>> nightLayers;
 
@@ -33,7 +34,7 @@ public class Region {
 
     //playing layers
 
-    private List<SoundPlayer> playingLayers = new ArrayList<SoundPlayer>();
+    private List<ThreatMusicPlayer> playingLayers = new ArrayList<ThreatMusicPlayer>();
 
     MinecraftClient client = MinecraftClient.getInstance();
     float offset;
@@ -80,13 +81,20 @@ public class Region {
     }
 
     public void randomizeLayers() {
-        //for each list of layers, shuffle the list
-        for(List<SoundEvent> layer : layers.values()) {
+        // For each list of layers, shuffle the list
+        for (List<SoundEvent> layer : layers.values()) {
             Collections.shuffle(layer);
         }
+        
+        // Shuffle night layers if they exist
+        if (hasNightLayers) {
+            for (List<SoundEvent> nightLayer : nightLayers.values()) {
+                Collections.shuffle(nightLayer);
+            }
+        }
+        
         System.out.println("Randomized layers");
         setupSoundPlayers();
-        
     }
 
     public void setupSoundPlayers() {
@@ -108,7 +116,7 @@ public class Region {
                     // get the sound event from the layer list and add it to the currLayers map
                     currLayers.put(entry.getKey(), soundEvent);
                     // create a new sound player with the sound event and add it to the soundPlayers list
-                    soundPlayers.add(new SoundPlayer(soundEvent, client, key, key + offset));
+                    soundPlayers.add(new ThreatMusicPlayer(soundEvent, client, key, key + offset));
                     System.out.println("Added sound player with name " + soundEvent.getId().toString() + " and threat level " + key + " to " + (key + offset));
                     break;
                 }
@@ -124,7 +132,7 @@ public class Region {
                     if (!currLayers.containsValue(soundEvent)) {
                         float key = entry.getKey();
                         currLayers.put(entry.getKey(), soundEvent);
-                        nightSoundPlayers.add(new SoundPlayer(soundEvent, client, key, key + offset));
+                        nightSoundPlayers.add(new ThreatMusicPlayer(soundEvent, client, key, key + offset));
                         System.out.println("Added night sound player with name " + soundEvent.getId().toString() + " and threat level " + key + " to " + (key + offset));
                         break;
                     }
@@ -145,13 +153,13 @@ public class Region {
     
         if (soundPlayers != null) {
             if (isDay(client) || !hasNightLayers) {
-                for (SoundPlayer soundPlayer : soundPlayers) {
+                for (ThreatMusicPlayer soundPlayer : soundPlayers) {
                     executor.execute(() -> soundManager.play(soundPlayer));
                     //add the sound player to the playingLayers list
                     playingLayers.add(soundPlayer);
                 }
             } else {
-                for (SoundPlayer soundPlayer : nightSoundPlayers) {
+                for (ThreatMusicPlayer soundPlayer : nightSoundPlayers) {
                     executor.execute(() -> soundManager.play(soundPlayer));
                     playingLayers.add(soundPlayer);
                 }
@@ -161,24 +169,37 @@ public class Region {
         executor.shutdown();
     }
 
-    public void playMusic(MinecraftClient client){
-        //plays a single random music track from the list of music
+    public void playDemo(MinecraftClient client) {
         SoundManager soundManager = client.getSoundManager();
         MusicTracker musicTracker = client.getMusicTracker();
         ExecutorService executor = Executors.newCachedThreadPool();
+    
         musicTracker.stop();
-        if (music != null && !music.isEmpty()) {
-            SoundEvent musicEvent = music.get((int) (Math.random() * music.size()));
-            MusicPlayer musicPlayer = new MusicPlayer(musicEvent, client);
-            executor.execute(() -> soundManager.play(musicPlayer));
-            System.out.println("MusicPlaying set to true");
+
+        //C:\Users\charl\Downloads\New folder
+    
+        if (soundPlayers != null) {
+            if (Math.random() < 0.5 || !hasNightLayers) {
+                for (ThreatMusicPlayer soundPlayer : soundPlayers) {
+                    soundManager.play(soundPlayer);
+                    //add the sound player to the playingLayers list
+                    playingLayers.add(soundPlayer);
+                }
+            } else {
+                for (ThreatMusicPlayer soundPlayer : nightSoundPlayers) {
+                    soundManager.play(soundPlayer);
+                    playingLayers.add(soundPlayer);
+                }
+            }
         }
+        
         executor.shutdown();
     }
 
+
     public void stop(MinecraftClient client){
         SoundManager soundManager = client.getSoundManager();
-        for (SoundPlayer soundPlayer : playingLayers) {
+        for (ThreatMusicPlayer soundPlayer : playingLayers) {
             soundManager.stop(soundPlayer);
         }
         playingLayers.clear();
@@ -187,5 +208,14 @@ public class Region {
     public static boolean isDay(MinecraftClient client) {
         //client.world.isDay() doesn't work
         return client.world.getTimeOfDay() % 24000 < 12000;
+    }
+
+    public SoundInstance getMusic(MinecraftClient client) {
+        //create a new music player with a random music track from the list of music
+        if (music != null && !music.isEmpty()) {
+            SoundEvent musicEvent = music.get((int) (Math.random() * music.size()));
+            return new MusicPlayer(musicEvent, client);
+        }
+        return null;
     }
 }

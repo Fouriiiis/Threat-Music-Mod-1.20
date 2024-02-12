@@ -9,32 +9,29 @@ import net.minecraft.sound.SoundEvent;
 
 public class MusicPlayer extends MovingSoundInstance {
 
-    // A flag to indicate whether the sound has finished playing.
-    private boolean finished = false;
-
     public MusicPlayer(SoundEvent sound, MinecraftClient client) {
-        super(sound, SoundCategory.PLAYERS, SoundInstance.createRandom());
+        super(sound, SoundCategory.MUSIC, SoundInstance.createRandom());
         this.repeat = false;
         this.repeatDelay = 0;
         this.relative = true;
-        this.volume = 0.1f;
+        this.volume = 1.0f;
     }
 
     @Override
     public void tick() {
-        if (this.finished) {
-            // Perform your action here, e.g., print a message to the console.
-            System.out.println("Sound has finished playing!");
+        //set threat level to 0
 
-            // Mark this sound instance as done to stop further ticking and to remove it.
-            this.setDone();
-            ThreatTracker.MusicPlaying = false;
-            System.out.println("MusicPlaying set to false");
+        if(!this.isDone()) {
+            ThreatTracker.currentThreat = 0;
+            System.out.println("Threat level set to 0");
         }
-    }
+        
 
-    // Call this method when you know the sound should be finished.
-    public void markFinished() {
-        this.finished = true;
+        //check if the music category is turned off
+        MinecraftClient client = MinecraftClient.getInstance();
+        if (client.options.getSoundVolume(SoundCategory.MUSIC) == 0.0f) {
+            this.setDone();
+            System.out.println("Music stopped");
+        }
     }
 }

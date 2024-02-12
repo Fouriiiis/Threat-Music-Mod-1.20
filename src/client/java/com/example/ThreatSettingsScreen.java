@@ -11,6 +11,7 @@ import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.gui.widget.ElementListWidget;
 import net.minecraft.client.gui.widget.TexturedButtonWidget;
 import net.minecraft.client.resource.language.I18n;
+import net.minecraft.client.sound.MusicTracker;
 import net.minecraft.screen.ScreenTexts;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
@@ -31,6 +32,11 @@ public class ThreatSettingsScreen extends Screen {
     @Override
     public void close() {
         ModSounds.saveBiomeRegionKeys();
+        //stop the threat music
+        //get the music tracker
+        MusicTracker musicTracker = client.getMusicTracker();
+        //stop the threat music
+        musicTracker.stop();
         client.setScreen(parent);
     }
 
@@ -47,6 +53,10 @@ public class ThreatSettingsScreen extends Screen {
         //Close screen
         addDrawableChild(ButtonWidget.builder(ScreenTexts.DONE, button -> {
             ModSounds.saveBiomeRegionKeys();
+            //stop the threat music
+            MusicTracker musicTracker = client.getMusicTracker();
+            //stop the threat music
+            musicTracker.stop();
             this.client.setScreen(this.parent);
         }).dimensions(this.width / 2 - 155 + 160, this.height - 29, 150, 20).build());
 
@@ -134,7 +144,15 @@ public class ThreatSettingsScreen extends Screen {
                 20, // Texture width (should match the actual texture size)
                 40, // Texture height (should match the actual texture size)
                 button -> { /* Your press action code here */ 
-                    System.out.println("Button pressed");
+                    //get the region
+                    String key = ModSounds.biomeRegionKeys.get(biomeId);
+                    //print the key
+                    System.out.println("key: " + key);
+                    Region demo = ModSounds.regions.get(key);
+                    System.out.println("demo: " + demo);
+                    ExampleModClient.getThreatTracker().playDemo(demo, client);
+                    //print the threat level
+                    
                 },
                 Text.literal("Tooltip") // Tooltip text
             );

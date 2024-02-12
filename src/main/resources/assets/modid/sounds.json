@@ -1,1048 +1,1456 @@
 {
-  "th_cc_arps": {
-      "sounds": [
-          {
-              "name": "modid:th_cc_arps",
-              "stream": true
-          }
-      ]
-  },
-  "th_cc_bass": {
-      "sounds": [
-          {
-              "name": "modid:th_cc_bass",
-              "stream": true
-          }
-      ]
-  },
-  "th_cc_gutterbass": {
-      "sounds": [
-          {
-              "name": "modid:th_cc_gutterbass",
-              "stream": true
-          }
-      ]
-  },
-  "th_cc_guttervox": {
-      "sounds": [
-          {
-              "name": "modid:th_cc_guttervox",
-              "stream": true
-          }
-      ]
-  },
-  "th_cc_kick": {
-      "sounds": [
-          {
-              "name": "modid:th_cc_kick",
-              "stream": true
-          }
-      ]
-  },
-  "th_cc_noise": {
-      "sounds": [
-          {
-              "name": "modid:th_cc_noise",
-              "stream": true
-          }
-      ]
-  },
-  "th_cc_perc1": {
-      "sounds": [
-          {
-              "name": "modid:th_cc_perc1",
-              "stream": true
-          }
-      ]
-  },
-  "th_cc_perc2": {
-      "sounds": [
-          {
-              "name": "modid:th_cc_perc2",
-              "stream": true
-          }
-      ]
-  },
-  "th_cc_snare": {
-      "sounds": [
-          {
-              "name": "modid:th_cc_snare",
-              "stream": true
-          }
-      ]
-  },
-  "th_cc_vox": {
-      "sounds": [
-          {
-              "name": "modid:th_cc_vox",
-              "stream": true
-          }
-      ]
-  },
-  "th_dm_bass": {
-      "sounds": [
-          {
-              "name": "modid:th_dm_bass",
-              "stream": true
-          }
-      ]
-  },
-  "th_dm_kick": {
-      "sounds": [
-          {
-              "name": "modid:th_dm_kick",
-              "stream": true
-          }
-      ]
-  },
-  "th_dm_lead": {
-      "sounds": [
-          {
-              "name": "modid:th_dm_lead",
-              "stream": true
-          }
-      ]
-  },
-  "th_dm_noise": {
-      "sounds": [
-          {
-              "name": "modid:th_dm_noise",
-              "stream": true
-          }
-      ]
-  },
-  "th_dm_shaker": {
-      "sounds": [
-          {
-              "name": "modid:th_dm_shaker",
-              "stream": true
-          }
-      ]
-  },
-  "th_dm_snare": {
-      "sounds": [
-          {
-              "name": "modid:th_dm_snare",
-              "stream": true
-          }
-      ]
-  },
-  "th_gw_bass": {
-      "sounds": [
-          {
-              "name": "modid:th_gw_bass",
-              "stream": true
-          }
-      ]
-  },
-  "th_gw_kick": {
-      "sounds": [
-          {
-              "name": "modid:th_gw_kick",
-              "stream": true
-          }
-      ]
-  },
-  "th_gw_lead": {
-      "sounds": [
-          {
-              "name": "modid:th_gw_lead",
-              "stream": true
-          }
-      ]
-  },
-  "th_gw_noise": {
-      "sounds": [
-          {
-              "name": "modid:th_gw_noise",
-              "stream": true
-          }
-      ]
-  },
-  "th_gw_perc1": {
-      "sounds": [
-          {
-              "name": "modid:th_gw_perc1",
-              "stream": true
-          }
-      ]
-  },
-  "th_gw_perc2": {
-      "sounds": [
-          {
-              "name": "modid:th_gw_perc2",
-              "stream": true
-          }
-      ]
-  },
-  "th_gw_shake": {
-      "sounds": [
-          {
-              "name": "modid:th_gw_shake",
-              "stream": true
-          }
-      ]
-  },
-  "th_gw_vox": {
-      "sounds": [
-          {
-              "name": "modid:th_gw_vox",
-              "stream": true
-          }
-      ]
-  },
-  "th_gw_weird": {
-      "sounds": [
-          {
-              "name": "modid:th_gw_weird",
-              "stream": true
-          }
-      ]
-  },
-  "th_hi_bass": {
-      "sounds": [
-          {
-              "name": "modid:th_hi_bass",
-              "stream": true
-          }
-      ]
-  },
-  "th_hi_kick": {
-      "sounds": [
-          {
-              "name": "modid:th_hi_kick",
-              "stream": true
-          }
-      ]
-  },
-  "th_hi_noise": {
-      "sounds": [
-          {
-              "name": "modid:th_hi_noise",
-              "stream": true
-          }
-      ]
-  },
-  "th_hi_perc1": {
-      "sounds": [
-          {
-              "name": "modid:th_hi_perc1",
-              "stream": true
-          }
-      ]
-  },
-  "th_hi_render": {
-      "sounds": [
-          {
-              "name": "modid:th_hi_render",
-              "stream": true
-          }
-      ]
-  },
-  "th_hi_shaker": {
-      "sounds": [
-          {
-              "name": "modid:th_hi_shaker",
-              "stream": true
-          }
-      ]
-  },
-  "th_hi_snare": {
-      "sounds": [
-          {
-              "name": "modid:th_hi_snare",
-              "stream": true
-          }
-      ]
-  },
-  "th_hi_vox": {
-      "sounds": [
-          {
-              "name": "modid:th_hi_vox",
-              "stream": true
-          }
-      ]
-  },
-  "th_hi_weird": {
-      "sounds": [
-          {
-              "name": "modid:th_hi_weird",
-              "stream": true
-          }
-      ]
-  },
-  "th_hr_bass": {
-      "sounds": [
-          {
-              "name": "modid:th_hr_bass",
-              "stream": true
-          }
-      ]
-  },
-  "th_hr_hat1": {
-      "sounds": [
-          {
-              "name": "modid:th_hr_hat1",
-              "stream": true
-          }
-      ]
-  },
-  "th_hr_hat2": {
-      "sounds": [
-          {
-              "name": "modid:th_hr_hat2",
-              "stream": true
-          }
-      ]
-  },
-  "th_hr_kick": {
-      "sounds": [
-          {
-              "name": "modid:th_hr_kick",
-              "stream": true
-          }
-      ]
-  },
-  "th_hr_lead": {
-      "sounds": [
-          {
-              "name": "modid:th_hr_lead",
-              "stream": true
-          }
-      ]
-  },
-  "th_hr_noise": {
-      "sounds": [
-          {
-              "name": "modid:th_hr_noise",
-              "stream": true
-          }
-      ]
-  },
-  "th_hr_pad": {
-      "sounds": [
-          {
-              "name": "modid:th_hr_pad",
-              "stream": true
-          }
-      ]
-  },
-  "th_hr_perc": {
-      "sounds": [
-          {
-              "name": "modid:th_hr_perc",
-              "stream": true
-          }
-      ]
-  },
-  "th_hr_snare": {
-      "sounds": [
-          {
-              "name": "modid:th_hr_snare",
-              "stream": true
-          }
-      ]
-  },
-  "th_hr_weird": {
-      "sounds": [
-          {
-              "name": "modid:th_hr_weird",
-              "stream": true
-          }
-      ]
-  },
-  "th_lc_dayarp": {
-      "sounds": [
-          {
-              "name": "modid:th_lc_dayarp",
-              "stream": true
-          }
-      ]
-  },
-  "th_lc_dayatmos": {
-      "sounds": [
-          {
-              "name": "modid:th_lc_dayatmos",
-              "stream": true
-          }
-      ]
-  },
-  "th_lc_daybreaks": {
-      "sounds": [
-          {
-              "name": "modid:th_lc_daybreaks",
-              "stream": true
-          }
-      ]
-  },
-  "th_lc_daykick": {
-      "sounds": [
-          {
-              "name": "modid:th_lc_daykick",
-              "stream": true
-          }
-      ]
-  },
-  "th_lc_dayperc": {
-      "sounds": [
-          {
-              "name": "modid:th_lc_dayperc",
-              "stream": true
-          }
-      ]
-  },
-  "th_lc_dayshaker": {
-      "sounds": [
-          {
-              "name": "modid:th_lc_dayshaker",
-              "stream": true
-          }
-      ]
-  },
-  "th_lc_daysub": {
-      "sounds": [
-          {
-              "name": "modid:th_lc_daysub",
-              "stream": true
-          }
-      ]
-  },
-  "th_lc_daysynth": {
-      "sounds": [
-          {
-              "name": "modid:th_lc_daysynth",
-              "stream": true
-          }
-      ]
-  },
-  "th_lc_daytom": {
-      "sounds": [
-          {
-              "name": "modid:th_lc_daytom",
-              "stream": true
-          }
-      ]
-  },
-  "th_lc_nightatmos": {
-      "sounds": [
-          {
-              "name": "modid:th_lc_nightatmos",
-              "stream": true
-          }
-      ]
-  },
-  "th_lc_nighthat": {
-      "sounds": [
-          {
-              "name": "modid:th_lc_nighthat",
-              "stream": true
-          }
-      ]
-  },
-  "th_lc_nightkick": {
-      "sounds": [
-          {
-              "name": "modid:th_lc_nightkick",
-              "stream": true
-          }
-      ]
-  },
-  "th_lc_nightnoise": {
-      "sounds": [
-          {
-              "name": "modid:th_lc_nightnoise",
-              "stream": true
-          }
-      ]
-  },
-  "th_lc_nightperc": {
-      "sounds": [
-          {
-              "name": "modid:th_lc_nightperc",
-              "stream": true
-          }
-      ]
-  },
-  "th_lc_nightshaker": {
-      "sounds": [
-          {
-              "name": "modid:th_lc_nightshaker",
-              "stream": true
-          }
-      ]
-  },
-  "th_lc_nightsub": {
-      "sounds": [
-          {
-              "name": "modid:th_lc_nightsub",
-              "stream": true
-          }
-      ]
-  },
-  "th_lc_nightsynth": {
-      "sounds": [
-          {
-              "name": "modid:th_lc_nightsynth",
-              "stream": true
-          }
-      ]
-  },
-  "th_lc_nighttom": {
-      "sounds": [
-          {
-              "name": "modid:th_lc_nighttom",
-              "stream": true
-          }
-      ]
-  },
-  "th_lf_arps": {
-      "sounds": [
-          {
-              "name": "modid:th_lf_arps",
-              "stream": true
-          }
-      ]
-  },
-  "th_lf_bass": {
-      "sounds": [
-          {
-              "name": "modid:th_lf_bass",
-              "stream": true
-          }
-      ]
-  },
-  "th_lf_chords": {
-      "sounds": [
-          {
-              "name": "modid:th_lf_chords",
-              "stream": true
-          }
-      ]
-  },
-  "th_lf_kick": {
-      "sounds": [
-          {
-              "name": "modid:th_lf_kick",
-              "stream": true
-          }
-      ]
-  },
-  "th_lf_noise": {
-      "sounds": [
-          {
-              "name": "modid:th_lf_noise",
-              "stream": true
-          }
-      ]
-  },
-  "th_lf_perc1": {
-      "sounds": [
-          {
-              "name": "modid:th_lf_perc1",
-              "stream": true
-          }
-      ]
-  },
-  "th_lf_perc2": {
-      "sounds": [
-          {
-              "name": "modid:th_lf_perc2",
-              "stream": true
-          }
-      ]
-  },
-  "th_lf_shaker": {
-      "sounds": [
-          {
-              "name": "modid:th_lf_shaker",
-              "stream": true
-          }
-      ]
-  },
-  "th_lf_snare": {
-      "sounds": [
-          {
-              "name": "modid:th_lf_snare",
-              "stream": true
-          }
-      ]
-  },
-  "th_lm_arps": {
-      "sounds": [
-          {
-              "name": "modid:th_lm_arps",
-              "stream": true
-          }
-      ]
-  },
-  "th_lm_bass": {
-      "sounds": [
-          {
-              "name": "modid:th_lm_bass",
-              "stream": true
-          }
-      ]
-  },
-  "th_lm_kick": {
-      "sounds": [
-          {
-              "name": "modid:th_lm_kick",
-              "stream": true
-          }
-      ]
-  },
-  "th_lm_noise": {
-      "sounds": [
-          {
-              "name": "modid:th_lm_noise",
-              "stream": true
-          }
-      ]
-  },
-  "th_lm_pad": {
-      "sounds": [
-          {
-              "name": "modid:th_lm_pad",
-              "stream": true
-          }
-      ]
-  },
-  "th_lm_perc1": {
-      "sounds": [
-          {
-              "name": "modid:th_lm_perc1",
-              "stream": true
-          }
-      ]
-  },
-  "th_lm_perc2": {
-      "sounds": [
-          {
-              "name": "modid:th_lm_perc2",
-              "stream": true
-          }
-      ]
-  },
-  "th_lm_snare": {
-      "sounds": [
-          {
-              "name": "modid:th_lm_snare",
-              "stream": true
-          }
-      ]
-  },
-  "th_lm_weird": {
-      "sounds": [
-          {
-              "name": "modid:th_lm_weird",
-              "stream": true
-          }
-      ]
-  },
-  "th_oe_arp": {
-      "sounds": [
-          {
-              "name": "modid:th_oe_arp",
-              "stream": true
-          }
-      ]
-  },
-  "th_oe_bass": {
-      "sounds": [
-          {
-              "name": "modid:th_oe_bass",
-              "stream": true
-          }
-      ]
-  },
-  "th_oe_flow": {
-      "sounds": [
-          {
-              "name": "modid:th_oe_flow",
-              "stream": true
-          }
-      ]
-  },
-  "th_oe_kickperc": {
-      "sounds": [
-          {
-              "name": "modid:th_oe_kickperc",
-              "stream": true
-          }
-      ]
-  },
-  "th_oe_lead": {
-      "sounds": [
-          {
-              "name": "modid:th_oe_lead",
-              "stream": true
-          }
-      ]
-  },
-  "th_oe_noise": {
-      "sounds": [
-          {
-              "name": "modid:th_oe_noise",
-              "stream": true
-          }
-      ]
-  },
-  "th_oe_perc2": {
-      "sounds": [
-          {
-              "name": "modid:th_oe_perc2",
-              "stream": true
-          }
-      ]
-  },
-  "th_oe_waves": {
-      "sounds": [
-          {
-              "name": "modid:th_oe_waves",
-              "stream": true
-          }
-      ]
-  },
-  "th_si_arps": {
-      "sounds": [
-          {
-              "name": "modid:th_si_arps",
-              "stream": true
-          }
-      ]
-  },
-  "th_si_bass": {
-      "sounds": [
-          {
-              "name": "modid:th_si_bass",
-              "stream": true
-          }
-      ]
-  },
-  "th_si_kick": {
-      "sounds": [
-          {
-              "name": "modid:th_si_kick",
-              "stream": true
-          }
-      ]
-  },
-  "th_si_noise": {
-      "sounds": [
-          {
-              "name": "modid:th_si_noise",
-              "stream": true
-          }
-      ]
-  },
-  "th_si_panic": {
-      "sounds": [
-          {
-              "name": "modid:th_si_panic",
-              "stream": true
-          }
-      ]
-  },
-  "th_si_perc1": {
-      "sounds": [
-          {
-              "name": "modid:th_si_perc1",
-              "stream": true
-          }
-      ]
-  },
-  "th_si_shaker": {
-      "sounds": [
-          {
-              "name": "modid:th_si_shaker",
-              "stream": true
-          }
-      ]
-  },
-  "th_si_snare": {
-      "sounds": [
-          {
-              "name": "modid:th_si_snare",
-              "stream": true
-          }
-      ]
-  },
-  "th_si_weird": {
-      "sounds": [
-          {
-              "name": "modid:th_si_weird",
-              "stream": true
-          }
-      ]
-  },
-  "th_sl_arps": {
-      "sounds": [
-          {
-              "name": "modid:th_sl_arps",
-              "stream": true
-          }
-      ]
-  },
-  "th_sl_bass": {
-      "sounds": [
-          {
-              "name": "modid:th_sl_bass",
-              "stream": true
-          }
-      ]
-  },
-  "th_sl_kick": {
-      "sounds": [
-          {
-              "name": "modid:th_sl_kick",
-              "stream": true
-          }
-      ]
-  },
-  "th_sl_lead": {
-      "sounds": [
-          {
-              "name": "modid:th_sl_lead",
-              "stream": true
-          }
-      ]
-  },
-  "th_sl_noise": {
-      "sounds": [
-          {
-              "name": "modid:th_sl_noise",
-              "stream": true
-          }
-      ]
-  },
-  "th_sl_perc1": {
-      "sounds": [
-          {
-              "name": "modid:th_sl_perc1",
-              "stream": true
-          }
-      ]
-  },
-  "th_sl_perc2": {
-      "sounds": [
-          {
-              "name": "modid:th_sl_perc2",
-              "stream": true
-          }
-      ]
-  },
-  "th_sl_snare": {
-      "sounds": [
-          {
-              "name": "modid:th_sl_snare",
-              "stream": true
-          }
-      ]
-  },
-  "th_ss_bass": {
-      "sounds": [
-          {
-              "name": "modid:th_ss_bass",
-              "stream": true
-          }
-      ]
-  },
-  "th_ss_kick": {
-      "sounds": [
-          {
-              "name": "modid:th_ss_kick",
-              "stream": true
-          }
-      ]
-  },
-  "th_ss_lead": {
-      "sounds": [
-          {
-              "name": "modid:th_ss_lead",
-              "stream": true
-          }
-      ]
-  },
-  "th_ss_noise": {
-      "sounds": [
-          {
-              "name": "modid:th_ss_noise",
-              "stream": true
-          }
-      ]
-  },
-  "th_ss_pop": {
-      "sounds": [
-          {
-              "name": "modid:th_ss_pop",
-              "stream": true
-          }
-      ]
-  },
-  "th_su_arps": {
-      "sounds": [
-          {
-              "name": "modid:th_su_arps",
-              "stream": true
-          }
-      ]
-  },
-  "th_su_bass": {
-      "sounds": [
-          {
-              "name": "modid:th_su_bass",
-              "stream": true
-          }
-      ]
-  },
-  "th_su_hits": {
-      "sounds": [
-          {
-              "name": "modid:th_su_hits",
-              "stream": true
-          }
-      ]
-  },
-  "th_su_kick": {
-      "sounds": [
-          {
-              "name": "modid:th_su_kick",
-              "stream": true
-          }
-      ]
-  },
-  "th_su_lead": {
-      "sounds": [
-          {
-              "name": "modid:th_su_lead",
-              "stream": true
-          }
-      ]
-  },
-  "th_su_noise": {
-      "sounds": [
-          {
-              "name": "modid:th_su_noise",
-              "stream": true
-          }
-      ]
-  },
-  "th_su_perc1": {
-      "sounds": [
-          {
-              "name": "modid:th_su_perc1",
-              "stream": true
-          }
-      ]
-  },
-  "th_su_shaker": {
-      "sounds": [
-          {
-              "name": "modid:th_su_shaker",
-              "stream": true
-          }
-      ]
-  },
-  "th_vs_arps": {
-      "sounds": [
-          {
-              "name": "modid:th_vs_arps",
-              "stream": true
-          }
-      ]
-  },
-  "th_vs_bass": {
-      "sounds": [
-          {
-              "name": "modid:th_vs_bass",
-              "stream": true
-          }
-      ]
-  },
-  "th_vs_kick": {
-      "sounds": [
-          {
-              "name": "modid:th_vs_kick",
-              "stream": true
-          }
-      ]
-  },
-  "th_vs_noise": {
-      "sounds": [
-          {
-              "name": "modid:th_vs_noise",
-              "stream": true
-          }
-      ]
-  },
-  "th_vs_perc1": {
-      "sounds": [
-          {
-              "name": "modid:th_vs_perc1",
-              "stream": true
-          }
-      ]
-  },
-  "th_vs_perc2": {
-      "sounds": [
-          {
-              "name": "modid:th_vs_perc2",
-              "stream": true
-          }
-      ]
-  },
-  "th_vs_shaker": {
-      "sounds": [
-          {
-              "name": "modid:th_vs_shaker",
-              "stream": true
-          }
-      ]
-  },
-  "th_vs_synth": {
-      "sounds": [
-          {
-              "name": "modid:th_vs_synth",
-              "stream": true
-          }
-      ]
-  },
-  "th_vs_weird": {
-      "sounds": [
-          {
-              "name": "modid:th_vs_weird",
-              "stream": true
-          }
-      ]
-  },
-  "test1": {
-      "sounds": [
-          {
-              "name": "modid:test1",
-              "stream": true
-          }
-      ]
-  },
-    "test2": {
+    "cc_clairvoyant_canopy": {
         "sounds": [
             {
-                "name": "modid:test2",
+                "name": "modid:cc_clairvoyant_canopy",
                 "stream": true
             }
         ]
     },
-    "test3": {
+    "cc_sky_sprite": {
         "sounds": [
             {
-                "name": "modid:test3",
+                "name": "modid:cc_sky_sprite",
                 "stream": true
             }
         ]
     },
-    "test4": {
+    "cc_wind_chimes": {
         "sounds": [
             {
-                "name": "modid:test4",
+                "name": "modid:cc_wind_chimes",
+                "stream": true
+            }
+        ]
+    },
+    "ds_mud_pits": {
+        "sounds": [
+            {
+                "name": "modid:ds_mud_pits",
+                "stream": true
+            }
+        ]
+    },
+    "ds_old_growth": {
+        "sounds": [
+            {
+                "name": "modid:ds_old_growth",
+                "stream": true
+            }
+        ]
+    },
+    "ds_swaying_fronds": {
+        "sounds": [
+            {
+                "name": "modid:ds_swaying_fronds",
+                "stream": true
+            }
+        ]
+    },
+    "ds_the_wet_moist": {
+        "sounds": [
+            {
+                "name": "modid:ds_the_wet_moist",
+                "stream": true
+            }
+        ]
+    },
+    "gw_albino": {
+        "sounds": [
+            {
+                "name": "modid:gw_albino",
+                "stream": true
+            }
+        ]
+    },
+    "gw_garbage_city_shuffle": {
+        "sounds": [
+            {
+                "name": "modid:gw_garbage_city_shuffle",
+                "stream": true
+            }
+        ]
+    },
+    "gw_garbage_worms": {
+        "sounds": [
+            {
+                "name": "modid:gw_garbage_worms",
+                "stream": true
+            }
+        ]
+    },
+    "gw_lack_of_comfort": {
+        "sounds": [
+            {
+                "name": "modid:gw_lack_of_comfort",
+                "stream": true
+            }
+        ]
+    },
+    "gw_stone_heads": {
+        "sounds": [
+            {
+                "name": "modid:gw_stone_heads",
+                "stream": true
+            }
+        ]
+    },
+    "hi_bio-engineering": {
+        "sounds": [
+            {
+                "name": "modid:hi_bio-engineering",
+                "stream": true
+            }
+        ]
+    },
+    "hi_industrial_atrium": {
+        "sounds": [
+            {
+                "name": "modid:hi_industrial_atrium",
+                "stream": true
+            }
+        ]
+    },
+    "hi_mist_engine": {
+        "sounds": [
+            {
+                "name": "modid:hi_mist_engine",
+                "stream": true
+            }
+        ]
+    },
+    "lf_all_thats_left": {
+        "sounds": [
+            {
+                "name": "modid:lf_all_thats_left",
+                "stream": true
+            }
+        ]
+    },
+    "lf_distance": {
+        "sounds": [
+            {
+                "name": "modid:lf_distance",
+                "stream": true
+            }
+        ]
+    },
+    "lf_emotion_thread": {
+        "sounds": [
+            {
+                "name": "modid:lf_emotion_thread",
+                "stream": true
+            }
+        ]
+    },
+    "lf_maze_of_soil": {
+        "sounds": [
+            {
+                "name": "modid:lf_maze_of_soil",
+                "stream": true
+            }
+        ]
+    },
+    "lf_nest_in_metal": {
+        "sounds": [
+            {
+                "name": "modid:lf_nest_in_metal",
+                "stream": true
+            }
+        ]
+    },
+    "lf_raindeer_ride": {
+        "sounds": [
+            {
+                "name": "modid:lf_raindeer_ride",
+                "stream": true
+            }
+        ]
+    },
+    "sb_deep_energy": {
+        "sounds": [
+            {
+                "name": "modid:sb_deep_energy",
+                "stream": true
+            }
+        ]
+    },
+    "sb_ferrous_forest": {
+        "sounds": [
+            {
+                "name": "modid:sb_ferrous_forest",
+                "stream": true
+            }
+        ]
+    },
+    "sb_grumblebum": {
+        "sounds": [
+            {
+                "name": "modid:sb_grumblebum",
+                "stream": true
+            }
+        ]
+    },
+    "sb_leviathan_cave": {
+        "sounds": [
+            {
+                "name": "modid:sb_leviathan_cave",
+                "stream": true
+            }
+        ]
+    },
+    "sb_silent_construct": {
+        "sounds": [
+            {
+                "name": "modid:sb_silent_construct",
+                "stream": true
+            }
+        ]
+    },
+    "sh_black_moonlight": {
+        "sounds": [
+            {
+                "name": "modid:sh_black_moonlight",
+                "stream": true
+            }
+        ]
+    },
+    "sh_dark_sus": {
+        "sounds": [
+            {
+                "name": "modid:sh_dark_sus",
+                "stream": true
+            }
+        ]
+    },
+    "sh_demonic_riser": {
+        "sounds": [
+            {
+                "name": "modid:sh_demonic_riser",
+                "stream": true
+            }
+        ]
+    },
+    "sh_dripping_time": {
+        "sounds": [
+            {
+                "name": "modid:sh_dripping_time",
+                "stream": true
+            }
+        ]
+    },
+    "sh_floes": {
+        "sounds": [
+            {
+                "name": "modid:sh_floes",
+                "stream": true
+            }
+        ]
+    },
+    "sh_lantern_mice": {
+        "sounds": [
+            {
+                "name": "modid:sh_lantern_mice",
+                "stream": true
+            }
+        ]
+    },
+    "sh_memory_crypts": {
+        "sounds": [
+            {
+                "name": "modid:sh_memory_crypts",
+                "stream": true
+            }
+        ]
+    },
+    "si_crystalline": {
+        "sounds": [
+            {
+                "name": "modid:si_crystalline",
+                "stream": true
+            }
+        ]
+    },
+    "si_kayava": {
+        "sounds": [
+            {
+                "name": "modid:si_kayava",
+                "stream": true
+            }
+        ]
+    },
+    "si_lovely_arps": {
+        "sounds": [
+            {
+                "name": "modid:si_lovely_arps",
+                "stream": true
+            }
+        ]
+    },
+    "si_serpentine_struts": {
+        "sounds": [
+            {
+                "name": "modid:si_serpentine_struts",
+                "stream": true
+            }
+        ]
+    },
+    "si_speaking_systems": {
+        "sounds": [
+            {
+                "name": "modid:si_speaking_systems",
+                "stream": true
+            }
+        ]
+    },
+    "sl_gate_to_the_shoreline": {
+        "sounds": [
+            {
+                "name": "modid:sl_gate_to_the_shoreline",
+                "stream": true
+            }
+        ]
+    },
+    "sl_lonesound": {
+        "sounds": [
+            {
+                "name": "modid:sl_lonesound",
+                "stream": true
+            }
+        ]
+    },
+    "sl_moondown": {
+        "sounds": [
+            {
+                "name": "modid:sl_moondown",
+                "stream": true
+            }
+        ]
+    },
+    "sl_new_terra": {
+        "sounds": [
+            {
+                "name": "modid:sl_new_terra",
+                "stream": true
+            }
+        ]
+    },
+    "sl_the_captain": {
+        "sounds": [
+            {
+                "name": "modid:sl_the_captain",
+                "stream": true
+            }
+        ]
+    },
+    "ss_drainage_duct": {
+        "sounds": [
+            {
+                "name": "modid:ss_drainage_duct",
+                "stream": true
+            }
+        ]
+    },
+    "ss_drastic_fm": {
+        "sounds": [
+            {
+                "name": "modid:ss_drastic_fm",
+                "stream": true
+            }
+        ]
+    },
+    "ss_energy_circuit": {
+        "sounds": [
+            {
+                "name": "modid:ss_energy_circuit",
+                "stream": true
+            }
+        ]
+    },
+    "ss_interest_pad": {
+        "sounds": [
+            {
+                "name": "modid:ss_interest_pad",
+                "stream": true
+            }
+        ]
+    },
+    "ss_random_gods": {
+        "sounds": [
+            {
+                "name": "modid:ss_random_gods",
+                "stream": true
+            }
+        ]
+    },
+    "su_proxima": {
+        "sounds": [
+            {
+                "name": "modid:su_proxima",
+                "stream": true
+            }
+        ]
+    },
+    "su_unseen_lands": {
+        "sounds": [
+            {
+                "name": "modid:su_unseen_lands",
+                "stream": true
+            }
+        ]
+    },
+    "su_urban_jungle": {
+        "sounds": [
+            {
+                "name": "modid:su_urban_jungle",
+                "stream": true
+            }
+        ]
+    },
+    "th_cc_arps": {
+        "sounds": [
+            {
+                "name": "modid:th_cc_arps",
+                "stream": true
+            }
+        ]
+    },
+    "th_cc_bass": {
+        "sounds": [
+            {
+                "name": "modid:th_cc_bass",
+                "stream": true
+            }
+        ]
+    },
+    "th_cc_gutterbass": {
+        "sounds": [
+            {
+                "name": "modid:th_cc_gutterbass",
+                "stream": true
+            }
+        ]
+    },
+    "th_cc_guttervox": {
+        "sounds": [
+            {
+                "name": "modid:th_cc_guttervox",
+                "stream": true
+            }
+        ]
+    },
+    "th_cc_kick": {
+        "sounds": [
+            {
+                "name": "modid:th_cc_kick",
+                "stream": true
+            }
+        ]
+    },
+    "th_cc_noise": {
+        "sounds": [
+            {
+                "name": "modid:th_cc_noise",
+                "stream": true
+            }
+        ]
+    },
+    "th_cc_perc1": {
+        "sounds": [
+            {
+                "name": "modid:th_cc_perc1",
+                "stream": true
+            }
+        ]
+    },
+    "th_cc_perc2": {
+        "sounds": [
+            {
+                "name": "modid:th_cc_perc2",
+                "stream": true
+            }
+        ]
+    },
+    "th_cc_snare": {
+        "sounds": [
+            {
+                "name": "modid:th_cc_snare",
+                "stream": true
+            }
+        ]
+    },
+    "th_cc_vox": {
+        "sounds": [
+            {
+                "name": "modid:th_cc_vox",
+                "stream": true
+            }
+        ]
+    },
+    "th_dm_bass": {
+        "sounds": [
+            {
+                "name": "modid:th_dm_bass",
+                "stream": true
+            }
+        ]
+    },
+    "th_dm_kick": {
+        "sounds": [
+            {
+                "name": "modid:th_dm_kick",
+                "stream": true
+            }
+        ]
+    },
+    "th_dm_lead": {
+        "sounds": [
+            {
+                "name": "modid:th_dm_lead",
+                "stream": true
+            }
+        ]
+    },
+    "th_dm_noise": {
+        "sounds": [
+            {
+                "name": "modid:th_dm_noise",
+                "stream": true
+            }
+        ]
+    },
+    "th_dm_shaker": {
+        "sounds": [
+            {
+                "name": "modid:th_dm_shaker",
+                "stream": true
+            }
+        ]
+    },
+    "th_dm_snare": {
+        "sounds": [
+            {
+                "name": "modid:th_dm_snare",
+                "stream": true
+            }
+        ]
+    },
+    "th_gw_bass": {
+        "sounds": [
+            {
+                "name": "modid:th_gw_bass",
+                "stream": true
+            }
+        ]
+    },
+    "th_gw_kick": {
+        "sounds": [
+            {
+                "name": "modid:th_gw_kick",
+                "stream": true
+            }
+        ]
+    },
+    "th_gw_lead": {
+        "sounds": [
+            {
+                "name": "modid:th_gw_lead",
+                "stream": true
+            }
+        ]
+    },
+    "th_gw_noise": {
+        "sounds": [
+            {
+                "name": "modid:th_gw_noise",
+                "stream": true
+            }
+        ]
+    },
+    "th_gw_perc1": {
+        "sounds": [
+            {
+                "name": "modid:th_gw_perc1",
+                "stream": true
+            }
+        ]
+    },
+    "th_gw_perc2": {
+        "sounds": [
+            {
+                "name": "modid:th_gw_perc2",
+                "stream": true
+            }
+        ]
+    },
+    "th_gw_shake": {
+        "sounds": [
+            {
+                "name": "modid:th_gw_shake",
+                "stream": true
+            }
+        ]
+    },
+    "th_gw_vox": {
+        "sounds": [
+            {
+                "name": "modid:th_gw_vox",
+                "stream": true
+            }
+        ]
+    },
+    "th_gw_weird": {
+        "sounds": [
+            {
+                "name": "modid:th_gw_weird",
+                "stream": true
+            }
+        ]
+    },
+    "th_hi_bass": {
+        "sounds": [
+            {
+                "name": "modid:th_hi_bass",
+                "stream": true
+            }
+        ]
+    },
+    "th_hi_kick": {
+        "sounds": [
+            {
+                "name": "modid:th_hi_kick",
+                "stream": true
+            }
+        ]
+    },
+    "th_hi_noise": {
+        "sounds": [
+            {
+                "name": "modid:th_hi_noise",
+                "stream": true
+            }
+        ]
+    },
+    "th_hi_perc1": {
+        "sounds": [
+            {
+                "name": "modid:th_hi_perc1",
+                "stream": true
+            }
+        ]
+    },
+    "th_hi_render": {
+        "sounds": [
+            {
+                "name": "modid:th_hi_render",
+                "stream": true
+            }
+        ]
+    },
+    "th_hi_shaker": {
+        "sounds": [
+            {
+                "name": "modid:th_hi_shaker",
+                "stream": true
+            }
+        ]
+    },
+    "th_hi_snare": {
+        "sounds": [
+            {
+                "name": "modid:th_hi_snare",
+                "stream": true
+            }
+        ]
+    },
+    "th_hi_vox": {
+        "sounds": [
+            {
+                "name": "modid:th_hi_vox",
+                "stream": true
+            }
+        ]
+    },
+    "th_hi_weird": {
+        "sounds": [
+            {
+                "name": "modid:th_hi_weird",
+                "stream": true
+            }
+        ]
+    },
+    "th_hr_bass": {
+        "sounds": [
+            {
+                "name": "modid:th_hr_bass",
+                "stream": true
+            }
+        ]
+    },
+    "th_hr_hat1": {
+        "sounds": [
+            {
+                "name": "modid:th_hr_hat1",
+                "stream": true
+            }
+        ]
+    },
+    "th_hr_hat2": {
+        "sounds": [
+            {
+                "name": "modid:th_hr_hat2",
+                "stream": true
+            }
+        ]
+    },
+    "th_hr_kick": {
+        "sounds": [
+            {
+                "name": "modid:th_hr_kick",
+                "stream": true
+            }
+        ]
+    },
+    "th_hr_lead": {
+        "sounds": [
+            {
+                "name": "modid:th_hr_lead",
+                "stream": true
+            }
+        ]
+    },
+    "th_hr_noise": {
+        "sounds": [
+            {
+                "name": "modid:th_hr_noise",
+                "stream": true
+            }
+        ]
+    },
+    "th_hr_pad": {
+        "sounds": [
+            {
+                "name": "modid:th_hr_pad",
+                "stream": true
+            }
+        ]
+    },
+    "th_hr_perc": {
+        "sounds": [
+            {
+                "name": "modid:th_hr_perc",
+                "stream": true
+            }
+        ]
+    },
+    "th_hr_snare": {
+        "sounds": [
+            {
+                "name": "modid:th_hr_snare",
+                "stream": true
+            }
+        ]
+    },
+    "th_hr_weird": {
+        "sounds": [
+            {
+                "name": "modid:th_hr_weird",
+                "stream": true
+            }
+        ]
+    },
+    "th_lc_dayarp": {
+        "sounds": [
+            {
+                "name": "modid:th_lc_dayarp",
+                "stream": true
+            }
+        ]
+    },
+    "th_lc_dayatmos": {
+        "sounds": [
+            {
+                "name": "modid:th_lc_dayatmos",
+                "stream": true
+            }
+        ]
+    },
+    "th_lc_daybreaks": {
+        "sounds": [
+            {
+                "name": "modid:th_lc_daybreaks",
+                "stream": true
+            }
+        ]
+    },
+    "th_lc_daykick": {
+        "sounds": [
+            {
+                "name": "modid:th_lc_daykick",
+                "stream": true
+            }
+        ]
+    },
+    "th_lc_dayperc": {
+        "sounds": [
+            {
+                "name": "modid:th_lc_dayperc",
+                "stream": true
+            }
+        ]
+    },
+    "th_lc_dayshaker": {
+        "sounds": [
+            {
+                "name": "modid:th_lc_dayshaker",
+                "stream": true
+            }
+        ]
+    },
+    "th_lc_daysub": {
+        "sounds": [
+            {
+                "name": "modid:th_lc_daysub",
+                "stream": true
+            }
+        ]
+    },
+    "th_lc_daysynth": {
+        "sounds": [
+            {
+                "name": "modid:th_lc_daysynth",
+                "stream": true
+            }
+        ]
+    },
+    "th_lc_daytom": {
+        "sounds": [
+            {
+                "name": "modid:th_lc_daytom",
+                "stream": true
+            }
+        ]
+    },
+    "th_lc_nightatmos": {
+        "sounds": [
+            {
+                "name": "modid:th_lc_nightatmos",
+                "stream": true
+            }
+        ]
+    },
+    "th_lc_nighthat": {
+        "sounds": [
+            {
+                "name": "modid:th_lc_nighthat",
+                "stream": true
+            }
+        ]
+    },
+    "th_lc_nightkick": {
+        "sounds": [
+            {
+                "name": "modid:th_lc_nightkick",
+                "stream": true
+            }
+        ]
+    },
+    "th_lc_nightnoise": {
+        "sounds": [
+            {
+                "name": "modid:th_lc_nightnoise",
+                "stream": true
+            }
+        ]
+    },
+    "th_lc_nightperc": {
+        "sounds": [
+            {
+                "name": "modid:th_lc_nightperc",
+                "stream": true
+            }
+        ]
+    },
+    "th_lc_nightshaker": {
+        "sounds": [
+            {
+                "name": "modid:th_lc_nightshaker",
+                "stream": true
+            }
+        ]
+    },
+    "th_lc_nightsub": {
+        "sounds": [
+            {
+                "name": "modid:th_lc_nightsub",
+                "stream": true
+            }
+        ]
+    },
+    "th_lc_nightsynth": {
+        "sounds": [
+            {
+                "name": "modid:th_lc_nightsynth",
+                "stream": true
+            }
+        ]
+    },
+    "th_lc_nighttom": {
+        "sounds": [
+            {
+                "name": "modid:th_lc_nighttom",
+                "stream": true
+            }
+        ]
+    },
+    "th_lf_arps": {
+        "sounds": [
+            {
+                "name": "modid:th_lf_arps",
+                "stream": true
+            }
+        ]
+    },
+    "th_lf_bass": {
+        "sounds": [
+            {
+                "name": "modid:th_lf_bass",
+                "stream": true
+            }
+        ]
+    },
+    "th_lf_chords": {
+        "sounds": [
+            {
+                "name": "modid:th_lf_chords",
+                "stream": true
+            }
+        ]
+    },
+    "th_lf_kick": {
+        "sounds": [
+            {
+                "name": "modid:th_lf_kick",
+                "stream": true
+            }
+        ]
+    },
+    "th_lf_noise": {
+        "sounds": [
+            {
+                "name": "modid:th_lf_noise",
+                "stream": true
+            }
+        ]
+    },
+    "th_lf_perc1": {
+        "sounds": [
+            {
+                "name": "modid:th_lf_perc1",
+                "stream": true
+            }
+        ]
+    },
+    "th_lf_perc2": {
+        "sounds": [
+            {
+                "name": "modid:th_lf_perc2",
+                "stream": true
+            }
+        ]
+    },
+    "th_lf_shaker": {
+        "sounds": [
+            {
+                "name": "modid:th_lf_shaker",
+                "stream": true
+            }
+        ]
+    },
+    "th_lf_snare": {
+        "sounds": [
+            {
+                "name": "modid:th_lf_snare",
+                "stream": true
+            }
+        ]
+    },
+    "th_lm_arps": {
+        "sounds": [
+            {
+                "name": "modid:th_lm_arps",
+                "stream": true
+            }
+        ]
+    },
+    "th_lm_bass": {
+        "sounds": [
+            {
+                "name": "modid:th_lm_bass",
+                "stream": true
+            }
+        ]
+    },
+    "th_lm_kick": {
+        "sounds": [
+            {
+                "name": "modid:th_lm_kick",
+                "stream": true
+            }
+        ]
+    },
+    "th_lm_noise": {
+        "sounds": [
+            {
+                "name": "modid:th_lm_noise",
+                "stream": true
+            }
+        ]
+    },
+    "th_lm_pad": {
+        "sounds": [
+            {
+                "name": "modid:th_lm_pad",
+                "stream": true
+            }
+        ]
+    },
+    "th_lm_perc1": {
+        "sounds": [
+            {
+                "name": "modid:th_lm_perc1",
+                "stream": true
+            }
+        ]
+    },
+    "th_lm_perc2": {
+        "sounds": [
+            {
+                "name": "modid:th_lm_perc2",
+                "stream": true
+            }
+        ]
+    },
+    "th_lm_snare": {
+        "sounds": [
+            {
+                "name": "modid:th_lm_snare",
+                "stream": true
+            }
+        ]
+    },
+    "th_lm_weird": {
+        "sounds": [
+            {
+                "name": "modid:th_lm_weird",
+                "stream": true
+            }
+        ]
+    },
+    "th_oe_arp": {
+        "sounds": [
+            {
+                "name": "modid:th_oe_arp",
+                "stream": true
+            }
+        ]
+    },
+    "th_oe_bass": {
+        "sounds": [
+            {
+                "name": "modid:th_oe_bass",
+                "stream": true
+            }
+        ]
+    },
+    "th_oe_flow": {
+        "sounds": [
+            {
+                "name": "modid:th_oe_flow",
+                "stream": true
+            }
+        ]
+    },
+    "th_oe_kickperc": {
+        "sounds": [
+            {
+                "name": "modid:th_oe_kickperc",
+                "stream": true
+            }
+        ]
+    },
+    "th_oe_lead": {
+        "sounds": [
+            {
+                "name": "modid:th_oe_lead",
+                "stream": true
+            }
+        ]
+    },
+    "th_oe_noise": {
+        "sounds": [
+            {
+                "name": "modid:th_oe_noise",
+                "stream": true
+            }
+        ]
+    },
+    "th_oe_perc2": {
+        "sounds": [
+            {
+                "name": "modid:th_oe_perc2",
+                "stream": true
+            }
+        ]
+    },
+    "th_oe_waves": {
+        "sounds": [
+            {
+                "name": "modid:th_oe_waves",
+                "stream": true
+            }
+        ]
+    },
+    "th_si_arps": {
+        "sounds": [
+            {
+                "name": "modid:th_si_arps",
+                "stream": true
+            }
+        ]
+    },
+    "th_si_bass": {
+        "sounds": [
+            {
+                "name": "modid:th_si_bass",
+                "stream": true
+            }
+        ]
+    },
+    "th_si_kick": {
+        "sounds": [
+            {
+                "name": "modid:th_si_kick",
+                "stream": true
+            }
+        ]
+    },
+    "th_si_noise": {
+        "sounds": [
+            {
+                "name": "modid:th_si_noise",
+                "stream": true
+            }
+        ]
+    },
+    "th_si_panic": {
+        "sounds": [
+            {
+                "name": "modid:th_si_panic",
+                "stream": true
+            }
+        ]
+    },
+    "th_si_perc1": {
+        "sounds": [
+            {
+                "name": "modid:th_si_perc1",
+                "stream": true
+            }
+        ]
+    },
+    "th_si_shaker": {
+        "sounds": [
+            {
+                "name": "modid:th_si_shaker",
+                "stream": true
+            }
+        ]
+    },
+    "th_si_snare": {
+        "sounds": [
+            {
+                "name": "modid:th_si_snare",
+                "stream": true
+            }
+        ]
+    },
+    "th_si_weird": {
+        "sounds": [
+            {
+                "name": "modid:th_si_weird",
+                "stream": true
+            }
+        ]
+    },
+    "th_sl_arps": {
+        "sounds": [
+            {
+                "name": "modid:th_sl_arps",
+                "stream": true
+            }
+        ]
+    },
+    "th_sl_bass": {
+        "sounds": [
+            {
+                "name": "modid:th_sl_bass",
+                "stream": true
+            }
+        ]
+    },
+    "th_sl_kick": {
+        "sounds": [
+            {
+                "name": "modid:th_sl_kick",
+                "stream": true
+            }
+        ]
+    },
+    "th_sl_lead": {
+        "sounds": [
+            {
+                "name": "modid:th_sl_lead",
+                "stream": true
+            }
+        ]
+    },
+    "th_sl_noise": {
+        "sounds": [
+            {
+                "name": "modid:th_sl_noise",
+                "stream": true
+            }
+        ]
+    },
+    "th_sl_perc1": {
+        "sounds": [
+            {
+                "name": "modid:th_sl_perc1",
+                "stream": true
+            }
+        ]
+    },
+    "th_sl_perc2": {
+        "sounds": [
+            {
+                "name": "modid:th_sl_perc2",
+                "stream": true
+            }
+        ]
+    },
+    "th_sl_snare": {
+        "sounds": [
+            {
+                "name": "modid:th_sl_snare",
+                "stream": true
+            }
+        ]
+    },
+    "th_ss_bass": {
+        "sounds": [
+            {
+                "name": "modid:th_ss_bass",
+                "stream": true
+            }
+        ]
+    },
+    "th_ss_kick": {
+        "sounds": [
+            {
+                "name": "modid:th_ss_kick",
+                "stream": true
+            }
+        ]
+    },
+    "th_ss_lead": {
+        "sounds": [
+            {
+                "name": "modid:th_ss_lead",
+                "stream": true
+            }
+        ]
+    },
+    "th_ss_noise": {
+        "sounds": [
+            {
+                "name": "modid:th_ss_noise",
+                "stream": true
+            }
+        ]
+    },
+    "th_ss_pop": {
+        "sounds": [
+            {
+                "name": "modid:th_ss_pop",
+                "stream": true
+            }
+        ]
+    },
+    "th_su_arps": {
+        "sounds": [
+            {
+                "name": "modid:th_su_arps",
+                "stream": true
+            }
+        ]
+    },
+    "th_su_bass": {
+        "sounds": [
+            {
+                "name": "modid:th_su_bass",
+                "stream": true
+            }
+        ]
+    },
+    "th_su_hits": {
+        "sounds": [
+            {
+                "name": "modid:th_su_hits",
+                "stream": true
+            }
+        ]
+    },
+    "th_su_kick": {
+        "sounds": [
+            {
+                "name": "modid:th_su_kick",
+                "stream": true
+            }
+        ]
+    },
+    "th_su_lead": {
+        "sounds": [
+            {
+                "name": "modid:th_su_lead",
+                "stream": true
+            }
+        ]
+    },
+    "th_su_noise": {
+        "sounds": [
+            {
+                "name": "modid:th_su_noise",
+                "stream": true
+            }
+        ]
+    },
+    "th_su_perc1": {
+        "sounds": [
+            {
+                "name": "modid:th_su_perc1",
+                "stream": true
+            }
+        ]
+    },
+    "th_su_shaker": {
+        "sounds": [
+            {
+                "name": "modid:th_su_shaker",
+                "stream": true
+            }
+        ]
+    },
+    "th_vs_arps": {
+        "sounds": [
+            {
+                "name": "modid:th_vs_arps",
+                "stream": true
+            }
+        ]
+    },
+    "th_vs_bass": {
+        "sounds": [
+            {
+                "name": "modid:th_vs_bass",
+                "stream": true
+            }
+        ]
+    },
+    "th_vs_kick": {
+        "sounds": [
+            {
+                "name": "modid:th_vs_kick",
+                "stream": true
+            }
+        ]
+    },
+    "th_vs_noise": {
+        "sounds": [
+            {
+                "name": "modid:th_vs_noise",
+                "stream": true
+            }
+        ]
+    },
+    "th_vs_perc1": {
+        "sounds": [
+            {
+                "name": "modid:th_vs_perc1",
+                "stream": true
+            }
+        ]
+    },
+    "th_vs_perc2": {
+        "sounds": [
+            {
+                "name": "modid:th_vs_perc2",
+                "stream": true
+            }
+        ]
+    },
+    "th_vs_shaker": {
+        "sounds": [
+            {
+                "name": "modid:th_vs_shaker",
+                "stream": true
+            }
+        ]
+    },
+    "th_vs_synth": {
+        "sounds": [
+            {
+                "name": "modid:th_vs_synth",
+                "stream": true
+            }
+        ]
+    },
+    "th_vs_weird": {
+        "sounds": [
+            {
+                "name": "modid:th_vs_weird",
+                "stream": true
+            }
+        ]
+    },
+    "tw_stargazer": {
+        "sounds": [
+            {
+                "name": "modid:tw_stargazer",
+                "stream": true
+            }
+        ]
+    },
+    "tw_the_wall": {
+        "sounds": [
+            {
+                "name": "modid:tw_the_wall",
+                "stream": true
+            }
+        ]
+    },
+    "uw_underhang": {
+        "sounds": [
+            {
+                "name": "modid:uw_underhang",
+                "stream": true
+            }
+        ]
+    },
+    "uw_white_Lizard": {
+        "sounds": [
+            {
+                "name": "modid:uw_white_lizard",
                 "stream": true
             }
         ]

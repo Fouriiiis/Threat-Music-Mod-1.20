@@ -33,8 +33,9 @@ public class ExampleModClient implements ClientModInitializer {
 	public static void stop() {
 		threatTracker.stopRegion(MinecraftClient.getInstance());
 	}
-	public static void playMusic() {
-		threatTracker.playMusic(MinecraftClient.getInstance());
+
+	public static ThreatTracker getThreatTracker() {
+		return threatTracker;
 	}
 
 }

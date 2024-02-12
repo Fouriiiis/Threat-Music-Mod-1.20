@@ -1,17 +1,21 @@
 package com.example.mixin.client;
 
+import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Debug;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import com.example.ExampleModClient;
 import com.example.ThreatTracker;
 
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.sound.MusicTracker;
+import net.minecraft.client.sound.SoundInstance;
 import net.minecraft.sound.MusicSound;
+import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.random.Random;
 
 import org.spongepowered.asm.mixin.injection.At;
 @Debug(export = true)
@@ -24,35 +28,56 @@ public abstract class MusicStopMixin {
         //set threat level to 0
         ThreatTracker.currentThreat = 0;
     }
+    @Shadow @Nullable private SoundInstance current;
+    @Shadow private int timeUntilNextSong;
+    @Shadow private Random random;
 
-    @Shadow
-    private int timeUntilNextSong;
+    @Inject(method = "tick()V", at = @At("HEAD"), cancellable = true)
+    private void onTick(CallbackInfo ci) {
+        MinecraftClient client = MinecraftClient.getInstance();
 
-    @Redirect(method = "tick()V", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/sound/MusicTracker;play(Lnet/minecraft/sound/MusicSound;)V"))
-    private void onPlayRedirect(MusicTracker musicTracker, MusicSound type) {
-        // Prevent the original play method from being called
-        // And call a custom method instead
-        customAction();
+        // Proceed with vanilla behavior if client or player is null
+        if (client == null || client.player == null) {
+            //System.out.println("Vanilla behavior");
+            return;
+        }
 
-        // Reset the timer with a custom value
+        // Prevent the method from proceeding to vanilla behavior
+        ci.cancel();
+
+        MusicSound musicSound = client.getMusicType();
+
+        if(this.current != null) {
+            if (!client.getSoundManager().isPlaying(this.current)) {
+                this.current = null;
+                this.timeUntilNextSong = Math.min(this.timeUntilNextSong, MathHelper.nextInt((Random)this.random, (int)musicSound.getMinDelay(), (int)musicSound.getMaxDelay()));
+            }
+        }
+        if (musicSound.getMaxDelay() != 0) {
+            this.timeUntilNextSong = Math.min(this.timeUntilNextSong, musicSound.getMaxDelay());
+        }
+        if (this.current == null && this.timeUntilNextSong-- <= 0) {
+            this.playMusic(client);
+        }
+        System.out.println("Time until next song: " + this.timeUntilNextSong);
+    }
+
+    public void playMusic(MinecraftClient client) {
+        this.current = getCustomSoundInstanceToPlay(client);
+        if (this.current != null) {
+            client.getSoundManager().play(this.current);
+        }
         resetTimeUntilNextSongWithCustomValue();
     }
 
-    private void customAction() {
-        // Your custom action here. This will be called instead of playing music.
-        ExampleModClient.playMusic();
+    private SoundInstance getCustomSoundInstanceToPlay(MinecraftClient client) {
+        // Your logic to return a custom SoundInstance based on your conditions
+        return ExampleModClient.getThreatTracker().getMusic(client);
     }
 
     private void resetTimeUntilNextSongWithCustomValue() {
-        // Set the timeUntilNextSong to a custom value, e.g., 200 ticks
-        this.timeUntilNextSong = getCustomTimeValue();
-    }
-
-    // Method to determine the custom time value, potentially allowing for dynamic adjustments
-    private int getCustomTimeValue() {
-        // Return a custom time value, e.g., 200
-        // This could be made dynamic or configurable as needed
-        return Integer.MAX_VALUE;
+        // Your logic to set 'timeUntilNextSong' to a custom value, ensuring custom sounds don't replace each other
+        this.timeUntilNextSong = Integer.MAX_VALUE; // Example: Set to MAX_VALUE to effectively disable automatic playback
     }
 }
 
