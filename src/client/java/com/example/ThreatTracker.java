@@ -4,73 +4,27 @@ package com.example;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-
-import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents.EndTick;
+import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents.StartTick;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.sound.MusicTracker;
 import net.minecraft.client.sound.SoundInstance;
 import net.minecraft.entity.Entity;
-
-import net.minecraft.entity.boss.WitherEntity;
-import net.minecraft.entity.boss.dragon.EnderDragonEntity;
-import net.minecraft.entity.mob.BlazeEntity;
-import net.minecraft.entity.mob.CaveSpiderEntity;
-import net.minecraft.entity.mob.CreeperEntity;
-import net.minecraft.entity.mob.DrownedEntity;
-import net.minecraft.entity.mob.ElderGuardianEntity;
-import net.minecraft.entity.mob.EndermanEntity;
-import net.minecraft.entity.mob.EndermiteEntity;
-import net.minecraft.entity.mob.EvokerEntity;
-import net.minecraft.entity.mob.GhastEntity;
-import net.minecraft.entity.mob.GuardianEntity;
-import net.minecraft.entity.mob.HoglinEntity;
-import net.minecraft.entity.mob.HuskEntity;
-import net.minecraft.entity.mob.MagmaCubeEntity;
-
-import net.minecraft.entity.mob.PhantomEntity;
-import net.minecraft.entity.mob.PiglinBruteEntity;
-import net.minecraft.entity.mob.PiglinEntity;
-import net.minecraft.entity.mob.PillagerEntity;
-import net.minecraft.entity.mob.RavagerEntity;
-import net.minecraft.entity.mob.ShulkerEntity;
-import net.minecraft.entity.mob.SilverfishEntity;
-import net.minecraft.entity.mob.SkeletonEntity;
-import net.minecraft.entity.mob.SlimeEntity;
-import net.minecraft.entity.mob.SpiderEntity;
-import net.minecraft.entity.mob.StrayEntity;
-import net.minecraft.entity.mob.VexEntity;
-import net.minecraft.entity.mob.VindicatorEntity;
-import net.minecraft.entity.mob.WardenEntity;
-import net.minecraft.entity.mob.WitchEntity;
-import net.minecraft.entity.mob.WitherSkeletonEntity;
-import net.minecraft.entity.mob.ZoglinEntity;
-import net.minecraft.entity.mob.ZombieEntity;
-import net.minecraft.entity.mob.ZombieVillagerEntity;
-import net.minecraft.entity.mob.ZombifiedPiglinEntity;
-import net.minecraft.entity.passive.BeeEntity;
-import net.minecraft.entity.passive.DolphinEntity;
-import net.minecraft.entity.passive.GoatEntity;
-import net.minecraft.entity.passive.IronGolemEntity;
-import net.minecraft.entity.passive.LlamaEntity;
-import net.minecraft.entity.passive.PandaEntity;
-import net.minecraft.entity.passive.PolarBearEntity;
-import net.minecraft.entity.passive.TraderLlamaEntity;
-import net.minecraft.entity.passive.WolfEntity;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.predicate.entity.EntityPredicates;
-import net.minecraft.text.Text;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.RaycastContext;
 
 
-public class ThreatTracker implements EndTick {
+public class ThreatTracker implements StartTick {
 
     private static int blockRadius1 = 16;
     private static int blockRadius2 = 48;
@@ -88,131 +42,93 @@ public class ThreatTracker implements EndTick {
     //list of entities to track
     //bee, caveSpider, dolphin, enderman, goat, ironGolem, Llama, Panda, Piglin, polarBear, Spider, striderJokey, traderLlama, wolf, zombifiedPiglin
 
-    public static List<Class<? extends Entity>> passiveEntities = List.of(
-        BeeEntity.class,
-        CaveSpiderEntity.class,
-        DolphinEntity.class,
-        EndermanEntity.class,
-        GoatEntity.class,
-        IronGolemEntity.class,
-        LlamaEntity.class,
-        PandaEntity.class,
-        PiglinEntity.class,
-        PolarBearEntity.class,
-        SpiderEntity.class,
-        TraderLlamaEntity.class,
-        WolfEntity.class,
-        ZombifiedPiglinEntity.class
-    );
 
-    //
 //Blaze	Chicken Jockey	Creeper	Drowned	Elder Guardian	Endermite	Evoker	Ghast	Guardian	Hoglin	Hoglin Jockey
 
 //Husk	Magma Cube	Phantom	Piglin Brute	Pillager	Ravager	Ravager Jockey	Shulker	Silverfish	Skeleton	Skeleton Horseman
 
 //Slime	Spider Jockey	Stray	Vex	Vindicator	Warden	Witch	Wither Skeleton	Zoglin	Zombie	Zombie Villager
 
-    List<Class<? extends Entity>> hostileEntities = List.of(
-        BlazeEntity.class,
-        CreeperEntity.class,
-        DrownedEntity.class,
-        ElderGuardianEntity.class,
-        EnderDragonEntity.class,
-        EndermiteEntity.class,
-        EvokerEntity.class,
-        GhastEntity.class,
-        GuardianEntity.class,
-        HoglinEntity.class,
-        HuskEntity.class,
-        MagmaCubeEntity.class,
-        PhantomEntity.class,
-        PiglinBruteEntity.class,
-        PillagerEntity.class,
-        RavagerEntity.class,
-        ShulkerEntity.class,
-        SilverfishEntity.class,
-        SkeletonEntity.class,
-        SlimeEntity.class,
-        StrayEntity.class,
-        VexEntity.class,
-        VindicatorEntity.class,
-        WardenEntity.class,
-        WitchEntity.class,
-        WitherSkeletonEntity.class,
-        ZoglinEntity.class,
-        ZombieEntity.class,
-        ZombieVillagerEntity.class
-        );
-
-        //warden, blaze, ghast, enderDragon, wither
-
-        List<Class<? extends Entity>> longRangeEntities = List.of(
-        WardenEntity.class,
-        BlazeEntity.class,
-        GhastEntity.class,
-        EnderDragonEntity.class,
-        WitherEntity.class
-    );
         
     public static Map<Entity, Float> trackedEntities = new HashMap<Entity, Float>();
 
     List<Float> threatLevels = new ArrayList<Float>();
 
     @Override
-    public void onEndTick(MinecraftClient client) {
-        if (client != null && client.player != null && !client.isPaused()) {
-
-            targetThreat = 0;
+    public void onStartTick(MinecraftClient client) {
+        if (client != null && client.player != null && !client.isPaused() && !demo) {
 
             threatLevels.clear();
+            targetThreat = 0;
 
             ClientPlayerEntity player = client.player;
 
             
         
-            List<Entity> nearEntities = client.world.getEntitiesByClass(Entity.class, client.player.getBoundingBox().expand(blockRadius1, blockRadius1, blockRadius1), EntityPredicates.EXCEPT_SPECTATOR);
+            List<LivingEntity> nearEntities = client.world.getEntitiesByClass(LivingEntity.class, client.player.getBoundingBox().expand(blockRadius1, blockRadius1, blockRadius1), EntityPredicates.EXCEPT_SPECTATOR);
+            //print the size of nearEntities
+            System.out.println("Near Entities: " + nearEntities.size());
+            List<LivingEntity> farEntities = client.world.getEntitiesByClass(LivingEntity.class, client.player.getBoundingBox().expand(blockRadius2, blockRadius2, blockRadius2), EntityPredicates.EXCEPT_SPECTATOR);
+            //print the size of farEntities
+            System.out.println("Far Entities: " + farEntities.size());
 
-            List<Entity> farEntities = client.world.getEntitiesByClass(Entity.class, client.player.getBoundingBox().expand(blockRadius2, blockRadius2, blockRadius2), EntityPredicates.EXCEPT_SPECTATOR);
+            //filter far entities to only contain entities with getBaseThreat >= 0.9f
 
-            //filter far entities to only contain longRangeEntities
+            farEntities = farEntities.stream().filter(entity -> entity instanceof CustomMobEntity && ((CustomMobEntity) entity).getBaseThreat() >= 0.9f && entity != player).collect(Collectors.toList());
 
-            farEntities = farEntities.stream().filter(entity -> longRangeEntities.contains(entity.getClass())).collect(Collectors.toList());
+            //filter near entities to only contain entities with getBaseThreat >= 0.9f
+            nearEntities = nearEntities.stream().filter(entity -> entity instanceof CustomMobEntity && ((CustomMobEntity) entity).getBaseThreat() < 0.9f && entity != player).collect(Collectors.toList());
 
-            //filter near entities to only contain hostileEntities and passiveEntities
-
-            nearEntities = nearEntities.stream().filter(entity -> hostileEntities.contains(entity.getClass()) || passiveEntities.contains(entity.getClass())).collect(Collectors.toList());
-
-            trackedEntities.entrySet().removeIf(entry -> {
+            Iterator<Map.Entry<Entity, Float>> iterator = trackedEntities.entrySet().iterator();
+            while (iterator.hasNext()) {
+                Map.Entry<Entity, Float> entry = iterator.next();
+                // Increment the last seen timer for each entity
                 entry.setValue(entry.getValue() + 1.0f);
-                return entry.getValue() >= 600.0f;
-            });
+                // Remove entity if it has been out of sight for too long or has been removed from the world
+                if (entry.getValue() >= 600.0f || entry.getKey().isRemoved()) {
+                    iterator.remove();
+                }// else {
+                    // If entity is in line of sight, reset its timer
+                    //if (nearEntities.contains(entry.getKey()) || farEntities.contains(entry.getKey())) {
+                        //entry.setValue(0.0f);
+                    //}
+                //}
+            }
 
             for (Entity entity : nearEntities) {
                 //if lineOfSight(entity, player) add to trackedEntities
 
-                HitResult result = raycast(entity, player);
-
-                if(lineOfSight(result)) {
-                    trackedEntities.put(entity, 0.0f);
+                if (!trackedEntities.containsKey(entity) && !(entity instanceof PlayerEntity)) {
+                    trackedEntities.put(entity, 600.0f);
                 }
-
-                threatLevels.add(ThreatDetermination.threatOfEntity(entity, trackedEntities.get(entity), result, player));
-
             }
 
             for (Entity entity : farEntities) {
                 //if lineOfSight(entity, player) add to trackedEntities
 
-                HitResult result = raycast(entity, player);
-
-                if(lineOfSight(result)) {
-                    trackedEntities.put(entity, 0.0f);
+                if (!trackedEntities.containsKey(entity) && !(entity instanceof PlayerEntity)) {
+                    trackedEntities.put(entity, 600.0f);
                 }
-
-                threatLevels.add(ThreatDetermination.threatOfEntity(entity, trackedEntities.get(entity), result, player));
             }
 
-            
+            //for all tracked entities, calculate the threat level and add it to threatLevels
+            for (Entity entity : trackedEntities.keySet()) {
+                //check if entity has not despawned
+                if (entity.isRemoved()) {
+                    trackedEntities.remove(entity);
+                    continue;
+                }
+                HitResult result = raycast(entity, player);
+                //if lineOfSight(entity, player) set lastSeen to 0
+                if (lineOfSight(result) && nearEntities.contains(entity)) {
+                    trackedEntities.put(entity, 0.0f);
+                } else if (lineOfSight(result) && farEntities.contains(entity)) {
+                    trackedEntities.put(entity, 0.0f);
+                }
+                //print the contents of trackedEntities with an entity on each line
+                System.out.println(entity + "Last Seen: " + trackedEntities.get(entity));
+                threatLevels.add(ThreatDetermination.threatOfEntity(entity, trackedEntities.get(entity), result, player));
+            }
 
             for (Float threat : threatLevels) {
                 targetThreat = 0.25f * (targetThreat + threat + 3 * Math.max(targetThreat, threat));
@@ -272,9 +188,9 @@ public class ThreatTracker implements EndTick {
                  currentThreat = 0;
             }
 
-            //System.out.println("Current Threat: " + currentThreat);
-            //System.out.println("Target Threat: " + targetThreat);
-            //System.out.println("Threat Decline Counter: " + threatDeclineCounter);            
+            System.out.println("Current Threat: " + currentThreat);
+            System.out.println("Target Threat: " + targetThreat);
+            System.out.println("Threat Decline Counter: " + threatDeclineCounter);            
 
             if (currentThreat > 0.05 && stopped) {
                 // Start playing music
@@ -302,6 +218,7 @@ public class ThreatTracker implements EndTick {
             currentThreat = MathHelper.clamp(currentThreat, 0, 1);
             System.out.println("threat level: " + ThreatTracker.currentThreat);
         }
+        
     }
 
     // Helper function to mimic Unity's Mathf.Lerp
@@ -367,5 +284,10 @@ public class ThreatTracker implements EndTick {
             return region.getMusic(client);
         }
         return null;
+    }
+
+    public static void trackEntity(Entity sourceEntity) {
+        //check it isnt the clients player
+        trackedEntities.put(sourceEntity, 0.0f);
     }
 }

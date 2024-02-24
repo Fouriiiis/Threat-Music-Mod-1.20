@@ -16,6 +16,7 @@ import net.minecraft.screen.ScreenTexts;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 
+import java.util.Comparator;
 import java.util.List;
 
 @Environment(EnvType.CLIENT)
@@ -45,10 +46,13 @@ public class ThreatSettingsScreen extends Screen {
         super.init();
         biomeListWidget = new BiomeListWidget(client, width, height, 32, height - 32);
 
-        ModSounds.biomeRegionKeys.keySet().forEach(biomeId ->
-                biomeListWidget.addBiomeEntry(new BiomeListEntry(biomeId.toString())));
+        ModSounds.biomeRegionKeys.keySet().stream()
+        .map(biomeId -> new BiomeListEntry(biomeId.toString()))
+        // Sort BiomeListEntry objects based on their label, which is the user-friendly name
+        .sorted(Comparator.comparing(entry -> entry.getLabel().getString()))
+        .forEach(biomeListWidget::addBiomeEntry);
 
-        addDrawableChild(biomeListWidget);
+    addDrawableChild(biomeListWidget);
 
         //Close screen
         addDrawableChild(ButtonWidget.builder(ScreenTexts.DONE, button -> {
@@ -200,6 +204,10 @@ public class ThreatSettingsScreen extends Screen {
             // + 20;
             int labelY = y + (entryHeight - 8) / 2;
             context.drawTextWithShadow(textRenderer, label, labelX, labelY, 0xFFFFFF);
+        }
+
+        public Text getLabel() {
+            return this.label;
         }
     }
 }

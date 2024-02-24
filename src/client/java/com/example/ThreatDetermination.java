@@ -5,7 +5,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.entity.mob.MobEntity;
+
 
 //include ThreatTracker.java
 
@@ -41,12 +41,8 @@ public class ThreatDetermination {
     }
 
     private static Float baseThreat(LivingEntity entity) {
-
-        Float totalHP = entity.getMaxHealth() + entity.getArmor();
-        float base = (float) (Math.log10((1f/6f)*(totalHP + 6f))/1.4f);
-
-
-        return MathHelper.clamp(base, 0, 1);
+        Float baseFloat = ((CustomMobEntity) entity).getBaseThreat();
+        return baseFloat;
     }
 
     private static Float deadThreat(LivingEntity entity) {
@@ -58,16 +54,8 @@ public class ThreatDetermination {
     }
 
     private static Float aggroThreat(LivingEntity entity) {
-        // Check if the entity is a passive entity
-        if (ThreatTracker.passiveEntities.contains(entity.getClass())) {
-            // Cast to MobEntity and return 1 if it's attacking, 0 otherwise
-            return ((MobEntity) entity).isAttacking() ? 1.0f : 0.0f;
-        }
-        // Additional logic for non-passive entities (if needed) goes here
-    
-        // Return a default value (e.g., 0.0f) if the entity is not passive
-        // or if other conditions are not met
-        return 1.0f;
+
+        return ((CustomMobEntity) entity).getAgro();
     }
     
 
@@ -84,8 +72,6 @@ public class ThreatDetermination {
         if(lastSeen == null) {
             return 0;
         }
-
-
 
         float t1 = t1(lastSeen * 2);
 

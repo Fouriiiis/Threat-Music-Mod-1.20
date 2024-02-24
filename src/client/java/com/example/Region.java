@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.List;
 
+import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
 
 
@@ -116,7 +117,7 @@ public class Region {
                     // get the sound event from the layer list and add it to the currLayers map
                     currLayers.put(entry.getKey(), soundEvent);
                     // create a new sound player with the sound event and add it to the soundPlayers list
-                    soundPlayers.add(new ThreatMusicPlayer(soundEvent, client, key, key + offset));
+                    soundPlayers.add(new ThreatMusicPlayer(soundEvent, SoundCategory.PLAYERS, client, key, key + offset));
                     System.out.println("Added sound player with name " + soundEvent.getId().toString() + " and threat level " + key + " to " + (key + offset));
                     break;
                 }
@@ -132,7 +133,7 @@ public class Region {
                     if (!currLayers.containsValue(soundEvent)) {
                         float key = entry.getKey();
                         currLayers.put(entry.getKey(), soundEvent);
-                        nightSoundPlayers.add(new ThreatMusicPlayer(soundEvent, client, key, key + offset));
+                        nightSoundPlayers.add(new ThreatMusicPlayer(soundEvent, SoundCategory.PLAYERS, client, key, key + offset));
                         System.out.println("Added night sound player with name " + soundEvent.getId().toString() + " and threat level " + key + " to " + (key + offset));
                         break;
                     }
@@ -145,7 +146,6 @@ public class Region {
     public void play(MinecraftClient client){
         SoundManager soundManager = client.getSoundManager();
         MusicTracker musicTracker = client.getMusicTracker();
-        ExecutorService executor = Executors.newCachedThreadPool();
     
         musicTracker.stop();
 
@@ -154,25 +154,22 @@ public class Region {
         if (soundPlayers != null) {
             if (isDay(client) || !hasNightLayers) {
                 for (ThreatMusicPlayer soundPlayer : soundPlayers) {
-                    executor.execute(() -> soundManager.play(soundPlayer));
+                    soundManager.play(soundPlayer);
                     //add the sound player to the playingLayers list
                     playingLayers.add(soundPlayer);
                 }
             } else {
                 for (ThreatMusicPlayer soundPlayer : nightSoundPlayers) {
-                    executor.execute(() -> soundManager.play(soundPlayer));
+                    soundManager.play(soundPlayer);
                     playingLayers.add(soundPlayer);
                 }
             }
         }
-        
-        executor.shutdown();
     }
 
     public void playDemo(MinecraftClient client) {
         SoundManager soundManager = client.getSoundManager();
         MusicTracker musicTracker = client.getMusicTracker();
-        ExecutorService executor = Executors.newCachedThreadPool();
     
         musicTracker.stop();
 
@@ -192,8 +189,6 @@ public class Region {
                 }
             }
         }
-        
-        executor.shutdown();
     }
 
 

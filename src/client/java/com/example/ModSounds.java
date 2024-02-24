@@ -406,7 +406,7 @@ public class ModSounds {
         String currentBiomeName = (getBiomeName(currentBiomeEntry));
     
         // Print the current biome to the chat
-        client.player.sendMessage(Text.of(currentBiomeName), false);
+        //client.player.sendMessage(Text.of(currentBiomeName), false);
 
         //print out all the current keys
         for (String key : regions.keySet()) {
@@ -423,6 +423,12 @@ public class ModSounds {
             if (entry.getValue().getName().getString().contains("Raid")) {
                 currentRegion = regions.get("Metropolis");
             }
+        }
+
+        //if region is null, set it to "None" and notify the player
+        if (currentRegion == null) {
+            currentRegion = regions.get("None");
+            client.player.sendMessage(Text.of("No region found for " + currentBiomeName), false);
         }
 
         return currentRegion;

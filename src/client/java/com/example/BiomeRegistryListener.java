@@ -28,6 +28,7 @@ public class BiomeRegistryListener {
             System.out.println("Biome is not in savedBiomeRegionKeys");
             ModSounds.biomeRegionKeys.put(id.toString(), "Outskirts");
             ModSounds.savedBiomeRegionKeys.put(id.toString(), "Outskirts");
+            ModSounds.defaultBiomeRegionKeys.put(id.toString(), "Outskirts");
         }
     }
 }

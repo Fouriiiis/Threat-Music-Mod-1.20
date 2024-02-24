@@ -14,7 +14,7 @@ public class MusicPlayer extends MovingSoundInstance {
         this.repeat = false;
         this.repeatDelay = 0;
         this.relative = true;
-        this.volume = 1.0f;
+        this.volume = 0.01f;
     }
 
     @Override
@@ -23,6 +23,10 @@ public class MusicPlayer extends MovingSoundInstance {
 
         if(!this.isDone()) {
             ThreatTracker.currentThreat = 0;
+            //increment the volume of the music if less than 1
+            if (this.volume < 1.0f) {
+                this.volume += 0.01f;
+            }
             System.out.println("Threat level set to 0");
         }
         

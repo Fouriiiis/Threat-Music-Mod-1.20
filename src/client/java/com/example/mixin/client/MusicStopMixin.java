@@ -59,7 +59,7 @@ public abstract class MusicStopMixin {
         if (this.current == null && this.timeUntilNextSong-- <= 0) {
             this.playMusic(client);
         }
-        System.out.println("Time until next song: " + this.timeUntilNextSong);
+        //System.out.println("Time until next song: " + this.timeUntilNextSong);
     }
 
     public void playMusic(MinecraftClient client) {
