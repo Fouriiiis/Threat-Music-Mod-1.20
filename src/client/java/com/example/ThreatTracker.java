@@ -1,4 +1,3 @@
-// Import necessary classes
 package com.example;
 
 
@@ -38,18 +37,7 @@ public class ThreatTracker implements StartTick {
     private int maxTime = 75;
     private Boolean stopped = true;
     private Region region;
-
-    //list of entities to track
-    //bee, caveSpider, dolphin, enderman, goat, ironGolem, Llama, Panda, Piglin, polarBear, Spider, striderJokey, traderLlama, wolf, zombifiedPiglin
-
-
-//Blaze	Chicken Jockey	Creeper	Drowned	Elder Guardian	Endermite	Evoker	Ghast	Guardian	Hoglin	Hoglin Jockey
-
-//Husk	Magma Cube	Phantom	Piglin Brute	Pillager	Ravager	Ravager Jockey	Shulker	Silverfish	Skeleton	Skeleton Horseman
-
-//Slime	Spider Jockey	Stray	Vex	Vindicator	Warden	Witch	Wither Skeleton	Zoglin	Zombie	Zombie Villager
-
-        
+  
     public static Map<Entity, Float> trackedEntities = new HashMap<Entity, Float>();
 
     List<Float> threatLevels = new ArrayList<Float>();
@@ -141,7 +129,6 @@ public class ThreatTracker implements StartTick {
             //adjustment towards 50%
 
             //targetThreat is set to targetThreat + (0.5-TargetThreat)*Clamp 0 1 [(0.25-abs[TargetThreat-0.5])/0.25]
-
             targetThreat = targetThreat + (0.5f - targetThreat) * MathHelper.clamp((0.25f - Math.abs(targetThreat - 0.5f)) / 0.25f, 0, 1);
 
             //reduce threatDeclineCounter by 1 if it is greater than 0
@@ -162,7 +149,6 @@ public class ThreatTracker implements StartTick {
                 threatDeclineCounter = 120;
             }
 
-
             if (currentThreat < targetThreat) {
                 currentThreat = (float) Math.min(1, currentThreat + 1f / lerp(280f, 80f, targetThreat));
             }
@@ -173,13 +159,7 @@ public class ThreatTracker implements StartTick {
                 currentThreat = (float) Math.max(0, currentThreat - 1f / lerp(1600f, 22000f, Math.pow(targetThreat, 0.25f)));
             }
             
-            
-            
-
-            
-
             //clamp currentThreat between 0 and 1
-
             currentThreat = MathHelper.clamp(currentThreat, 0, 1);
 
             //if the player is in spectator mode, set currentThreat to 0
@@ -249,8 +229,7 @@ public class ThreatTracker implements StartTick {
     }
     
     public void playDemo(Region thisRegion, MinecraftClient client) {
-        //print if region is null
-        System.out.println("region is :" + region == null);
+        //System.out.println("region is :" + region == null);
         //stop the current region
         MusicTracker musicTracker = client.getMusicTracker();
         //stop the threat music
@@ -287,7 +266,6 @@ public class ThreatTracker implements StartTick {
     }
 
     public static void trackEntity(Entity sourceEntity) {
-        //check it isnt the clients player
         trackedEntities.put(sourceEntity, 0.0f);
     }
 }

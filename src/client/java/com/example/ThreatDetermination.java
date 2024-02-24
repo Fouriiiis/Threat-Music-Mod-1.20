@@ -6,13 +6,7 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.MathHelper;
 
-
-//include ThreatTracker.java
-
-
 public class ThreatDetermination {
-
-    
 
     static Float threatOfEntity(Entity entity, Float lastSeen, HitResult result, ClientPlayerEntity player) {
         //Threat = Base * Dead * Aggro * Find * Dist * Speed
