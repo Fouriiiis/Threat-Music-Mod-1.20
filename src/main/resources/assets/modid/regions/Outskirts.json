@@ -1,0 +1,15 @@
+{
+  "name": "Outskirts",
+  "layers": [
+    ["th_su_kick", "th_su_shaker"],
+    ["th_su_kick", "th_su_shaker", "th_su_perc1", "th_su_noise"],
+    ["th_su_kick", "th_su_shaker", "th_su_perc1", "th_su_noise", "th_su_hits", "th_su_bass"],
+    ["th_su_kick", "th_su_shaker", "th_su_perc1", "th_su_arps", "th_su_noise", "th_su_hits", "th_su_bass"],
+    ["th_su_lead", "th_su_bass"]
+  ],
+  "music": [
+    "su_proxima",
+    "su_unseen_lands",
+    "su_urban_jungle"
+  ]
+}

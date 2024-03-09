@@ -1,0 +1,16 @@
+{
+  "name": "Five Pebbles",
+  "layers": [
+    ["th_ss_noise", "th_ss_bass", "th_ss_kick"],
+    ["th_ss_noise", "th_ss_bass", "th_ss_kick", "th_ss_pop"],
+    ["th_ss_noise", "th_ss_bass", "th_ss_kick", "th_ss_pop", "th_ss_lead"],
+    ["th_ss_noise", "th_ss_bass", "th_ss_kick", "th_ss_pop", "th_ss_lead"]
+  ],
+  "music": [
+    "ss_drainage_duct",
+    "ss_drastic_fm",
+    "ss_energy_circuit",
+    "ss_interest_pad",
+    "ss_random_gods"
+  ]
+}

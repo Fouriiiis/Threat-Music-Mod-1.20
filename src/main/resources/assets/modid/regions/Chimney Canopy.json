@@ -1,0 +1,15 @@
+{
+  "name": "Chimney Canopy",
+  "layers": [
+    ["th_cc_kick", "th_cc_perc1", "th_cc_noise"],
+    ["th_cc_kick", "th_cc_perc2", "th_cc_perc1", "th_cc_noise"],
+    ["th_cc_kick", "th_cc_perc2", "th_cc_perc1", "th_cc_noise", "th_cc_snare", "th_cc_bass", "th_cc_vox"],
+    ["th_cc_kick", "th_cc_arps", "th_cc_perc1", "th_cc_noise", "th_cc_snare", "th_cc_bass", "th_cc_perc2", "th_cc_vox"],
+    ["th_cc_bass", "th_cc_vox"]
+  ],
+  "music": [
+    "cc_clairvoyant_canopy",
+    "cc_sky_sprite",
+    "cc_wind_chimes"
+  ]
+}

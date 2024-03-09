@@ -1,0 +1,10 @@
+{
+  "name": "The Gutter",
+  "layers": [
+    ["th_cc_kick", "th_cc_perc1", "th_cc_noise"],
+    ["th_cc_kick", "th_cc_perc2", "th_cc_perc1", "th_cc_noise"],
+    ["th_cc_kick", "th_cc_perc2", "th_cc_perc1", "th_cc_noise", "th_cc_snare", "th_cc_gutterbass", "th_cc_guttervox"],
+    ["th_cc_kick", "th_cc_arps", "th_cc_perc1", "th_cc_noise", "th_cc_snare", "th_cc_gutterbass", "th_cc_perc2", "th_cc_guttervox"],
+    ["th_cc_gutterbass", "th_cc_guttervox"]
+  ]
+}

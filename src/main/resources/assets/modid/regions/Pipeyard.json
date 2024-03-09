@@ -1,0 +1,10 @@
+{
+  "name": "Pipeyard",
+  "layers": [
+    ["th_vs_kick", "th_vs_shaker"],
+    ["th_vs_kick", "th_vs_noise", "th_vs_shaker", "th_vs_bass", "th_vs_perc1"],
+    ["th_vs_kick", "th_vs_noise", "th_vs_shaker", "th_vs_bass", "th_vs_arps", "th_vs_perc1", "th_vs_perc2"],
+    ["th_vs_kick", "th_vs_noise", "th_vs_shaker", "th_vs_bass", "th_vs_arps", "th_vs_perc1", "th_vs_perc2", "th_vs_weird"],
+    ["th_vs_synth"]
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "name": "Sunken Pier",
+  "layers": [
+    ["th_oe_noise"],
+    ["th_oe_noise", "th_oe_kickperc"],
+    ["th_oe_noise", "th_oe_kickperc", "th_oe_bass"],
+    ["th_oe_noise", "th_oe_kickperc", "th_oe_bass", "th_oe_waves"],
+    ["th_oe_noise", "th_oe_kickperc", "th_oe_bass", "th_oe_waves", "th_oe_lead", "th_oe_arp"],
+    ["th_oe_noise", "th_oe_kickperc", "th_oe_bass", "th_oe_waves", "th_oe_lead", "th_oe_arp"]
+  ]
+}

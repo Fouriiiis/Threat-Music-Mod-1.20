@@ -25,8 +25,11 @@ import net.minecraft.world.RaycastContext;
 
 public class ThreatTracker implements StartTick {
 
-    private static int blockRadius1 = 16;
+    private static int blockRadius1 = 26;
+    private static int blockHeight1 = 20;
     private static int blockRadius2 = 48;
+    private static int blockHeight2 = 36;
+
     public static float currentThreat = 0;
     public static float targetThreat = 0;
     private static float threatDeclineCounter = 0;
@@ -53,10 +56,10 @@ public class ThreatTracker implements StartTick {
 
             
         
-            List<LivingEntity> nearEntities = client.world.getEntitiesByClass(LivingEntity.class, client.player.getBoundingBox().expand(blockRadius1, blockRadius1, blockRadius1), EntityPredicates.EXCEPT_SPECTATOR);
+            List<LivingEntity> nearEntities = client.world.getEntitiesByClass(LivingEntity.class, client.player.getBoundingBox().expand(blockRadius1, blockRadius1, blockHeight1), EntityPredicates.EXCEPT_SPECTATOR);
             //print the size of nearEntities
             System.out.println("Near Entities: " + nearEntities.size());
-            List<LivingEntity> farEntities = client.world.getEntitiesByClass(LivingEntity.class, client.player.getBoundingBox().expand(blockRadius2, blockRadius2, blockRadius2), EntityPredicates.EXCEPT_SPECTATOR);
+            List<LivingEntity> farEntities = client.world.getEntitiesByClass(LivingEntity.class, client.player.getBoundingBox().expand(blockRadius2, blockRadius2, blockHeight2), EntityPredicates.EXCEPT_SPECTATOR);
             //print the size of farEntities
             System.out.println("Far Entities: " + farEntities.size());
 

@@ -1,0 +1,9 @@
+{
+  "name": "Looks to the Moon",
+  "layers": [
+    ["th_dm_noise", "th_dm_bass", "th_dm_kick"],
+    ["th_dm_noise", "th_dm_bass", "th_dm_kick", "th_dm_snare"],
+    ["th_dm_noise", "th_dm_bass", "th_dm_kick", "th_dm_snare", "th_dm_lead", "th_dm_shaker"],
+    ["th_dm_noise", "th_dm_bass", "th_dm_kick", "th_dm_snare", "th_dm_lead", "th_dm_shaker"]
+  ]
+}

@@ -1,21 +1,38 @@
 package com.example;
 
-import net.minecraft.client.MinecraftClient;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.concurrent.CompletableFuture;
+
 import net.minecraft.client.sound.AbstractSoundInstance;
+import net.minecraft.client.sound.AudioStream;
+import net.minecraft.client.sound.OggAudioStream;
+import net.minecraft.client.sound.RepeatingAudioStream;
 import net.minecraft.client.sound.SoundInstance;
+import net.minecraft.client.sound.SoundLoader;
 import net.minecraft.client.sound.TickableSoundInstance;
 import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvent;
+import net.minecraft.util.Identifier;
 
+class ThreatMusicInstance extends AbstractSoundInstance
+    implements TickableSoundInstance {
+    private InputStream inputStream;
 
-public class ThreatMusicPlayer extends AbstractSoundInstance
-implements TickableSoundInstance {
     private float MinThreatLevel;
     private float MaxThreatLevel;
 
+    private boolean done;
 
-    public ThreatMusicPlayer(SoundEvent sound, SoundCategory category, MinecraftClient client, float MinThreatLevel, float MaxThreatLevel) {
-        super(sound, category, SoundInstance.createRandom());
+    ThreatMusicInstance(File filePath, float MinThreatLevel, float MaxThreatLevel) {
+        super(new Identifier("modid", "custom_sound"), SoundCategory.BLOCKS, SoundInstance.createRandom());
+        try {
+            inputStream = new FileInputStream(filePath);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
         this.repeat = true;
         this.repeatDelay = 0;
         this.relative = true;
@@ -24,6 +41,18 @@ implements TickableSoundInstance {
         // Initialize volume to a minimum value or based on current threat level
         this.volume = calculateVolume(ThreatTracker.currentThreat);
     }
+
+    @Override
+    public CompletableFuture<AudioStream> getAudioStream(SoundLoader loader, Identifier id, boolean repeatInstantly) {
+        try {
+            return CompletableFuture.completedFuture(new RepeatingAudioStream(OggAudioStream::new, inputStream));
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+
 
     @Override
     public void tick() {
@@ -50,10 +79,16 @@ implements TickableSoundInstance {
             return 0.5f; // This is arbitrary, choose a sensible default
         }
     }
+    
+
+
+    protected final void setDone() {
+        this.done = true;
+        this.repeat = false;
+    }
 
     @Override
     public boolean isDone() {
-        return this.isDone();
+        return done;
     }
 }
-

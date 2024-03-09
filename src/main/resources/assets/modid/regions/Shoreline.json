@@ -1,0 +1,17 @@
+{
+  "name": "Shoreline",
+  "layers": [
+    ["th_sl_kick", "th_sl_bass"],
+    ["th_sl_kick", "th_sl_bass", "th_sl_perc2", "th_sl_arps"],
+    ["th_sl_kick", "th_sl_bass", "th_sl_perc2", "th_sl_arps", "th_sl_noise", "th_sl_snare"],
+    ["th_sl_kick", "th_sl_bass", "th_sl_perc2", "th_sl_arps", "th_sl_noise", "th_sl_snare", "th_sl_perc2", "th_sl_lead"],
+    ["th_sl_kick", "th_sl_bass", "th_sl_perc2", "th_sl_arps", "th_sl_noise", "th_sl_snare", "th_sl_perc2", "th_sl_lead"]
+  ],
+  "music": [
+    "sl_gate_to_the_shoreline",
+    "sl_lonesound",
+    "sl_moondown",
+    "sl_new_terra",
+    "sl_the_captain"
+  ]
+}

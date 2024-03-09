@@ -71,7 +71,7 @@ public abstract class MusicStopMixin {
     }
 
     private SoundInstance getCustomSoundInstanceToPlay(MinecraftClient client) {
-        // Your logic to return a custom SoundInstance based on your conditions
+    
         return ExampleModClient.getThreatTracker().getMusic(client);
     }
 

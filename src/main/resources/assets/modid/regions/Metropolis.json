@@ -1,0 +1,17 @@
+{
+  "name": "Metropolis",
+  "layers": [
+    ["th_lc_daykick", "th_lc_dayatmos", "th_lc_dayshaker"],
+    ["th_lc_daykick", "th_lc_dayatmos", "th_lc_dayshaker", "th_lc_dayperc"],
+    ["th_lc_daykick", "th_lc_dayatmos", "th_lc_dayshaker", "th_lc_dayperc", "th_lc_daysub", "th_lc_daybreaks", "th_lc_dayarp", "th_lc_daysynth"],
+    ["th_lc_daykick", "th_lc_dayatmos", "th_lc_dayshaker", "th_lc_dayperc", "th_lc_daysub", "th_lc_daybreaks", "th_lc_dayarp", "th_lc_daysynth", "th_lc_daytom"],
+    ["th_lc_dayatmos", "th_lc_daysub", "th_lc_daybreaks"]
+  ],
+  "nightLayers": [
+    ["th_lc_nightkick", "th_lc_nightatmos", "th_lc_nightshaker"],
+    ["th_lc_nightkick", "th_lc_nightatmos", "th_lc_nightshaker", "th_lc_nightperc"],
+    ["th_lc_nightkick", "th_lc_nightatmos", "th_lc_nightshaker", "th_lc_nightperc", "th_lc_nightsub", "th_lc_nightnoise", "th_lc_nighthat", "th_lc_nightsynth"],
+    ["th_lc_nightkick", "th_lc_nightatmos", "th_lc_nightshaker", "th_lc_nightperc", "th_lc_nightsub", "th_lc_nightnoise", "th_lc_nighthat", "th_lc_nightsynth", "th_lc_nighttom"],
+    ["th_lc_nightatmos", "th_lc_nightsub", "th_lc_nightnoise"]
+  ]
+}

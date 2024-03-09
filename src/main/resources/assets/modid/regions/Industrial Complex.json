@@ -1,0 +1,15 @@
+{
+  "name": "Industrial Complex",
+  "layers": [
+    ["th_hi_kick", "th_hi_perc1", "th_hi_shaker"],
+    ["th_hi_kick", "th_hi_perc1", "th_hi_shaker", "th_hi_snare"],
+    ["th_hi_kick", "th_hi_perc1", "th_hi_shaker", "th_hi_snare", "th_hi_bass", "th_hi_weird", "th_hi_noise"],
+    ["th_hi_kick", "th_hi_perc1", "th_hi_shaker", "th_hi_snare", "th_hi_bass", "th_hi_weird", "th_hi_noise"],
+    ["th_hi_vox"]
+  ],
+  "music": [
+    "hi_bio-engineering",
+    "hi_industrial_atrium",
+    "hi_mist_engine"
+  ]
+}

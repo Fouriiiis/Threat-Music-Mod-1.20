@@ -1,0 +1,10 @@
+{
+  "name": "Waterfront Facility",
+  "layers": [
+    ["th_lm_kick", "th_lm_bass", "th_lm_noise", "th_lm_pad", "th_lm_perc1"],
+    ["th_lm_kick", "th_lm_bass", "th_lm_noise", "th_lm_pad", "th_lm_perc1", "th_lm_arps"],
+    ["th_lm_kick", "th_lm_bass", "th_lm_noise", "th_lm_pad", "th_lm_perc1", "th_lm_arps", "th_lm_perc2"],
+    ["th_lm_kick", "th_lm_bass", "th_lm_noise", "th_lm_pad", "th_lm_perc1", "th_lm_arps", "th_lm_perc2", "th_lm_snare"],
+    ["th_lm_kick", "th_lm_bass", "th_lm_noise", "th_lm_pad", "th_lm_perc1", "th_lm_arps", "th_lm_perc2", "th_lm_snare", "th_lm_weird"]
+  ]
+}

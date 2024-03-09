@@ -1,0 +1,17 @@
+{
+  "name": "Garbage Wastes",
+  "layers": [
+    ["th_gw_kick", "th_gw_perc1", "th_gw_shake"],
+    ["th_gw_kick", "th_gw_perc1", "th_gw_shake", "th_gw_bass"],
+    ["th_gw_kick", "th_gw_perc1", "th_gw_shake", "th_gw_bass", "th_gw_noise", "th_gw_weird", "th_gw_vox"],
+    ["th_gw_kick", "th_gw_perc1", "th_gw_shake", "th_gw_bass", "th_gw_noise", "th_gw_weird", "th_gw_vox"],
+    ["th_gw_lead"]
+  ],
+  "music": [
+    "gw_albino",
+    "gw_garbage_city_shuffle",
+    "gw_garbage_worms",
+    "gw_lack_of_comfort",
+    "gw_stone_heads"
+  ]
+}

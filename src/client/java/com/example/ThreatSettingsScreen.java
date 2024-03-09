@@ -127,7 +127,11 @@ public class ThreatSettingsScreen extends Screen {
         public BiomeListEntry(String biomeId) {
             this.label = Text.literal(getUserFriendlyBiomeName(new Identifier(biomeId)));
             this.cycleRegionButton = ButtonWidget.builder(Text.literal(ModSounds.biomeRegionKeys.get(biomeId)), button -> {
-                cycleRegion(biomeId);
+                if (hasShiftDown()) {
+                    cycleRegion(biomeId, true);
+                } else {
+                    cycleRegion(biomeId, false);
+                }
             })
             .position(0, 0)
             .size(100, 20)
@@ -167,13 +171,20 @@ public class ThreatSettingsScreen extends Screen {
             regionKeys = ModSounds.regions.keySet().stream().toList();
         }
 
-        private void cycleRegion(String biomeId) {
+        private void cycleRegion(String biomeId, Boolean reverse) {
             // switch to the next region, cycling back to the first if necessary
-            int currentIndex = regionKeys.indexOf(ModSounds.biomeRegionKeys.get(biomeId));
-            int nextIndex = (currentIndex + 1) % regionKeys.size();
-            ModSounds.biomeRegionKeys.put(biomeId, regionKeys.get(nextIndex));
-            ModSounds.savedBiomeRegionKeys.put(biomeId, regionKeys.get(nextIndex));
-            cycleRegionButton.setMessage(Text.literal(regionKeys.get(nextIndex)));
+            String currentRegion = ModSounds.biomeRegionKeys.get(biomeId);
+            int currentIndex = regionKeys.indexOf(currentRegion);
+            int nextIndex = reverse ? (currentIndex - 1) : (currentIndex + 1);
+            if (nextIndex < 0) {
+                nextIndex = regionKeys.size() - 1;
+            } else if (nextIndex >= regionKeys.size()) {
+                nextIndex = 0;
+            }
+            String nextRegion = regionKeys.get(nextIndex);
+            ModSounds.biomeRegionKeys.put(biomeId, nextRegion);
+            ModSounds.savedBiomeRegionKeys.put(biomeId, nextRegion);
+            cycleRegionButton.setMessage(Text.literal(nextRegion));
         }
 
         @Override

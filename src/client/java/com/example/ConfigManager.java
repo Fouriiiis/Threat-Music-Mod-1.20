@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.lang.reflect.Type;
 import com.google.gson.reflect.TypeToken;
 
+
 public class ConfigManager {
     private static final String CONFIG_FILE = "config.json";
     private static Map<String, Map<String, String>> allConfigs = new HashMap<>();

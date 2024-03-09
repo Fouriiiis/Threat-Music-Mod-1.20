@@ -1,0 +1,18 @@
+{
+  "name": "Sky Islands",
+  "layers": [
+    ["th_si_kick", "th_si_perc1"],
+    ["th_si_kick", "th_si_perc1", "th_si_shaker"],
+    ["th_si_kick", "th_si_perc1", "th_si_noise", "th_si_shaker", "th_si_weird"],
+    ["th_si_kick", "th_si_perc1", "th_si_noise", "th_si_shaker", "th_si_arps", "th_si_bass", "th_si_weird", "th_si_snare"],
+    ["th_si_perc1", "th_si_noise", "th_si_shaker", "th_si_arps", "th_si_bass", "th_si_weird", "th_si_snare"],
+    ["th_si_panic"]
+  ],
+  "music": [
+    "si_crystalline",
+    "si_kayava",
+    "si_lovely_arps",
+    "si_serpentine_struts",
+    "si_speaking_systems"
+  ]
+}

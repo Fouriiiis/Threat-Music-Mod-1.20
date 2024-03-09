@@ -1,0 +1,18 @@
+{
+  "name": "Farm Arrays",
+  "layers": [
+    ["th_lf_kick", "th_lf_shaker"],
+    ["th_lf_kick", "th_lf_perc2", "th_lf_perc1", "th_lf_shaker"],
+    ["th_lf_kick", "th_lf_perc2", "th_lf_perc1", "th_lf_shaker", "th_lf_bass"],
+    ["th_lf_kick", "th_lf_perc2", "th_lf_perc1", "th_lf_shaker", "th_lf_snare", "th_lf_bass", "th_lf_arps", "th_lf_noise"],
+    ["th_lf_kick", "th_lf_perc2", "th_lf_perc1", "th_lf_shaker", "th_lf_snare", "th_lf_bass", "th_lf_arps", "th_lf_noise"]
+  ],
+  "music": [
+    "lf_all_thats_left",
+    "lf_distance",
+    "lf_emotion_thread",
+    "lf_maze_of_soil",
+    "lf_nest_in_metal",
+    "lf_raindeer_ride"
+  ]
+}

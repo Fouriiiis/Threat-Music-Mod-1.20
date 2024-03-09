@@ -1,0 +1,12 @@
+{
+  "name": "Rubicon",
+  "layers": [
+    ["th_hr_kick"],
+    ["th_hr_kick", "th_hr_hat1", "th_hr_hat2", "th_hr_noise"],
+    ["th_hr_kick", "th_hr_hat1", "th_hr_hat2", "th_hr_noise", "th_hr_bass", "th_hr_snare"],
+    ["th_hr_perc"],
+    ["th_hr_lead"],
+    ["th_hr_kick", "th_hr_hat1", "th_hr_hat2", "th_hr_noise", "th_hr_bass", "th_hr_weird"],
+    ["th_hr_pad"]
+  ]
+}
