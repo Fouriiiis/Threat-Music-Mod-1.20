@@ -15,8 +15,12 @@ import net.minecraft.client.sound.MusicTracker;
 import net.minecraft.client.sound.SoundInstance;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.mob.HostileEntity;
+import net.minecraft.entity.mob.Monster;
+import net.minecraft.entity.passive.PassiveEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.predicate.entity.EntityPredicates;
+//import net.minecraft.text.Text;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
@@ -45,6 +49,17 @@ public class ThreatTracker implements StartTick {
 
     List<Float> threatLevels = new ArrayList<Float>();
 
+    //list of target classes
+    private static final List<Class<?>> targetClasses = new ArrayList<Class<?>>() {
+        {
+            //add(PathAwareEntity.class);
+            //add(PlayerEntity.class);
+            add(Monster.class);
+            add(HostileEntity.class);
+            add(PassiveEntity.class);
+        }
+    };
+
     @Override
     public void onStartTick(MinecraftClient client) {
         if (client != null && client.player != null && !client.isPaused() && !demo) {
@@ -64,11 +79,30 @@ public class ThreatTracker implements StartTick {
             System.out.println("Far Entities: " + farEntities.size());
 
             //filter far entities to only contain entities with getBaseThreat >= 0.9f
+            //check if the entity is one of the target classes
 
-            farEntities = farEntities.stream().filter(entity -> entity instanceof CustomMobEntity && ((CustomMobEntity) entity).getBaseThreat() >= 0.9f && entity != player).collect(Collectors.toList());
+            farEntities = farEntities.stream().filter(entity -> {
+                for (Class<?> targetClass : targetClasses) {
+                    if (targetClass.isInstance(entity) ) {
+                        if (entity instanceof CustomMobEntity && ((CustomMobEntity) entity).getBaseThreat() >= 0.9f && entity != player) {
+                            return true;
+                        }
+                    }
+                }
+                return false;
+            }).collect(Collectors.toList());
 
             //filter near entities to only contain entities with getBaseThreat >= 0.9f
-            nearEntities = nearEntities.stream().filter(entity -> entity instanceof CustomMobEntity && ((CustomMobEntity) entity).getBaseThreat() < 0.9f && entity != player).collect(Collectors.toList());
+            nearEntities = nearEntities.stream().filter(entity -> {
+                for (Class<?> targetClass : targetClasses) {
+                    if (targetClass.isInstance(entity) ) {
+                        if (entity instanceof CustomMobEntity && ((CustomMobEntity) entity).getBaseThreat() < 0.9f && entity != player) {
+                            return true;
+                        }
+                    }
+                }
+                return false;
+            }).collect(Collectors.toList());
 
             Iterator<Map.Entry<Entity, Float>> iterator = trackedEntities.entrySet().iterator();
             while (iterator.hasNext()) {
@@ -77,19 +111,20 @@ public class ThreatTracker implements StartTick {
                 entry.setValue(entry.getValue() + 1.0f);
                 // Remove entity if it has been out of sight for too long or has been removed from the world
                 if (entry.getValue() >= 600.0f || entry.getKey().isRemoved()) {
+                    //client.player.sendMessage(Text.of("Removing entity: " + entry.getKey().getName().getString()), false);
                     iterator.remove();
-                }// else {
-                    // If entity is in line of sight, reset its timer
-                    //if (nearEntities.contains(entry.getKey()) || farEntities.contains(entry.getKey())) {
-                        //entry.setValue(0.0f);
-                    //}
-                //}
+                }                //     //If entity is in line of sight, reset its timer
+                //     if (nearEntities.contains(entry.getKey()) || farEntities.contains(entry.getKey())) {
+                //         entry.setValue(0.0f);
+                //     }
+                // }
             }
 
             for (Entity entity : nearEntities) {
                 //if lineOfSight(entity, player) add to trackedEntities
 
-                if (!trackedEntities.containsKey(entity) && !(entity instanceof PlayerEntity)) {
+                if (!trackedEntities.containsKey(entity)) {
+                    System.out.println("600");
                     trackedEntities.put(entity, 600.0f);
                 }
             }
@@ -97,7 +132,8 @@ public class ThreatTracker implements StartTick {
             for (Entity entity : farEntities) {
                 //if lineOfSight(entity, player) add to trackedEntities
 
-                if (!trackedEntities.containsKey(entity) && !(entity instanceof PlayerEntity)) {
+                if (!trackedEntities.containsKey(entity)) {
+                    System.out.println("600");
                     trackedEntities.put(entity, 600.0f);
                 }
             }
@@ -106,6 +142,8 @@ public class ThreatTracker implements StartTick {
             for (Entity entity : trackedEntities.keySet()) {
                 //check if entity has not despawned
                 if (entity.isRemoved()) {
+                    //client.player.sendMessage(Text.of("Removing entity from tracked: " + entity.getName().getString()), false);
+                    System.out.println("Removing entity from tracked: " + entity.getName().getString());
                     trackedEntities.remove(entity);
                     continue;
                 }
@@ -116,8 +154,12 @@ public class ThreatTracker implements StartTick {
                 } else if (lineOfSight(result) && farEntities.contains(entity)) {
                     trackedEntities.put(entity, 0.0f);
                 }
-                //print the contents of trackedEntities with an entity on each line
-                System.out.println(entity + "Last Seen: " + trackedEntities.get(entity));
+
+                // Debugging for when logging is not available
+                //String entityName = entity.getName().getString();
+                //float threat = trackedEntities.get(entity);
+                //float lastSeen = trackedEntities.get(entity);
+                //client.player.sendMessage(Text.of("Entity: " + entityName + ", Threat: " + threat + ", Last Seen: " + lastSeen), false);
                 threatLevels.add(ThreatDetermination.threatOfEntity(entity, trackedEntities.get(entity), result, player));
             }
 
@@ -173,7 +215,11 @@ public class ThreatTracker implements StartTick {
 
             System.out.println("Current Threat: " + currentThreat);
             System.out.println("Target Threat: " + targetThreat);
-            System.out.println("Threat Decline Counter: " + threatDeclineCounter);            
+            //System.out.println("Threat Decline Counter: " + threatDeclineCounter);
+            
+            if (region != null) {
+                region.updateVolumes(currentThreat);
+            }
 
             if (currentThreat > 0.05 && stopped) {
                 // Start playing music
@@ -200,8 +246,8 @@ public class ThreatTracker implements StartTick {
             //clamp currentThreat between 0 and 1
             currentThreat = MathHelper.clamp(currentThreat, 0, 1);
             System.out.println("threat level: " + ThreatTracker.currentThreat);
+            region.updateVolumes(currentThreat);
         }
-        
     }
 
     // Helper function to mimic Unity's Mathf.Lerp
@@ -209,7 +255,6 @@ public class ThreatTracker implements StartTick {
         t = Math.max(0, Math.min(1, t)); // Clamp t between 0 and 1
         return a + t * (b - a);
     }
-
     public boolean lineOfSight(HitResult result) {
         if (result.getType() == HitResult.Type.MISS) {
             return true;
@@ -234,6 +279,10 @@ public class ThreatTracker implements StartTick {
     public void playDemo(Region thisRegion, MinecraftClient client) {
         //System.out.println("region is :" + region == null);
         //stop the current region
+        //enable ticking
+
+
+
         MusicTracker musicTracker = client.getMusicTracker();
         //stop the threat music
         musicTracker.stop();
@@ -270,5 +319,11 @@ public class ThreatTracker implements StartTick {
 
     public static void trackEntity(Entity sourceEntity) {
         trackedEntities.put(sourceEntity, 0.0f);
+    }
+
+    public static void clearTrackedThreats() {
+        //clear the trackedEntities map
+        System.out.println("Clearing tracked entities");
+        trackedEntities.clear();	
     }
 }

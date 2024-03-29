@@ -13,7 +13,6 @@ import com.google.gson.GsonBuilder;
 import java.util.List;
 
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.sound.MusicTracker;
 import net.minecraft.client.sound.SoundInstance;
 import net.minecraft.client.sound.SoundManager;
 
@@ -151,9 +150,9 @@ public class Region {
 
     public void play(MinecraftClient client){
         SoundManager soundManager = client.getSoundManager();
-        MusicTracker musicTracker = client.getMusicTracker();
+        //MusicTracker musicTracker = client.getMusicTracker();
     
-        musicTracker.stop();
+        //musicTracker.stop();
 
         //C:\Users\charl\Downloads\New folder
     
@@ -175,24 +174,31 @@ public class Region {
 
     public void playDemo(MinecraftClient client) {
         SoundManager soundManager = client.getSoundManager();
-        MusicTracker musicTracker = client.getMusicTracker();
+        //MusicTracker musicTracker = client.getMusicTracker();
     
-        musicTracker.stop();
+        
 
         //C:\Users\charl\Downloads\New folder
     
         if (soundPlayers != null) {
             if (Math.random() < 0.5 || !hasNightLayers) {
                 for (ThreatMusicInstance soundPlayer : soundPlayers) {
-                    soundManager.play(soundPlayer);
-                    //add the sound player to the playingLayers list
                     playingLayers.add(soundPlayer);
+                    
                 }
             } else {
                 for (ThreatMusicInstance soundPlayer : nightSoundPlayers) {
-                    soundManager.play(soundPlayer);
                     playingLayers.add(soundPlayer);
                 }
+            }
+            //play all the sound players in the playingLayers list
+            for (ThreatMusicInstance soundPlayer : playingLayers) {
+                //set volume to 1.0f
+                if (client.isInSingleplayer()) {
+                    //hacky way to make the demo sound good in singleplayer
+                    soundPlayer.setVolume(1.0f);
+                }
+                soundManager.play(soundPlayer);
             }
         }
     }
@@ -266,6 +272,12 @@ public class Region {
             System.out.println("JSON file created successfully");
         } catch (IOException e) {
             System.err.println("Error writing JSON file: " + e.getMessage());
+        }
+    }
+
+    public void updateVolumes(float threatLevel) {
+        for (ThreatMusicInstance soundPlayer : playingLayers) {
+            soundPlayer.updateVolume(threatLevel);
         }
     }
     

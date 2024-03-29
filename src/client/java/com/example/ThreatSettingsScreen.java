@@ -48,11 +48,12 @@ public class ThreatSettingsScreen extends Screen {
 
         ModSounds.biomeRegionKeys.keySet().stream()
         .map(biomeId -> new BiomeListEntry(biomeId.toString()))
-        // Sort BiomeListEntry objects based on their label, which is the user-friendly name
+        // Sort BiomeListEntry objects by their label text
         .sorted(Comparator.comparing(entry -> entry.getLabel().getString()))
         .forEach(biomeListWidget::addBiomeEntry);
 
-    addDrawableChild(biomeListWidget);
+
+        addDrawableChild(biomeListWidget);
 
         //Close screen
         addDrawableChild(ButtonWidget.builder(ScreenTexts.DONE, button -> {
@@ -75,6 +76,8 @@ public class ThreatSettingsScreen extends Screen {
             this.client.setScreen(new ThreatSettingsScreen(this.parent));
         }).dimensions(this.width / 2 - 155, this.height - 29, 150, 20).build());
     }
+
+    
 
     @Override
     public boolean mouseClicked(double mouseX, double mouseY, int button) {
@@ -158,6 +161,10 @@ public class ThreatSettingsScreen extends Screen {
                     System.out.println("key: " + key);
                     Region demo = ModSounds.regions.get(key);
                     System.out.println("demo: " + demo);
+
+                    //enable ticking
+                    
+
                     ExampleModClient.getThreatTracker().playDemo(demo, client);
                     //print the threat level
                     

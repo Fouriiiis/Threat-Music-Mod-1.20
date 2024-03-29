@@ -24,7 +24,9 @@ public abstract class MusicStopMixin {
 
     @Inject(method="Lnet/minecraft/client/sound/MusicTracker;stop()V", at=@At(value="TAIL"))
     public void stop(CallbackInfo info) {
+        System.out.println("Stopping music");
         ExampleModClient.stop();
+        ThreatTracker.clearTrackedThreats();
         //set threat level to 0
         ThreatTracker.currentThreat = 0;
     }

@@ -11,7 +11,6 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.sound.AbstractSoundInstance;
 import net.minecraft.client.sound.AudioStream;
 import net.minecraft.client.sound.OggAudioStream;
-import net.minecraft.client.sound.RepeatingAudioStream;
 import net.minecraft.client.sound.SoundInstance;
 import net.minecraft.client.sound.SoundLoader;
 import net.minecraft.client.sound.TickableSoundInstance;

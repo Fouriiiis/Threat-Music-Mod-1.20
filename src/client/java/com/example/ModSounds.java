@@ -92,6 +92,8 @@ public class ModSounds {
         } else {
             System.out.println("Directory not found: assets/modid/sounds");
         }
+
+        
     }
 
     public static void LoadSoundPaths() {
@@ -158,9 +160,9 @@ public class ModSounds {
         //client.player.sendMessage(Text.of(currentBiomeName), false);
 
         //print out all the current keys
-        for (String key : regions.keySet()) {
-            System.out.println(key + " " + regions.get(key));
-        }
+        //for (String key : regions.keySet()) {
+        //    System.out.println(key + " " + regions.get(key));
+        //}
 
         Region currentRegion = regions.get(biomeRegionKeys.get(currentBiomeName));
 
@@ -197,7 +199,7 @@ public class ModSounds {
                 Identifier biomeIdentifier = biomeKey.getValue();
     
                 // Print the biome Identifier (which is the value of biomeKey)
-                System.out.println("Registered Biome Identifier: " + biomeIdentifier);
+                //System.out.println("Registered Biome Identifier: " + biomeIdentifier);
     
                 // Return the Identifier directly
                 return biomeIdentifier;

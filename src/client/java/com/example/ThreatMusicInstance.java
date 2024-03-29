@@ -18,7 +18,8 @@ import net.minecraft.sound.SoundCategory;
 import net.minecraft.util.Identifier;
 
 class ThreatMusicInstance extends AbstractSoundInstance
-    implements TickableSoundInstance {
+    implements TickableSoundInstance 
+    {
     private InputStream inputStream;
 
     private float MinThreatLevel;
@@ -39,7 +40,7 @@ class ThreatMusicInstance extends AbstractSoundInstance
         this.MinThreatLevel = MinThreatLevel;
         this.MaxThreatLevel = MaxThreatLevel;
         // Initialize volume to a minimum value or based on current threat level
-        this.volume = calculateVolume(ThreatTracker.currentThreat);
+        this.volume = 0.0001f;
     }
 
     @Override
@@ -52,12 +53,10 @@ class ThreatMusicInstance extends AbstractSoundInstance
         }
     }
 
-
-
     @Override
     public void tick() {
-        float threatLevel = ThreatTracker.currentThreat;
-        this.volume = calculateVolume(threatLevel);
+        //float threatLevel = ThreatTracker.currentThreat;
+        //this.volume = calculateVolume(threatLevel);
         // Print the volume for debugging
         //System.out.println("Volume: " + this.volume);
     }
@@ -66,7 +65,7 @@ class ThreatMusicInstance extends AbstractSoundInstance
         //System.out.println("Threat level used: " + threatLevel);
         if (threatLevel <= MinThreatLevel) {
             //System.out.println("Volume: 0.01");
-            return 0.01f; // Minimum volume
+            return 0.0001f; // Minimum volume
         } else if (threatLevel >= MaxThreatLevel) {
             //System.out.println("Volume: 1.0");
             return 1.0f; // Maximum volume
@@ -90,5 +89,14 @@ class ThreatMusicInstance extends AbstractSoundInstance
     @Override
     public boolean isDone() {
         return done;
+    }
+
+    public void updateVolume(float threatLevel) {
+        this.volume = calculateVolume(threatLevel);
+        System.out.println("Volume: " + this.volume);
+    }
+
+    public void setVolume(float f) {
+        this.volume = f;
     }
 }

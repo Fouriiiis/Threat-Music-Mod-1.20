@@ -26,7 +26,7 @@ public class CheckDamageMixin {
         Entity damagedEntity = world.getEntityById(packet.entityId());
         if (damagedEntity != null && damagedEntity == MinecraftClient.getInstance().player) {
             Entity sourceEntity = world.getEntityById(packet.sourceCauseId());
-            if (sourceEntity != null && sourceEntity != client.player) {
+            if (sourceEntity != null /*&& sourceEntity != client.player*/) {
                 
                 client.player.sendMessage(Text.of("You were damaged by " + sourceEntity), false);
                 
