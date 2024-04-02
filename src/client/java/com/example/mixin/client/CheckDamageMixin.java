@@ -28,7 +28,7 @@ public class CheckDamageMixin {
             Entity sourceEntity = world.getEntityById(packet.sourceCauseId());
             if (sourceEntity != null && sourceEntity != client.player) {
                 
-                client.player.sendMessage(Text.of("You were damaged by " + sourceEntity), false);
+                //client.player.sendMessage(Text.of("You were damaged by " + sourceEntity), false);
                 
                 ThreatTracker.trackEntity(sourceEntity);
             }
