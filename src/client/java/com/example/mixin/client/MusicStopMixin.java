@@ -39,7 +39,7 @@ public abstract class MusicStopMixin {
         MinecraftClient client = MinecraftClient.getInstance();
 
         // Proceed with vanilla behavior if client or player is null
-        if (client == null || client.player == null) {
+        if ((client == null || client.player == null) && ThreatTracker.demo == false) {
             //System.out.println("Vanilla behavior");
             return;
         }

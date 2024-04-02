@@ -20,7 +20,6 @@ import net.minecraft.entity.mob.Monster;
 import net.minecraft.entity.passive.PassiveEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.predicate.entity.EntityPredicates;
-//import net.minecraft.text.Text;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
@@ -38,7 +37,7 @@ public class ThreatTracker implements StartTick {
     public static float targetThreat = 0;
     private static float threatDeclineCounter = 0;
 
-    private boolean demo = false;
+    public static boolean demo = false;
 
     private int lastPlayed = 0;
     private int maxTime = 75;

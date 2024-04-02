@@ -8,6 +8,10 @@ import java.io.FileWriter;
 import java.io.FileReader;
 import java.io.IOException;
 import java.lang.reflect.Type;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
+
 import com.google.gson.reflect.TypeToken;
 
 
@@ -32,12 +36,11 @@ public class ConfigManager {
 
     private static void createConfigFile() {
         try {
-            FileWriter writer = new FileWriter(CONFIG_FILE);
-            writer.write("{}");
-            writer.close();
-            allConfigs.put("biomeRegionKeys", new HashMap<>());
-            allConfigs.put("savedBiomeRegionKeys", new HashMap<>());
-            allConfigs.put("defaultBiomeRegionKeys", new HashMap<>());
+            //find the file in the fabric mod container
+            String modid = "modid";
+            String configPath = "assets/" + modid + "/ThreatMusicSettings.json";
+            Files.copy(ConfigManager.class.getClassLoader().getResourceAsStream(configPath), Paths.get(CONFIG_FILE), StandardCopyOption.REPLACE_EXISTING);
+            init();
         } catch (IOException e) {
             e.printStackTrace();
         }

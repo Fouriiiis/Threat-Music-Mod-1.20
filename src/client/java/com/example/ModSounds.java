@@ -12,6 +12,7 @@ import java.nio.file.Paths;
 import java.util.stream.Stream;
 import com.example.mixin.client.GetBossBarsMixin;
 import com.google.gson.Gson;
+import com.google.gson.JsonParseException;
 import com.google.gson.reflect.TypeToken;
 
 import net.fabricmc.loader.api.FabricLoader;
@@ -118,9 +119,7 @@ public class ModSounds {
     
     public static void registerSounds() {
 
-        biomeRegionKeys = ConfigManager.loadBiomeRegionKeys();
-        savedBiomeRegionKeys = ConfigManager.loadSavedBiomeRegionKeys();
-        defaultBiomeRegionKeys = ConfigManager.loadDefaultBiomeRegionKeys();
+        
 
         SoundFileManager.LoadSoundFiles();
 
@@ -139,7 +138,9 @@ public class ModSounds {
                         //String fileName = path.getFileName().toString();
                         //String regionName = fileName.substring(0, fileName.lastIndexOf('.'));
                         Region region = makeRegion(path.toFile());
-                        regions.put(region.name(), region);
+                        if (region != null && region.name() != null){
+                            regions.put(region.name(), region);
+                        }
                     });
             } catch (IOException e) {
                 e.printStackTrace();
@@ -147,6 +148,22 @@ public class ModSounds {
         } else {
             System.out.println("Directory not found: assets/modid/regions");
         }
+
+        biomeRegionKeys = ConfigManager.loadBiomeRegionKeys();
+        savedBiomeRegionKeys = ConfigManager.loadSavedBiomeRegionKeys();
+        defaultBiomeRegionKeys = ConfigManager.loadDefaultBiomeRegionKeys();
+
+        //check that the regions from biomeRegionKeys are in the regions map, if not, set them to "None" in all maps and save
+        for (String key : biomeRegionKeys.keySet()) {
+            if (!regions.containsKey(biomeRegionKeys.get(key))) {
+                biomeRegionKeys.put(key, "None");
+                savedBiomeRegionKeys.put(key, "None");
+                defaultBiomeRegionKeys.put(key, "None");
+            }
+        }
+
+        saveBiomeRegionKeys();
+
         regions.put("None", new Region("None", new ArrayList<>(), Optional.empty(), Optional.empty()));
     }
 
@@ -226,35 +243,41 @@ public class ModSounds {
         List<List<String>> nightLayers = new ArrayList<>();
         List<String> music = new ArrayList<>();
         Region region;
-        String name = "Not Found";
+        String name = "None";
 
         //parse the json file
         try {
             FileReader reader = new FileReader(file);
             Map<String, Object> data = new Gson().fromJson(reader, new TypeToken<Map<String, Object>>(){}.getType());
-            reader.close();
+            if (data != null) {
+                reader.close();
 
-            name = data.containsKey("name") ? (String) data.get("name") : "Not Found";
-            if (data.containsKey("layers")) {
-                List<List<String>> temp = (List<List<String>>) data.get("layers");
-                for (List<String> list : temp) {
-                    layers.add(list);
+                name = data.containsKey("name") ? (String) data.get("name") : "None";
+                if (data.containsKey("layers")) {
+                    List<List<String>> temp = (List<List<String>>) data.get("layers");
+                    for (List<String> list : temp) {
+                        layers.add(list);
+                    }
                 }
-            }
-            if (data.containsKey("nightLayers")) {
-                List<List<String>> temp = (List<List<String>>) data.get("nightLayers");
-                for (List<String> list : temp) {
-                    nightLayers.add(list);
+                if (data.containsKey("nightLayers")) {
+                    List<List<String>> temp = (List<List<String>>) data.get("nightLayers");
+                    for (List<String> list : temp) {
+                        nightLayers.add(list);
+                    }
                 }
-            }
-            if (data.containsKey("music")) {
-                List<String> temp = (List<String>) data.get("music");
-                for (String s : temp) {
-                    music.add(s);
+            
+                if (data.containsKey("music")) {
+                    List<String> temp = (List<String>) data.get("music");
+                    for (String s : temp) {
+                        music.add(s);
+                    }
                 }
+            } else {
+                return null;
             }
-        } catch (IOException e) {
+        } catch (JsonParseException | IOException e) {
             e.printStackTrace();
+            return null;
         }
 
         //convert the lists of strings to lists of sound files
