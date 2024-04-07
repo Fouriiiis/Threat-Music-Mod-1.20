@@ -3,9 +3,9 @@
 	"id": "modid",
 	"version": "${version}",
 	"name": "ThreatMusicMod",
-	"description": "This is an example description! Tell everyone what your mod is about!",
+	"description": "Adds the threat music system from the game Rain World",
 	"authors": [
-		"Me!"
+		"Fouriiiis"
 	],
 	"contact": {
 		"homepage": "https://fabricmc.net/",
