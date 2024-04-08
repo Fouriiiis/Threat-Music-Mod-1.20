@@ -1,6 +1,6 @@
 {
 	"schemaVersion": 1,
-	"id": "modid",
+	"id": "threatmusicmod",
 	"version": "${version}",
 	"name": "ThreatMusicMod",
 	"description": "Adds the threat music system from the game Rain World",
@@ -8,24 +8,24 @@
 		"Fouriiiis"
 	],
 	"contact": {
-		"homepage": "https://fabricmc.net/",
-		"sources": "https://github.com/FabricMC/fabric-example-mod"
+		"homepage": "",
+		"sources": ""
 	},
 	"license": "CC0-1.0",
-	"icon": "assets/modid/icon.png",
+	"icon": "assets/threatmusicmod/icon.png",
 	"environment": "*",
 	"entrypoints": {
 		"main": [
-			"com.example.ExampleMod"
+			"dev.fouriiiis.threatmusicmod.ThreatMusicMod"
 		],
 		"client": [
-			"com.example.ExampleModClient"
+			"dev.fouriiiis.threatmusicmod.ThreatMusicModClient"
 		]
 	},
 	"mixins": [
-		"modid.mixins.json",
+		"threatmusicmod.mixins.json",
 		{
-			"config": "modid.client.mixins.json",
+			"config": "threatmusicmod.client.mixins.json",
 			"environment": "client"
 		}
 	],
