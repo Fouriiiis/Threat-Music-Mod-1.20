@@ -228,8 +228,6 @@ public class Region {
 
     public boolean hasLayers() {
         //return false if both layers and nightLayers are empty otherwise return true if either layers or nightLayers is not empty
-        
-        System.out.println("Returning" + (!layers.isEmpty() || !nightLayers.isEmpty()));
         return !layers.isEmpty() || !nightLayers.isEmpty();
     }
 

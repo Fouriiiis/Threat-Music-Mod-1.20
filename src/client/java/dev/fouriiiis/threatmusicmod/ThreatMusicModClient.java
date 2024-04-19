@@ -21,7 +21,7 @@ public class ThreatMusicModClient implements ClientModInitializer {
 		
 		threatTracker = new ThreatTracker();
 
-		ClientTickEvents.END_CLIENT_TICK.register(threatTracker);
+		ClientTickEvents.START_CLIENT_TICK.register(threatTracker);
 
 		KeyInputHandler.register();
 

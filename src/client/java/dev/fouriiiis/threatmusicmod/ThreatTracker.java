@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents.EndTick;
+import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents.StartTick;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.sound.MusicTracker;
@@ -26,7 +26,7 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.RaycastContext;
 
 
-public class ThreatTracker implements EndTick {
+public class ThreatTracker implements StartTick {
 
     private static int blockRadius1 = 26;
     private static int blockHeight1 = 20;
@@ -61,7 +61,7 @@ public class ThreatTracker implements EndTick {
 
 
     @Override
-    public void onEndTick(MinecraftClient client) {
+    public void onStartTick(MinecraftClient client) {
         if (client != null && client.player != null && !client.isPaused() && !demo) {
 
             threatLevels.clear();
@@ -124,7 +124,6 @@ public class ThreatTracker implements EndTick {
                 //if lineOfSight(entity, player) add to trackedEntities
 
                 if (!trackedEntities.containsKey(entity)) {
-                    //System.out.println("600");
                     trackedEntities.put(entity, 600.0f);
                 }
             }
@@ -133,7 +132,6 @@ public class ThreatTracker implements EndTick {
                 //if lineOfSight(entity, player) add to trackedEntities
 
                 if (!trackedEntities.containsKey(entity)) {
-                    //System.out.println("600");
                     trackedEntities.put(entity, 600.0f);
                 }
             }
@@ -142,8 +140,6 @@ public class ThreatTracker implements EndTick {
             for (Entity entity : trackedEntities.keySet()) {
                 //check if entity has not despawned
                 if (entity.isRemoved()) {
-                    //client.player.sendMessage(Text.of("Removing entity from tracked: " + entity.getName().getString()), false);
-                    //System.out.println("Removing entity from tracked: " + entity.getName().getString());
                     trackedEntities.remove(entity);
                     continue;
                 }
@@ -224,7 +220,6 @@ public class ThreatTracker implements EndTick {
                 region = ModSounds.changeRegion(client);
                 if (!region.hasLayers()) {
                     threatMusicPlaying = false;
-                    System.out.println("No layets");
                     currentThreat = 0;
                 } else {
                     region.play(client);
@@ -331,16 +326,7 @@ public class ThreatTracker implements EndTick {
     }
 
     public static void clearTrackedThreats() {
-        //clear the trackedEntities map
         System.out.println("Clearing tracked entities");
         trackedEntities.clear();	
-    }
-
-    public static void joinWorldSetup() {
-        clearTrackedThreats();
-        currentThreat = 0;
-        threatMusicPlaying = false;
-        //set region to null
-        region = null;
     }
 }

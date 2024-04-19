@@ -52,11 +52,7 @@ public class MusicInstance extends AbstractSoundInstance
 
         if(!this.isDone()) {
             ThreatTracker.currentThreat = 0;
-            //increment the volume of the music if less than 1
-            if (this.volume < 1.0f) {
-                this.volume += 0.01f;
-            }
-            //System.out.println("Threat level set to 0");
+            this.volume = Math.min(this.volume + 0.001f, 1.0f);
         }
         
         //check if the music category is turned off

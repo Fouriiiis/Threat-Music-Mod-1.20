@@ -64,10 +64,12 @@ public abstract class MusicStopMixin {
         this.timeUntilNextSong = Math.min(this.timeUntilNextSong, musicSound.getMaxDelay());
 
         // Only start a new sound if there is currently no sound playing
-        Boolean playing = ThreatMusicModClient.getThreatTracker().playing();
-        System.out.println("Playing: " + playing);
-        if (this.current == null && this.timeUntilNextSong-- <= 0 && !playing) {
+        Boolean threatMusicPlaying = ThreatMusicModClient.getThreatTracker().playing();
+        //System.out.println("Playing: " + playing);
+        if (this.current == null && this.timeUntilNextSong-- <= 0 && !threatMusicPlaying) {
             playMusic(client);
+        } else if (threatMusicPlaying && this.timeUntilNextSong < 400) {
+            this.timeUntilNextSong = 400;
         }
         System.out.println("Time until next song: " + this.timeUntilNextSong);
     }
@@ -81,7 +83,6 @@ public abstract class MusicStopMixin {
     }
 
     private SoundInstance getCustomSoundInstanceToPlay(MinecraftClient client) {
-    
         return ThreatMusicModClient.getThreatTracker().getMusic(client);
     }
 
@@ -89,8 +90,5 @@ public abstract class MusicStopMixin {
     public void setTimeUntilNextSong(int time) {
         this.timeUntilNextSong = time;
     }
-
-    
-
 }
 
