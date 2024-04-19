@@ -21,7 +21,7 @@ public class ThreatMusicModClient implements ClientModInitializer {
 		
 		threatTracker = new ThreatTracker();
 
-		ClientTickEvents.START_CLIENT_TICK.register(threatTracker);
+		ClientTickEvents.END_CLIENT_TICK.register(threatTracker);
 
 		KeyInputHandler.register();
 
@@ -30,8 +30,12 @@ public class ThreatMusicModClient implements ClientModInitializer {
             System.out.println("Player has joined the world/server!");
             // Your custom logic here
 			BiomeRegistryChecker.checkWorldBiomes();
+			System.out.println("Stopping music");
+        	ThreatMusicModClient.stop();
+        	ThreatTracker.clearTrackedThreats();
+        	//set threat level to 0
+        	ThreatTracker.currentThreat = 0;
         });
-		
 	}
 
 	public static void stop() {

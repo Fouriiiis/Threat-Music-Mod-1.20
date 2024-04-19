@@ -74,7 +74,7 @@ class ThreatMusicInstance extends AbstractSoundInstance
             return (threatLevel - MinThreatLevel) / (MaxThreatLevel - MinThreatLevel);
         } else {
             // In case MinThreatLevel == MaxThreatLevel, handle gracefully
-            System.out.println("Volume: 0.5");
+            //System.out.println("Volume: 0.5");
             return 0.5f; // This is arbitrary, choose a sensible default
         }
     }
@@ -93,7 +93,7 @@ class ThreatMusicInstance extends AbstractSoundInstance
 
     public void updateVolume(float threatLevel) {
         this.volume = calculateVolume(threatLevel);
-        System.out.println("Volume: " + this.volume);
+        //System.out.println("Volume: " + this.volume);
     }
 
     public void setVolume(float f) {

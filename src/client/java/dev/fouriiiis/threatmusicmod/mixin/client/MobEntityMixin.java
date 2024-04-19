@@ -39,13 +39,13 @@ public abstract class MobEntityMixin implements CustomMobEntity {
     public float getAgro() {
 
         if ((((LivingEntity) (Object) this) instanceof Monster) && !(((LivingEntity) (Object) this) instanceof Angerable) && !exceptions.contains(this.getClass()) || (((LivingEntity) (Object) this) instanceof PlayerEntity)) {
-            System.out.println("Hostile mob");
+            //System.out.println("Hostile mob");
             return 1.0f;
         } else if (((MobEntity) (Object) this).isAttacking()) {
-            System.out.println("Agro");
+            //System.out.println("Agro");
             return 1.0f;
         }
-        System.out.println("Not agro");
+        //System.out.println("Not agro");
         return 0.0f;
     }
 }

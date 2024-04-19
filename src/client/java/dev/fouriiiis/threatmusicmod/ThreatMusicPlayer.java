@@ -46,7 +46,7 @@ implements TickableSoundInstance {
             return (threatLevel - MinThreatLevel) / (MaxThreatLevel - MinThreatLevel);
         } else {
             // In case MinThreatLevel == MaxThreatLevel, handle gracefully
-            System.out.println("Volume: 0.5");
+            //System.out.println("Volume: 0.5");
             return 0.5f; // This is arbitrary, choose a sensible default
         }
     }

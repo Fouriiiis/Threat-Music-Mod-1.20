@@ -5,11 +5,6 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
-import java.util.stream.Collectors;
-
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-
 import java.util.List;
 
 import net.minecraft.client.MinecraftClient;
@@ -17,9 +12,6 @@ import net.minecraft.client.sound.SoundInstance;
 import net.minecraft.client.sound.SoundManager;
 
 import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
 
 
 public class Region {
@@ -221,58 +213,11 @@ public class Region {
         //create a new music player with a random music track from the list of music
         if (music != null && !music.isEmpty()) {
             File musicEvent = music.get((int) (Math.random() * music.size()));
+            //print the name of the music track
+            System.out.println("Playing music: " + musicEvent.getPath());
             return new MusicInstance(musicEvent);
         }
         return null;
-    }
-
-    public void makeJson(String regionName) {
-        Gson gson = new GsonBuilder().setPrettyPrinting().create();
-    
-        // Manually constructing JSON string to ensure "name" is the first attribute
-        StringBuilder jsonBuilder = new StringBuilder();
-        jsonBuilder.append("{\n");
-        jsonBuilder.append("  \"name\": ").append(gson.toJson(regionName)).append(",\n");
-    
-        if (!layers.isEmpty()) {
-            String dayLayersJson = gson.toJson(layers.entrySet().stream()
-                    .sorted(Map.Entry.comparingByKey())
-                    .map(entry -> entry.getValue().stream()
-                            .map(File::getName)
-                            .collect(Collectors.toList()))
-                    .collect(Collectors.toList()));
-            jsonBuilder.append("  \"layers\": ").append(dayLayersJson).append(",\n");
-        }
-    
-        if (hasNightLayers) {
-            String nightLayersJson = gson.toJson(nightLayers.entrySet().stream()
-                    .sorted(Map.Entry.comparingByKey())
-                    .map(entry -> entry.getValue().stream()
-                            .map(File::getName)
-                            .collect(Collectors.toList()))
-                    .collect(Collectors.toList()));
-            jsonBuilder.append("  \"nightLayers\": ").append(nightLayersJson).append(",\n");
-        }
-    
-        if (!music.isEmpty()) {
-            String musicJson = gson.toJson(music.stream().map(File::getName).collect(Collectors.toList()));
-            jsonBuilder.append("  \"music\": ").append(musicJson).append("\n");
-        }
-    
-        // Remove trailing comma if it exists
-        if (jsonBuilder.charAt(jsonBuilder.length() - 2) == ',') {
-            jsonBuilder.deleteCharAt(jsonBuilder.length() - 2);
-        }
-    
-        jsonBuilder.append("}");
-    
-        // Write the manually constructed JSON to a file
-        try {
-            Files.write(Path.of(regionName + ".json"), jsonBuilder.toString().getBytes());
-            System.out.println("JSON file created successfully");
-        } catch (IOException e) {
-            System.err.println("Error writing JSON file: " + e.getMessage());
-        }
     }
 
     public void updateVolumes(float threatLevel) {
@@ -280,5 +225,15 @@ public class Region {
             soundPlayer.updateVolume(threatLevel);
         }
     }
-    
+
+    public boolean hasLayers() {
+        //return false if both layers and nightLayers are empty otherwise return true if either layers or nightLayers is not empty
+        
+        System.out.println("Returning" + (!layers.isEmpty() || !nightLayers.isEmpty()));
+        return !layers.isEmpty() || !nightLayers.isEmpty();
+    }
+
+    public boolean hasMusic() {
+        return !music.isEmpty();
+    }
 }

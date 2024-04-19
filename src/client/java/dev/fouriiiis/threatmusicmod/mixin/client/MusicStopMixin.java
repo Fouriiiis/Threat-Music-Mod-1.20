@@ -29,6 +29,10 @@ public abstract class MusicStopMixin {
         ThreatTracker.clearTrackedThreats();
         //set threat level to 0
         ThreatTracker.currentThreat = 0;
+        //set time until next song to 10
+        if (timeUntilNextSong <= 0) {
+            this.setTimeUntilNextSong(50);
+        }
     }
     @Shadow @Nullable private SoundInstance current;
     @Shadow private int timeUntilNextSong;
@@ -49,19 +53,23 @@ public abstract class MusicStopMixin {
 
         MusicSound musicSound = client.getMusicType();
 
-        if(this.current != null) {
+        if (this.current != null) {
+            // Only check if the current sound has finished playing; do not replace if different
             if (!client.getSoundManager().isPlaying(this.current)) {
                 this.current = null;
                 this.timeUntilNextSong = Math.min(this.timeUntilNextSong, MathHelper.nextInt((Random)this.random, (int)musicSound.getMinDelay(), (int)musicSound.getMaxDelay()));
             }
         }
-        if (musicSound.getMaxDelay() != 0) {
-            this.timeUntilNextSong = Math.min(this.timeUntilNextSong, musicSound.getMaxDelay());
+
+        this.timeUntilNextSong = Math.min(this.timeUntilNextSong, musicSound.getMaxDelay());
+
+        // Only start a new sound if there is currently no sound playing
+        Boolean playing = ThreatMusicModClient.getThreatTracker().playing();
+        System.out.println("Playing: " + playing);
+        if (this.current == null && this.timeUntilNextSong-- <= 0 && !playing) {
+            playMusic(client);
         }
-        if (this.current == null && this.timeUntilNextSong-- <= 0) {
-            this.playMusic(client);
-        }
-        //System.out.println("Time until next song: " + this.timeUntilNextSong);
+        System.out.println("Time until next song: " + this.timeUntilNextSong);
     }
 
     public void playMusic(MinecraftClient client) {
@@ -69,7 +77,7 @@ public abstract class MusicStopMixin {
         if (this.current != null) {
             client.getSoundManager().play(this.current);
         }
-        resetTimeUntilNextSongWithCustomValue();
+        this.timeUntilNextSong = Integer.MAX_VALUE;
     }
 
     private SoundInstance getCustomSoundInstanceToPlay(MinecraftClient client) {
@@ -77,9 +85,12 @@ public abstract class MusicStopMixin {
         return ThreatMusicModClient.getThreatTracker().getMusic(client);
     }
 
-    private void resetTimeUntilNextSongWithCustomValue() {
-        // Your logic to set 'timeUntilNextSong' to a custom value, ensuring custom sounds don't replace each other
-        this.timeUntilNextSong = Integer.MAX_VALUE; // Example: Set to MAX_VALUE to effectively disable automatic playback
+    //method to manually set the time until next song
+    public void setTimeUntilNextSong(int time) {
+        this.timeUntilNextSong = time;
     }
+
+    
+
 }
 

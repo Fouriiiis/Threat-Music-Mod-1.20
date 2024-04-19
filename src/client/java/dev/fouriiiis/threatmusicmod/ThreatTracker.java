@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents.StartTick;
+import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents.EndTick;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.sound.MusicTracker;
@@ -26,7 +26,7 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.RaycastContext;
 
 
-public class ThreatTracker implements StartTick {
+public class ThreatTracker implements EndTick {
 
     private static int blockRadius1 = 26;
     private static int blockHeight1 = 20;
@@ -41,8 +41,8 @@ public class ThreatTracker implements StartTick {
 
     private int lastPlayed = 0;
     private int maxTime = 75;
-    private Boolean stopped = true;
-    private Region region;
+    private static Boolean threatMusicPlaying = false;
+    private static Region region;
   
     public static Map<Entity, Float> trackedEntities = new HashMap<Entity, Float>();
 
@@ -59,8 +59,9 @@ public class ThreatTracker implements StartTick {
         }
     };
 
+
     @Override
-    public void onStartTick(MinecraftClient client) {
+    public void onEndTick(MinecraftClient client) {
         if (client != null && client.player != null && !client.isPaused() && !demo) {
 
             threatLevels.clear();
@@ -72,10 +73,10 @@ public class ThreatTracker implements StartTick {
         
             List<LivingEntity> nearEntities = client.world.getEntitiesByClass(LivingEntity.class, client.player.getBoundingBox().expand(blockRadius1, blockRadius1, blockHeight1), EntityPredicates.EXCEPT_SPECTATOR);
             //print the size of nearEntities
-            System.out.println("Near Entities: " + nearEntities.size());
+            //System.out.println("Near Entities: " + nearEntities.size());
             List<LivingEntity> farEntities = client.world.getEntitiesByClass(LivingEntity.class, client.player.getBoundingBox().expand(blockRadius2, blockRadius2, blockHeight2), EntityPredicates.EXCEPT_SPECTATOR);
             //print the size of farEntities
-            System.out.println("Far Entities: " + farEntities.size());
+            //System.out.println("Far Entities: " + farEntities.size());
 
             //filter far entities to only contain entities with getBaseThreat >= 0.9f
             //check if the entity is one of the target classes
@@ -123,7 +124,7 @@ public class ThreatTracker implements StartTick {
                 //if lineOfSight(entity, player) add to trackedEntities
 
                 if (!trackedEntities.containsKey(entity)) {
-                    System.out.println("600");
+                    //System.out.println("600");
                     trackedEntities.put(entity, 600.0f);
                 }
             }
@@ -132,7 +133,7 @@ public class ThreatTracker implements StartTick {
                 //if lineOfSight(entity, player) add to trackedEntities
 
                 if (!trackedEntities.containsKey(entity)) {
-                    System.out.println("600");
+                    //System.out.println("600");
                     trackedEntities.put(entity, 600.0f);
                 }
             }
@@ -142,7 +143,7 @@ public class ThreatTracker implements StartTick {
                 //check if entity has not despawned
                 if (entity.isRemoved()) {
                     //client.player.sendMessage(Text.of("Removing entity from tracked: " + entity.getName().getString()), false);
-                    System.out.println("Removing entity from tracked: " + entity.getName().getString());
+                    //System.out.println("Removing entity from tracked: " + entity.getName().getString());
                     trackedEntities.remove(entity);
                     continue;
                 }
@@ -212,39 +213,51 @@ public class ThreatTracker implements StartTick {
                  currentThreat = 0;
             }
 
-            System.out.println("Current Threat: " + currentThreat);
-            System.out.println("Target Threat: " + targetThreat);
+            //System.out.println("Current Threat: " + currentThreat);
+            //System.out.println("Target Threat: " + targetThreat);
             //System.out.println("Threat Decline Counter: " + threatDeclineCounter);
             
-            if (region != null) {
-                region.updateVolumes(currentThreat);
-            }
+            
 
-            if (currentThreat > 0.05 && stopped) {
+            if (currentThreat > 0.05 && !threatMusicPlaying) {
                 // Start playing music
                 region = ModSounds.changeRegion(client);
-                region.play(client);
-                //client.player.sendMessage(Text.of("Playing music"), false);
-                lastPlayed = 0;
-                stopped = false;
-            } else if (currentThreat <= 0.05 && !stopped) {
+                if (!region.hasLayers()) {
+                    threatMusicPlaying = false;
+                    System.out.println("No layets");
+                    currentThreat = 0;
+                } else {
+                    region.play(client);
+                    lastPlayed = 0;
+                    threatMusicPlaying = true;
+                }
+            } else if (currentThreat <= 0.05 && threatMusicPlaying) {
                 // If threat drops to 0, wait for 75 ticks before stopping the music
                 if (lastPlayed >= maxTime) {
                     stopRegion(client);
                 } else {
                     lastPlayed++;
                 }
-            } else if (currentThreat > 0.05 && !stopped) {
+            } else if (currentThreat > 0.05 && threatMusicPlaying) {
                 // If the threat level rises again, reset the counter
                 lastPlayed = 0;
             }
+
+            if (region != null) {
+                region.updateVolumes(currentThreat);
+            }
+
+            
+
+            //System.out.println("stopped: " + stopped);
+            //System.out.println("currentThreat: " + currentThreat);
         //System.out.println("lastPlayed: " + lastPlayed);
         } else if(demo) {
             targetThreat = 1.0f;
             currentThreat = (float) Math.min(1, currentThreat + 1f / lerp(280f, 80f, targetThreat));
             //clamp currentThreat between 0 and 1
             currentThreat = MathHelper.clamp(currentThreat, 0, 1);
-            System.out.println("threat level: " + ThreatTracker.currentThreat);
+            //System.out.println("threat level: " + ThreatTracker.currentThreat);
             region.updateVolumes(currentThreat);
         }
     }
@@ -289,15 +302,15 @@ public class ThreatTracker implements StartTick {
         currentThreat = 0.0f;
         demo = true;
         region.playDemo(client);
-        stopped = false;
+        threatMusicPlaying = true;
     }
 
     public void stopRegion(MinecraftClient client) {
-        if (!stopped && region != null) {
+        if (threatMusicPlaying && region != null) {
             region.stop(client);
             region.randomizeLayers();
             //client.player.sendMessage(Text.of("Stopping music"), false);
-            stopped = true;
+            threatMusicPlaying = false;
             demo = false;
             currentThreat = 0;
             lastPlayed = 0;
@@ -305,15 +318,12 @@ public class ThreatTracker implements StartTick {
     }
 
     public boolean playing() {
-        return !stopped;
+        return threatMusicPlaying;
     }
 
     public SoundInstance getMusic(MinecraftClient client) {
-        if (!playing()) {
-            region = ModSounds.changeRegion(client);
-            return region.getMusic(client);
-        }
-        return null;
+        region = ModSounds.changeRegion(client);
+        return region.getMusic(client);
     }
 
     public static void trackEntity(Entity sourceEntity) {
@@ -324,5 +334,13 @@ public class ThreatTracker implements StartTick {
         //clear the trackedEntities map
         System.out.println("Clearing tracked entities");
         trackedEntities.clear();	
+    }
+
+    public static void joinWorldSetup() {
+        clearTrackedThreats();
+        currentThreat = 0;
+        threatMusicPlaying = false;
+        //set region to null
+        region = null;
     }
 }

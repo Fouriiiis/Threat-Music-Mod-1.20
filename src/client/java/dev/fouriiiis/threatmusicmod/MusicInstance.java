@@ -56,7 +56,7 @@ public class MusicInstance extends AbstractSoundInstance
             if (this.volume < 1.0f) {
                 this.volume += 0.01f;
             }
-            System.out.println("Threat level set to 0");
+            //System.out.println("Threat level set to 0");
         }
         
         //check if the music category is turned off

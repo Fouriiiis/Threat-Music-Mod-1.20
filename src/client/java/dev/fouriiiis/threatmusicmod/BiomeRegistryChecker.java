@@ -20,10 +20,10 @@ public class BiomeRegistryChecker {
                 //System.out.println(key.getValue());
                 //client.player.sendMessage(Text.of(key.getValue().toString()), false);
                 if (ModSounds.savedBiomeRegionKeys.containsKey(key.getValue().toString().toString())) {
-                    System.out.println("Biome is in savedBiomeRegionKeys");
+                    //System.out.println("Biome is in savedBiomeRegionKeys");
                     ModSounds.biomeRegionKeys.put(key.getValue().toString().toString(), ModSounds.savedBiomeRegionKeys.get(key.getValue().toString().toString()));
                 } else {
-                    System.out.println("Biome is not in savedBiomeRegionKeys");
+                    //System.out.println("Biome is not in savedBiomeRegionKeys");
                     ModSounds.biomeRegionKeys.put(key.getValue().toString().toString(), "Outskirts");
                     ModSounds.savedBiomeRegionKeys.put(key.getValue().toString().toString(), "Outskirts");
                     ModSounds.defaultBiomeRegionKeys.put(key.getValue().toString().toString(), "Outskirts");

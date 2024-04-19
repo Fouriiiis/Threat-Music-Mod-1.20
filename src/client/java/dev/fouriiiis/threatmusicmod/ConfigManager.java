@@ -50,24 +50,24 @@ public class ConfigManager {
             Map<String, String> biomeRegionKeys = allConfigs.getOrDefault("defaultBiomeRegionKeys", new HashMap<>());
 
             //print the defaultBiomeRegionKeys
-            System.out.println("defaultBiomeRegionKeys:");
-            for (Map.Entry<String, String> entry : defaultBiomeRegionKeys.entrySet()) {
-                System.out.println("Key = " + entry.getKey() + ", Value = " + entry.getValue());
-            }
+            // System.out.println("defaultBiomeRegionKeys:");
+            // for (Map.Entry<String, String> entry : defaultBiomeRegionKeys.entrySet()) {
+            //     System.out.println("Key = " + entry.getKey() + ", Value = " + entry.getValue());
+            // }
 
             //print the biomeRegionKeys
-            System.out.println("biomeRegionKeys:");
-            for (Map.Entry<String, String> entry : biomeRegionKeys.entrySet()) {
-                System.out.println("Key = " + entry.getKey() + ", Value = " + entry.getValue());
-            }
+            // System.out.println("biomeRegionKeys:");
+            // for (Map.Entry<String, String> entry : biomeRegionKeys.entrySet()) {
+            //     System.out.println("Key = " + entry.getKey() + ", Value = " + entry.getValue());
+            // }
 
             defaultBiomeRegionKeys.forEach(biomeRegionKeys::put);
 
             //print the merged biomeRegionKeys
-            System.out.println("merged biomeRegionKeys:");
-            for (Map.Entry<String, String> entry : biomeRegionKeys.entrySet()) {
-                System.out.println("Key = " + entry.getKey() + ", Value = " + entry.getValue());
-            }
+            // System.out.println("merged biomeRegionKeys:");
+            // for (Map.Entry<String, String> entry : biomeRegionKeys.entrySet()) {
+            //     System.out.println("Key = " + entry.getKey() + ", Value = " + entry.getValue());
+            // }
 
             //save the merged biomeRegionKeys
             allConfigs.put("defaultBiomeRegionKeys", biomeRegionKeys);
