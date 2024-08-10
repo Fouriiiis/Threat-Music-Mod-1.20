@@ -37,9 +37,6 @@ import java.io.FileReader;
 
 public class ModSounds {
 
-    // Define the Region outside of the registerSounds() method so it can be accessed globally.
-    
-
     //current region
     public static Region currentRegion;
 
@@ -172,7 +169,7 @@ public class ModSounds {
         //RegistryEntry<Biome> currentBiomeEntry = client.world.getBiome(client.player.getBlockPos());
         RegistryEntry<Biome> currentBiomeEntry = client.world.getBiome(client.player.getBlockPos());
         String currentBiomeName = (getBiomeName(currentBiomeEntry));
-        System.out.println("Current Biome: " + currentBiomeName);
+        //System.out.println("Current Biome: " + currentBiomeName);
     
         // Print the current biome to the chat
         //client.player.sendMessage(Text.of(currentBiomeName), false);
@@ -183,7 +180,7 @@ public class ModSounds {
         //}
 
         Region currentRegion = regions.get(biomeRegionKeys.get(currentBiomeName));
-        System.out.println("Current Region: " + currentRegion);
+        //System.out.println("Current Region: " + currentRegion);
 
         BossBarHud bossBarHud = client.inGameHud.getBossBarHud();
         Map<UUID, ClientBossBar> bossBars = ((GetBossBarsMixin) bossBarHud).getBossBars();

@@ -33,7 +33,7 @@ public class MusicInstance extends AbstractSoundInstance
         this.repeat = false;
         this.repeatDelay = 0;
         this.relative = true;
-        this.volume = 0.01f;
+        this.volume = 0.005f;
     }
 
     @Override
@@ -52,7 +52,7 @@ public class MusicInstance extends AbstractSoundInstance
 
         if(!this.isDone()) {
             ThreatTracker.currentThreat = 0;
-            this.volume = Math.min(this.volume + 0.001f, 1.0f);
+            this.volume = Math.min(this.volume + 0.005f, 1.0f);
         }
         
         //check if the music category is turned off
