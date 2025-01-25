@@ -1,0 +1,10 @@
+{
+  "defaultBiomeTagKeys": {
+    "minecraft:plains": "minecraft:plains",
+    "minecraft:sunflower_plains": "minecraft:plains"
+  },
+  "biomeTagKeys": {
+  },
+  "savedBiomeTagKeys": {
+  }
+}

@@ -1,5 +1,6 @@
 package dev.fouriiiis.threatmusicmod.mixin.client;
 
+import dev.fouriiiis.threatmusicmod.MusicSettingsScreen;
 import dev.fouriiiis.threatmusicmod.ThreatSettingsScreen;
 import net.minecraft.client.gui.screen.option.SoundOptionsScreen;
 import net.minecraft.client.gui.widget.ButtonWidget;
@@ -24,7 +25,7 @@ public abstract class MixinSoundOptionsScreen extends Screen{
         // Add a button to the screen
         ButtonWidget button = ButtonWidget.builder(Text.of("Threat Music"), buttonWidget -> {
             // When the button is clicked, clear the current contents and open the tutorial screen
-            MinecraftClient.getInstance().setScreen(new ThreatSettingsScreen(this));
+            MinecraftClient.getInstance().setScreen(new MusicSettingsScreen(this));
         })
                 //position in the bottom right corner of the screen
                 .size(100, 20)

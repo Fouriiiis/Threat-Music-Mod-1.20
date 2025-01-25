@@ -1,6 +1,7 @@
 package dev.fouriiiis.threatmusicmod;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
@@ -30,11 +31,6 @@ import java.util.List;
 import java.util.ArrayList;
 import java.io.FileReader;
 
-
-
-
-
-
 public class ModSounds {
 
     //current region
@@ -45,14 +41,37 @@ public class ModSounds {
 
     //map of region keys indexed by biome string
     public static Map<String, String> savedBiomeRegionKeys = new HashMap<String, String>();
-
     public static Map<String, String> defaultBiomeRegionKeys = new HashMap<String, String>();
-
     public static Map<String, String> biomeRegionKeys = new HashMap<String, String>();
+
+    //map of region keys indexed by biome tag
+    public static LinkedHashMap<String, String> savedBiomeTagRegionKeys = new LinkedHashMap<String, String>();
+    public static LinkedHashMap<String, String> defaultBiomeTagRegionKeys = new LinkedHashMap<String, String>();
+    public static LinkedHashMap<String, String> biomeTagRegionKeys = new LinkedHashMap<String, String>();
+
+    //global settings
+    public static enum DetectionMode {
+        SINGLE_REGION,
+        BIOME_TAG,
+        BIOME_NAME,
+        HYBRID,
+        OFF
+    }
+
+    public static enum AmbientMusicMode {
+        OFF,  // Disable ambient music
+        ON,   // Custom music behavior
+        VANILLA // Vanilla behavior
+    }
+
+    public static AmbientMusicMode ambientMusicMode = AmbientMusicMode.ON;
+    public static DetectionMode currentMode;
+    public static String currentRegionKey;
 
 
     //map of sound events indexed by name
     public static Map<String, SoundEvent> soundEvents = new HashMap<String, SoundEvent>();
+    public static List<String> ambientSounds = new ArrayList<String>();
 
     public static Map<String, File> soundFiles = new HashMap<String, File>();
 
@@ -67,6 +86,12 @@ public class ModSounds {
 
     public static void saveBiomeRegionKeys() {
         ConfigManager.saveBiomeRegionKeys(biomeRegionKeys);
+        ConfigManager.saveSavedBiomeRegionKeys(savedBiomeRegionKeys);
+    }
+
+    public static void saveBiomeTagRegionkeys() {
+        ConfigManager.saveBiomeTagKeys(biomeTagRegionKeys);
+        ConfigManager.saveSavedBiomeTagKeys(savedBiomeTagRegionKeys);
     }
 
     public static void LoadSounds() {
@@ -90,8 +115,6 @@ public class ModSounds {
         } else {
             System.out.println("Directory not found: assets/threatmusicmod/sounds");
         }
-
-        
     }
 
     public static void LoadSoundPaths() {
@@ -115,9 +138,6 @@ public class ModSounds {
     }
     
     public static void registerSounds() {
-
-        
-
         SoundFileManager.LoadSoundFiles();
 
         LoadSoundPaths();
@@ -149,6 +169,26 @@ public class ModSounds {
         biomeRegionKeys = ConfigManager.loadBiomeRegionKeys();
         savedBiomeRegionKeys = ConfigManager.loadSavedBiomeRegionKeys();
         defaultBiomeRegionKeys = ConfigManager.loadDefaultBiomeRegionKeys();
+
+        biomeTagRegionKeys = ConfigManager.loadBiomeTagKeys();
+        savedBiomeTagRegionKeys = ConfigManager.loadSavedBiomeTagKeys();
+        defaultBiomeTagRegionKeys = ConfigManager.loadDefaultBiomeTagKeys();
+
+        try {
+            ambientMusicMode = AmbientMusicMode.valueOf((String) ConfigManager.loadConfig("ambientMusicMode"));
+        } catch (IllegalArgumentException e) {
+            ambientMusicMode = AmbientMusicMode.ON; // default value
+            System.out.println("Invalid ambientMusicMode value in config, defaulting to ON");
+        }
+
+        try {
+            currentMode = DetectionMode.valueOf((String) ConfigManager.loadConfig("currentMode"));
+        } catch (IllegalArgumentException e) {
+            currentMode = DetectionMode.BIOME_NAME; // default value
+            System.out.println("Invalid currentMode value in config, defaulting to OFF");
+        }
+
+        currentRegionKey = (String) ConfigManager.loadConfig("currentRegionKey");
 
         //check that the regions from biomeRegionKeys are in the regions map, if not, set them to "None" in all maps and save
         for (String key : biomeRegionKeys.keySet()) {
